@@ -1,0 +1,55 @@
+require_relative '../node_modules/react-native/scripts/react_native_pods'
+require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+
+platform :ios, '13.0'
+
+
+target 'WeCook' do
+    permissions_path = '../node_modules/react-native-permissions/ios'
+    pod 'Permission-AppTrackingTransparency', :path => "#{permissions_path}/AppTrackingTransparency"
+    pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
+    pod 'Cloudpayments', :git =>  "https://github.com/cloudpayments/CloudPayments-SDK-iOS", :tag => '1.1.9'
+    pod 'CloudpaymentsNetworking', :git =>  "https://github.com/cloudpayments/CloudPayments-SDK-iOS", :tag => '1.1.9'
+    pod 'CardIO'
+    pod 'FBSDKCoreKit'
+    
+    rn_maps_path = '../node_modules/react-native-maps'
+    pod 'react-native-google-maps', :path => rn_maps_path
+    
+  config = use_native_modules!
+
+  use_react_native!(
+    :path => config[:reactNativePath],
+    # to enable hermes on iOS, change `false` to `true` and then install pods
+    :hermes_enabled => false
+  )
+
+  pod 'RNFastImage', :path => '../node_modules/react-native-fast-image'
+
+  pod 'RNIap', :path => '../node_modules/react-native-iap'
+
+  pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
+
+  pod 'RNYamap', :path => '../node_modules/react-native-yamap'
+
+  target 'WeCookTests' do
+    inherit! :complete
+    # Pods for testing
+  end
+
+  # Enables Flipper.
+  #
+  # Note that if you have use_frameworks! enabled, Flipper will not work and
+  # you should disable the next line.
+#  use_flipper!()
+
+post_install do |installer|
+  installer.pods_project.build_configurations.each do |config|
+    config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
+  end
+end
+end
+
+target 'OneSignalNotificationServiceExtension' do
+  pod 'OneSignal', '>= 3.0', '< 4.0'
+end
