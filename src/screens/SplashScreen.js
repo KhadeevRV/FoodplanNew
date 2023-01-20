@@ -145,13 +145,8 @@ export const SplashScreen = observer(({navigation}) => {
         getFavors(),
       ]);
       ampInstance.logEvent('app opened');
-      if (!network?.isBasketUser()) {
-        const subItems = await getTariffs();
-        await initSubs(subItems);
-        await getList();
-      } else {
-        await getBasket();
-      }
+      const subItems = await getTariffs();
+      await Promise.all([initSubs(subItems), getList(), getBasket()]);
       const fromDeepLink = await CheckDymanicLink();
       console.log('fromDeepLink', fromDeepLink);
       if (fromDeepLink) {

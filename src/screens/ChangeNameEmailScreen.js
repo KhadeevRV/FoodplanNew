@@ -47,7 +47,11 @@ const ChangeNameEmailScreen = observer(({navigation, route}) => {
       contentContainerStyle={{backgroundColor: '#FFF'}}>
       <SafeAreaView />
       <SkipHeader
-        title={what == 'name' ? 'Имя' : 'Email'}
+        title={
+          what == 'name'
+            ? network.strings?.NamePlaceholder
+            : network.strings?.EmailPlaceholder
+        }
         withSkip={false}
         goBack={() => navigation.goBack()}
       />
@@ -78,7 +82,7 @@ const ChangeNameEmailScreen = observer(({navigation, route}) => {
           backgroundColor: '#FFF',
         }}>
         <Btn
-          title={'Сохранить'}
+          title={network.strings?.Proceed}
           onPress={() => save()}
           // onPress={() => navigation.navigate('SendSmsScreen'),{fromProfile}}
           backgroundColor={Colors.yellow}

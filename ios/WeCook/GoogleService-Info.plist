@@ -3,21 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>1037271236824-qnopmnfkbitij357o8tg76e7bliqglm9.apps.googleusercontent.com</string>
+	<string>741267126814-t7i3iijliova6mfs080uc154bf70okmt.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1037271236824-qnopmnfkbitij357o8tg76e7bliqglm9</string>
+	<string>com.googleusercontent.apps.741267126814-t7i3iijliova6mfs080uc154bf70okmt</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>741267126814-42sof0k9ih4n39urlb1em8qekh1qencf.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBUT9EFWZA45rgZjmDZgOw67Bg3kocZ2CE</string>
+	<string>AIzaSyBxBId4y7FFyAuicTtEVVFaN31kV_w3iU4</string>
 	<key>GCM_SENDER_ID</key>
-	<string>1037271236824</string>
+	<string>741267126814</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>ru.foodstar.app</string>
+	<string>ru.foodplan.app</string>
 	<key>PROJECT_ID</key>
-	<string>wecook-8e021</string>
+	<string>foodplan-295412</string>
 	<key>STORAGE_BUCKET</key>
-	<string>wecook-8e021.appspot.com</string>
+	<string>foodplan-295412.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1037271236824:ios:f0fcbdfbbd5e3a1fc557ad</string>
+	<string>1:741267126814:ios:fe77e75327ad1e625a8c0f</string>
 </dict>
 </plist>

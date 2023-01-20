@@ -385,8 +385,8 @@ PODS:
     - React-jsi (= 0.65.3)
     - React-perflogger (= 0.65.3)
   - React-jsinspector (0.65.3)
-  - react-native-blur (0.8.0):
-    - React
+  - react-native-blur (4.3.0):
+    - React-Core
   - react-native-cloudpayments-sdk (2.2.1):
     - CardIO
     - Cloudpayments
@@ -432,11 +432,6 @@ PODS:
     - React-Core
   - react-native-tracking-transparency (0.1.1):
     - React
-  - react-native-video (5.2.0):
-    - React-Core
-    - react-native-video/Video (= 5.2.0)
-  - react-native-video/Video (5.2.0):
-    - React-Core
   - react-native-webview (10.10.2):
     - React-Core
   - React-perflogger (0.65.3)
@@ -631,7 +626,6 @@ DEPENDENCIES:
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - react-native-tracking-transparency (from `../node_modules/react-native-tracking-transparency`)
-  - react-native-video (from `../node_modules/react-native-video`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -777,8 +771,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-splash-screen"
   react-native-tracking-transparency:
     :path: "../node_modules/react-native-tracking-transparency"
-  react-native-video:
-    :path: "../node_modules/react-native-video"
   react-native-webview:
     :path: "../node_modules/react-native-webview"
   React-perflogger:
@@ -905,7 +897,7 @@ SPEC CHECKSUMS:
   React-jsi: 0ab20c9070bc28cd99a200e826ce7cf46e8f5b26
   React-jsiexecutor: d7540b187f30f45281ece995f19dde143e3afff3
   React-jsinspector: 94bbad998be4efbdac7d6d152677bdd134c1c980
-  react-native-blur: cad4d93b364f91e7b7931b3fa935455487e5c33c
+  react-native-blur: 50c9feabacbc5f49b61337ebc32192c6be7ec3c3
   react-native-cloudpayments-sdk: 1ea5f74c155b5a776139cce703a99ff7fa2c8a83
   react-native-fbsdk-next: e5ea39f1b0f1e76deeb2538275559706f3b79e82
   react-native-floating-label-input: 10b8440628e63040cd8aeb535adc7a02c6e2d17f
@@ -919,7 +911,6 @@ SPEC CHECKSUMS:
   react-native-safe-area-context: 9e40fb181dac02619414ba1294d6c2a807056ab9
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
   react-native-tracking-transparency: b2029ff756f1128b1f2c7c7c7f3003bc3c950f9f
-  react-native-video: a4c2635d0802f983594b7057e1bce8f442f0ad28
   react-native-webview: 0aa2cde4ee7e3e1c5fffdf64dbce9c709aa18155
   React-perflogger: f8205b59ccf68dbe4184e71ac7b4db55ea0c8965
   React-RCTActionSheet: 67b50ddfccbc123dcc7574475e4fdc911cc601d7

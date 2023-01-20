@@ -1,49 +1,65 @@
 {
   "project_info": {
-    "project_number": "1037271236824",
-    "project_id": "wecook-8e021",
-    "storage_bucket": "wecook-8e021.appspot.com"
+    "project_number": "741267126814",
+    "project_id": "foodplan-295412",
+    "storage_bucket": "foodplan-295412.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1037271236824:android:33da0e44ce54d888c557ad",
+        "mobilesdk_app_id": "1:741267126814:android:4a0273dd03db4c5b5a8c0f",
         "android_client_info": {
-          "package_name": "app.wecook"
+          "package_name": "com.foodplan"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1037271236824-2d0qths3m9vbq5nuu65eakdbcqivt5uh.apps.googleusercontent.com",
+          "client_id": "741267126814-42sof0k9ih4n39urlb1em8qekh1qencf.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "app.wecook",
-            "certificate_hash": "90de214be129329e4d024ccb5603ea43f7382af5"
+            "package_name": "com.foodplan",
+            "certificate_hash": "c205f7441d99c72a91ec66065132f86be0913fb9"
           }
         },
         {
-          "client_id": "1037271236824-1815vbrerbksf4dafa6df7sg9irurfi9.apps.googleusercontent.com",
+          "client_id": "741267126814-66ua7l7odglr85uqclrqa08dl8kht1cc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.foodplan",
+            "certificate_hash": "8521327e8cf9212cfcfb4afea27b59677c05cde3"
+          }
+        },
+        {
+          "client_id": "741267126814-mfnd9nsio36lv9lqj97ufthe1072dbc3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.foodplan",
+            "certificate_hash": "52b56377dd1532d8d3439debeb4a25b45603cb64"
+          }
+        },
+        {
+          "client_id": "741267126814-l6rotkvtgq33ig8hlr9k4b6oc8lpo7fq.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBGGciXDtZp7uinzzyrIlsoDvi78uT7lQI"
+          "current_key": "AIzaSyDBC2Np_YYu-cBMlsNj1eHr0VNghTKZqKY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1037271236824-1815vbrerbksf4dafa6df7sg9irurfi9.apps.googleusercontent.com",
+              "client_id": "741267126814-l6rotkvtgq33ig8hlr9k4b6oc8lpo7fq.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "1037271236824-qnopmnfkbitij357o8tg76e7bliqglm9.apps.googleusercontent.com",
+              "client_id": "741267126814-t7i3iijliova6mfs080uc154bf70okmt.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "ru.foodstar.app",
-                "app_store_id": "1577136146"
+                "bundle_id": "ru.foodplan.app",
+                "app_store_id": "1540264589"
               }
             }
           ]

@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
+	<string>ru</string>
 	<key>CFBundleDisplayName</key>
-	<string>WeCook</string>
+	<string>Foodplan</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -35,18 +35,18 @@
 			<string>Bundle ID</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>ru.foodstar.app</string>
+				<string>ru.foodplan.app</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>FacebookAppID</key>
-	<string>1850543118666862</string>
+	<string>745105936380970</string>
 	<key>FacebookClientToken</key>
-	<string>1adabbf4ef49370f94498356eb73eaad</string>
+	<string>1b2502accb93e17efee6e911864046d3</string>
 	<key>FacebookDisplayName</key>
-	<string>WeCook</string>
+	<string>Foodplan New</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
