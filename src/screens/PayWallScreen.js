@@ -295,7 +295,7 @@ const PayWallScreen = observer(({navigation, route}) => {
         key={'PaywallTitle'}>
         <Text style={styles.logoTitle}>
           WeCook{' '}
-          <Text style={[styles.logoTitle, {color: '#00C108'}]}>Prime</Text>
+          <Text style={[styles.logoTitle, {color: '#FFD600'}]}>Prime</Text>
         </Text>
       </View>
     );

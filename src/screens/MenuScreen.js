@@ -371,7 +371,7 @@ const MenuScreen = observer(({navigation}) => {
                     styles.statusContainer,
                     {
                       backgroundColor:
-                        index <= statusIndex ? '#FFE600' : '#F5F5F5',
+                        index <= statusIndex ? '#4FB500' : '#F5F5F5',
                     },
                   ]}>
                   <Image
@@ -741,7 +741,7 @@ const MenuScreen = observer(({navigation}) => {
             : null}
           <View
             style={{
-              marginTop: 22,
+              marginVertical: 22,
               flexDirection: 'row',
               justifyContent: 'space-between',
               alignItems: 'center',
@@ -774,7 +774,7 @@ const MenuScreen = observer(({navigation}) => {
               </View>
             </TouchableHighlight>
           </View>
-          <FlatList
+          {/* <FlatList
             showsHorizontalScrollIndicator={false}
             horizontal
             contentContainerStyle={{
@@ -805,7 +805,7 @@ const MenuScreen = observer(({navigation}) => {
                 key={item.id}
               />
             )}
-          />
+          /> */}
           {Object.keys(network.banner2).length &&
           network.user?.banner_hide.findIndex(
             item => item == network.banner2?.type,

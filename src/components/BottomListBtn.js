@@ -109,7 +109,7 @@ const BottomListBtn = observer(
                     network.basketInfo?.summa_in_cart,
                     network.basketInfo?.delivery_free_min,
                   ) + '%',
-                backgroundColor: '#00C108',
+                backgroundColor: '#FFD600',
                 position: 'absolute',
                 zIndex: 10,
               },

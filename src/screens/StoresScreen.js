@@ -106,7 +106,7 @@ export const StoreView = ({
                   justifyContent: 'center',
                   alignItems: 'center',
                   borderRadius: 10,
-                  backgroundColor: isCurrent ? '#FFE600' : Colors.grayColor,
+                  backgroundColor: isCurrent ? '#4FB500' : Colors.grayColor,
                 }}>
                 {isCurrent ? (
                   <View

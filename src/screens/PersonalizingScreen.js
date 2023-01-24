@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
     color: Colors.textColor,
   },
   touchContainer: {
-    backgroundColor: '#FFE600',
+    backgroundColor: '#4FB500',
     borderRadius: 16,
     paddingVertical: 16,
     alignItems: 'center',

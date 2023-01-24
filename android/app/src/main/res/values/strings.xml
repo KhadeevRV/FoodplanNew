@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Foodplan</string>
+    <string name="app_name">FoodPlan</string>
     <string name="facebook_app_id">745105936380970</string>
     <string name="facebook_client_token">1b2502accb93e17efee6e911864046d3</string>
 </resources>

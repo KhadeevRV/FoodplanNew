@@ -73,7 +73,7 @@ export const SaleModal = observer(({modal, closeModal, navigation}) => {
           </Text>
           <Text
             allowFontScaling={false}
-            style={[styles.title, {color: '#00C108'}]}>
+            style={[styles.title, {color: '#FFD600'}]}>
             {network?.strings?.SaleModalTitle2}
           </Text>
         </View>

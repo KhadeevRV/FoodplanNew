@@ -33,7 +33,7 @@ export const TrialModal = observer(
       {
         title: network?.strings?.TrialModalTitle1,
         subtitle: network?.strings?.TrialModalSubtitle1,
-        customTextStyle: {color: '#00C108', textDecorationLine: 'line-through'},
+        customTextStyle: {color: '#FFD600', textDecorationLine: 'line-through'},
       },
       {
         title: network?.strings?.TrialModalTitle2,
@@ -85,7 +85,7 @@ export const TrialModal = observer(
                     {network?.strings?.TrialModalMainTitle + ' '}
                     <Text
                       allowFontScaling={false}
-                      style={[styles.title, {color: '#00C108'}]}>
+                      style={[styles.title, {color: '#FFD600'}]}>
                       {network?.strings?.TrialModalMainTitle2}
                     </Text>
                   </Text>

@@ -77,7 +77,7 @@ const AnalogueProduct = observer(({product, onPress, currentProduct}) => {
                 borderRadius: 10,
                 backgroundColor:
                   product?.id == currentProduct?.id
-                    ? '#FFE600'
+                    ? '#4FB500'
                     : Colors.grayColor,
               }}>
               {product?.id == currentProduct?.id ? (

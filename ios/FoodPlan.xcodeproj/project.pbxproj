@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		0067A620D7FB43E5ADC60B33 /* SFProDisplay-RegularItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C52BDFAE6D1A454495D64270 /* SFProDisplay-RegularItalic.ttf */; };
 		009AF1A4A1B440F6A7032987 /* SFProDisplay-RegularItalic.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = 122A7DF0AD244FEBA0A3E1CE /* SFProDisplay-RegularItalic.woff2 */; };
-		00E356F31AD99517003FC87E /* WeCookTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* WeCookTests.m */; };
+		00E356F31AD99517003FC87E /* FoodPlanTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* FoodPlanTests.m */; };
 		12AADF1DC48C4E279310250B /* SFProDisplay-LightItalic.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = 116B687E5C3649DAB313B1B9 /* SFProDisplay-LightItalic.woff2 */; };
 		12CF21BFAA97455AAC04C333 /* SFProDisplay-UltralightItalic.woff in Resources */ = {isa = PBXBuildFile; fileRef = 94E4973C0C304F1EAE2F4A33 /* SFProDisplay-UltralightItalic.woff */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -66,7 +66,7 @@
 		8B50663DAAA34F9E9A9B4A0B /* SFProDisplay-BlackItalic.woff in Resources */ = {isa = PBXBuildFile; fileRef = CD5DC2EEDFAC4539B94C2C72 /* SFProDisplay-BlackItalic.woff */; };
 		8B988B9AD0B544139E118D15 /* SFProDisplay-Light.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = F998E23E51D644B1BB3E3D7E /* SFProDisplay-Light.woff2 */; };
 		8CF8C21669124E8AA552D71C /* SFProDisplay-Semibold.woff in Resources */ = {isa = PBXBuildFile; fileRef = B6CDC2DD32864866999513C7 /* SFProDisplay-Semibold.woff */; };
-		A677436352016D24CE32E337 /* libPods-WeCook.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F83EE79B80171A90341B20E4 /* libPods-WeCook.a */; };
+		A677436352016D24CE32E337 /* libPods-FoodPlan.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F83EE79B80171A90341B20E4 /* libPods-FoodPlan.a */; };
 		A6BEFC7A01F841559AA7AE2B /* SFProDisplay-Ultralight.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = EAE87FBC59F448E19126EE0A /* SFProDisplay-Ultralight.woff2 */; };
 		AAA18812EDC54B00B4E07239 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EDF4153F44804BA7ABAB1D3A /* Zocial.ttf */; };
 		AAF3EFFDC8A044B5919309D0 /* SFProDisplay-UltralightItalic.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = 28070FB66C224439B2B987AD /* SFProDisplay-UltralightItalic.woff2 */; };
@@ -76,7 +76,7 @@
 		BB5EAA682F8A493B987F7BA9 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8B1C376C4B0429895B72C0A /* Ionicons.ttf */; };
 		BF861C99D540433BB07534BA /* SFProDisplay-Thin.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = 53E4E02A0906403D8393661A /* SFProDisplay-Thin.woff2 */; };
 		BFEE3EAB33D4496EA338F122 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42B0FBB9EEA64F6DBB5920A2 /* Octicons.ttf */; };
-		C6AA038BF640A121E7C26B43 /* libPods-WeCook-WeCookTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4B163041AF5CEB7C43793A /* libPods-WeCook-WeCookTests.a */; };
+		C6AA038BF640A121E7C26B43 /* libPods-FoodPlan-FoodPlanTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB4B163041AF5CEB7C43793A /* libPods-FoodPlan-FoodPlanTests.a */; };
 		C76CA6A2227E4E328E3BC11D /* SFProDisplay-Ultralight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 800296A9873D4E8DA582BFE2 /* SFProDisplay-Ultralight.ttf */; };
 		CABD12109F1E48569C3D8BD6 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC4A1C6CE43F4DD2BF0C115B /* MaterialCommunityIcons.ttf */; };
 		CC0C486E4F244358A8A2BC8F /* Roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4A59729273014F6C8097F8B9 /* Roboto_medium.ttf */; };
@@ -100,7 +100,7 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = WeCook;
+			remoteInfo = FoodPlan;
 		};
 		44059C5F270C6F73006D32BF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -136,23 +136,23 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		00E356EE1AD99517003FC87E /* WeCookTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeCookTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* FoodPlanTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodPlanTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* WeCookTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeCookTests.m; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* FoodPlanTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FoodPlanTests.m; sourceTree = "<group>"; };
 		02D8DF8682AF449B8061E7CB /* SFProDisplay-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-BoldItalic.ttf"; path = "../assets/fonts/SFProDisplay-BoldItalic.ttf"; sourceTree = "<group>"; };
 		08766CC8C7D843259773AE89 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/native-base/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		099F3B1752B9491E9F651E7F /* SFProDisplay-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-Thin.ttf"; path = "../assets/fonts/SFProDisplay-Thin.ttf"; sourceTree = "<group>"; };
 		1153117812D14F0083497354 /* SFProDisplay-ThinItalic.woff2 */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-ThinItalic.woff2"; path = "../assets/fonts/SFProDisplay-ThinItalic.woff2"; sourceTree = "<group>"; };
 		116B687E5C3649DAB313B1B9 /* SFProDisplay-LightItalic.woff2 */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-LightItalic.woff2"; path = "../assets/fonts/SFProDisplay-LightItalic.woff2"; sourceTree = "<group>"; };
-		120AB5D8337DCBAE843ED662 /* Pods-WeCook-WeCookTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeCook-WeCookTests.release.xcconfig"; path = "Target Support Files/Pods-WeCook-WeCookTests/Pods-WeCook-WeCookTests.release.xcconfig"; sourceTree = "<group>"; };
+		120AB5D8337DCBAE843ED662 /* Pods-FoodPlan-FoodPlanTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodPlan-FoodPlanTests.release.xcconfig"; path = "Target Support Files/Pods-FoodPlan-FoodPlanTests/Pods-FoodPlan-FoodPlanTests.release.xcconfig"; sourceTree = "<group>"; };
 		122A7DF0AD244FEBA0A3E1CE /* SFProDisplay-RegularItalic.woff2 */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-RegularItalic.woff2"; path = "../assets/fonts/SFProDisplay-RegularItalic.woff2"; sourceTree = "<group>"; };
 		125B46A04F854461B7580BB9 /* SFProDisplay-Medium.woff */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-Medium.woff"; path = "../assets/fonts/SFProDisplay-Medium.woff"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* WeCook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeCook.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = WeCook/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = WeCook/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = WeCook/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = WeCook/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = WeCook/main.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* FoodPlan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodPlan.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = FoodPlan/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = FoodPlan/AppDelegate.m; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = FoodPlan/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = FoodPlan/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = FoodPlan/main.m; sourceTree = "<group>"; };
 		21143F6F240E46CB9E4A387E /* Roboto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto.ttf; path = "../node_modules/native-base/Fonts/Roboto.ttf"; sourceTree = "<group>"; };
 		223927E8B8584453A01AB69B /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/native-base/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		2485F63DD87A4B8EA050EF51 /* SFProDisplay-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-Black.ttf"; path = "../assets/fonts/SFProDisplay-Black.ttf"; sourceTree = "<group>"; };
@@ -168,18 +168,18 @@
 		3C1DC29816294CD9B48F5239 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/native-base/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		425CE9DF753448B28FE725A3 /* SFProDisplay-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-Regular.ttf"; path = "../assets/fonts/SFProDisplay-Regular.ttf"; sourceTree = "<group>"; };
 		42B0FBB9EEA64F6DBB5920A2 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/native-base/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
-		44059C55270C6F37006D32BF /* WeCook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = WeCook.entitlements; path = WeCook/WeCook.entitlements; sourceTree = "<group>"; };
+		44059C55270C6F37006D32BF /* FoodPlan.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = FoodPlan.entitlements; path = FoodPlan/FoodPlan.entitlements; sourceTree = "<group>"; };
 		44059C5A270C6F73006D32BF /* OneSignalNotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OneSignalNotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		44059C5C270C6F73006D32BF /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		44059C5E270C6F73006D32BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44059C66270C71F9006D32BF /* OneSignalNotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OneSignalNotificationServiceExtension.entitlements; sourceTree = "<group>"; };
 		44406AD62890429A0016B6B3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4454AE1B297AECE6003F9554 /* OneSignalNotificationServiceExtensionRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OneSignalNotificationServiceExtensionRelease.entitlements; sourceTree = "<group>"; };
-		4454AE1C297AED10003F9554 /* WeCookRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = WeCookRelease.entitlements; path = WeCook/WeCookRelease.entitlements; sourceTree = "<group>"; };
+		4454AE1C297AED10003F9554 /* FoodPlanRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = FoodPlanRelease.entitlements; path = FoodPlan/FoodPlanRelease.entitlements; sourceTree = "<group>"; };
 		4471E8D228F5A94000294F3C /* FBSDKCoreKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FBSDKCoreKit.xcframework; path = Pods/FBSDKCoreKit/XCFrameworks/FBSDKCoreKit.xcframework; sourceTree = "<group>"; };
 		4471E8D628F5A9A800294F3C /* FBSDKCoreKit_Basics.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FBSDKCoreKit_Basics.xcframework; path = Pods/FBSDKCoreKit_Basics/XCFrameworks/FBSDKCoreKit_Basics.xcframework; sourceTree = "<group>"; };
 		4471E8D928F5A9E300294F3C /* FBSDKGamingServicesKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FBSDKGamingServicesKit.xcframework; path = Pods/FBSDKGamingServicesKit/XCFrameworks/FBSDKGamingServicesKit.xcframework; sourceTree = "<group>"; };
-		448D58E0272687FF00A98AC3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "WeCook/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		448D58E0272687FF00A98AC3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "FoodPlan/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		44EF253F289038C700B9A61A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		472F614D26E14A2890F659FA /* SFProDisplay-HeavyItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-HeavyItalic.ttf"; path = "../assets/fonts/SFProDisplay-HeavyItalic.ttf"; sourceTree = "<group>"; };
 		480A123A442A4C42B5A928F4 /* SFProDisplay-RegularItalic.woff */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-RegularItalic.woff"; path = "../assets/fonts/SFProDisplay-RegularItalic.woff"; sourceTree = "<group>"; };
@@ -195,7 +195,7 @@
 		77FB20DE32EE4225A4F058B0 /* SFProDisplay-HeavyItalic.woff */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-HeavyItalic.woff"; path = "../assets/fonts/SFProDisplay-HeavyItalic.woff"; sourceTree = "<group>"; };
 		800296A9873D4E8DA582BFE2 /* SFProDisplay-Ultralight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-Ultralight.ttf"; path = "../assets/fonts/SFProDisplay-Ultralight.ttf"; sourceTree = "<group>"; };
 		8066FF06FB9542C98C3B9C1E /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = WeCook/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = FoodPlan/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		828CE0B574B34983B31CF94C /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		86220A66F97B4F6F922A43D9 /* SFProDisplay-BoldItalic.woff2 */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-BoldItalic.woff2"; path = "../assets/fonts/SFProDisplay-BoldItalic.woff2"; sourceTree = "<group>"; };
 		87EAFCDCDDFA47ABB523A0AE /* SFProDisplay-BoldItalic.woff */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-BoldItalic.woff"; path = "../assets/fonts/SFProDisplay-BoldItalic.woff"; sourceTree = "<group>"; };
@@ -217,13 +217,13 @@
 		B6CDC2DD32864866999513C7 /* SFProDisplay-Semibold.woff */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-Semibold.woff"; path = "../assets/fonts/SFProDisplay-Semibold.woff"; sourceTree = "<group>"; };
 		BC1D43004E2B48BBA4F2B218 /* SFProDisplay-MediumItalic.woff */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-MediumItalic.woff"; path = "../assets/fonts/SFProDisplay-MediumItalic.woff"; sourceTree = "<group>"; };
 		BE0DCC7F41B140D6BD7DE0E6 /* SFProDisplay-Black.woff2 */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-Black.woff2"; path = "../assets/fonts/SFProDisplay-Black.woff2"; sourceTree = "<group>"; };
-		BF1B5E62F1E80A7082B54D0D /* Pods-WeCook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeCook.debug.xcconfig"; path = "Target Support Files/Pods-WeCook/Pods-WeCook.debug.xcconfig"; sourceTree = "<group>"; };
+		BF1B5E62F1E80A7082B54D0D /* Pods-FoodPlan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodPlan.debug.xcconfig"; path = "Target Support Files/Pods-FoodPlan/Pods-FoodPlan.debug.xcconfig"; sourceTree = "<group>"; };
 		C234D55DD13944D8909AAC6C /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/native-base/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		C52BDFAE6D1A454495D64270 /* SFProDisplay-RegularItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-RegularItalic.ttf"; path = "../assets/fonts/SFProDisplay-RegularItalic.ttf"; sourceTree = "<group>"; };
 		C69732435F4C468DBD520C98 /* SFProDisplay-Semibold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-Semibold.ttf"; path = "../assets/fonts/SFProDisplay-Semibold.ttf"; sourceTree = "<group>"; };
-		CB4B163041AF5CEB7C43793A /* libPods-WeCook-WeCookTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WeCook-WeCookTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB4B163041AF5CEB7C43793A /* libPods-FoodPlan-FoodPlanTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FoodPlan-FoodPlanTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD5DC2EEDFAC4539B94C2C72 /* SFProDisplay-BlackItalic.woff */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-BlackItalic.woff"; path = "../assets/fonts/SFProDisplay-BlackItalic.woff"; sourceTree = "<group>"; };
-		D00E0F998B1D6F98048EBE45 /* Pods-WeCook-WeCookTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeCook-WeCookTests.debug.xcconfig"; path = "Target Support Files/Pods-WeCook-WeCookTests/Pods-WeCook-WeCookTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D00E0F998B1D6F98048EBE45 /* Pods-FoodPlan-FoodPlanTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodPlan-FoodPlanTests.debug.xcconfig"; path = "Target Support Files/Pods-FoodPlan-FoodPlanTests/Pods-FoodPlan-FoodPlanTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D3A32005C50147B2B8DE7E51 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		DA753D2CB3DBAB249B4C4B7B /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		DAD3D4CCB04F48DD96BEDE28 /* SFProDisplay-Light.woff */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-Light.woff"; path = "../assets/fonts/SFProDisplay-Light.woff"; sourceTree = "<group>"; };
@@ -233,9 +233,9 @@
 		EAE87FBC59F448E19126EE0A /* SFProDisplay-Ultralight.woff2 */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-Ultralight.woff2"; path = "../assets/fonts/SFProDisplay-Ultralight.woff2"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		EDF4153F44804BA7ABAB1D3A /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
-		F675EB3071577948BFCEAC16 /* Pods-WeCook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeCook.release.xcconfig"; path = "Target Support Files/Pods-WeCook/Pods-WeCook.release.xcconfig"; sourceTree = "<group>"; };
+		F675EB3071577948BFCEAC16 /* Pods-FoodPlan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodPlan.release.xcconfig"; path = "Target Support Files/Pods-FoodPlan/Pods-FoodPlan.release.xcconfig"; sourceTree = "<group>"; };
 		F74510556BE941B5A0209005 /* SFProDisplay-Bold.woff */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-Bold.woff"; path = "../assets/fonts/SFProDisplay-Bold.woff"; sourceTree = "<group>"; };
-		F83EE79B80171A90341B20E4 /* libPods-WeCook.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WeCook.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F83EE79B80171A90341B20E4 /* libPods-FoodPlan.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FoodPlan.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8B1C376C4B0429895B72C0A /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/native-base/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		F8D9F65A88C943808CAFD4FB /* SFProDisplay-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-LightItalic.ttf"; path = "../assets/fonts/SFProDisplay-LightItalic.ttf"; sourceTree = "<group>"; };
 		F998E23E51D644B1BB3E3D7E /* SFProDisplay-Light.woff2 */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProDisplay-Light.woff2"; path = "../assets/fonts/SFProDisplay-Light.woff2"; sourceTree = "<group>"; };
@@ -249,7 +249,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C6AA038BF640A121E7C26B43 /* libPods-WeCook-WeCookTests.a in Frameworks */,
+				C6AA038BF640A121E7C26B43 /* libPods-FoodPlan-FoodPlanTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,7 +257,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A677436352016D24CE32E337 /* libPods-WeCook.a in Frameworks */,
+				A677436352016D24CE32E337 /* libPods-FoodPlan.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,13 +272,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* WeCookTests */ = {
+		00E356EF1AD99517003FC87E /* FoodPlanTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* WeCookTests.m */,
+				00E356F21AD99517003FC87E /* FoodPlanTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = WeCookTests;
+			path = FoodPlanTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -289,11 +289,11 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* WeCook */ = {
+		13B07FAE1A68108700A75B9A /* FoodPlan */ = {
 			isa = PBXGroup;
 			children = (
-				4454AE1C297AED10003F9554 /* WeCookRelease.entitlements */,
-				44059C55270C6F37006D32BF /* WeCook.entitlements */,
+				4454AE1C297AED10003F9554 /* FoodPlanRelease.entitlements */,
+				44059C55270C6F37006D32BF /* FoodPlan.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -302,16 +302,16 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = WeCook;
+			name = FoodPlan;
 			sourceTree = "<group>";
 		};
 		1EE21FE3A85AB6EBECA0B08E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				BF1B5E62F1E80A7082B54D0D /* Pods-WeCook.debug.xcconfig */,
-				F675EB3071577948BFCEAC16 /* Pods-WeCook.release.xcconfig */,
-				D00E0F998B1D6F98048EBE45 /* Pods-WeCook-WeCookTests.debug.xcconfig */,
-				120AB5D8337DCBAE843ED662 /* Pods-WeCook-WeCookTests.release.xcconfig */,
+				BF1B5E62F1E80A7082B54D0D /* Pods-FoodPlan.debug.xcconfig */,
+				F675EB3071577948BFCEAC16 /* Pods-FoodPlan.release.xcconfig */,
+				D00E0F998B1D6F98048EBE45 /* Pods-FoodPlan-FoodPlanTests.debug.xcconfig */,
+				120AB5D8337DCBAE843ED662 /* Pods-FoodPlan-FoodPlanTests.release.xcconfig */,
 				FB6DDD6D1838C60F6A315C5F /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */,
 				DA753D2CB3DBAB249B4C4B7B /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */,
 			);
@@ -326,8 +326,8 @@
 				4471E8D228F5A94000294F3C /* FBSDKCoreKit.xcframework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				687357EA005E27CC11659C01 /* libPods-OneSignalNotificationServiceExtension.a */,
-				F83EE79B80171A90341B20E4 /* libPods-WeCook.a */,
-				CB4B163041AF5CEB7C43793A /* libPods-WeCook-WeCookTests.a */,
+				F83EE79B80171A90341B20E4 /* libPods-FoodPlan.a */,
+				CB4B163041AF5CEB7C43793A /* libPods-FoodPlan-FoodPlanTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -434,9 +434,9 @@
 			isa = PBXGroup;
 			children = (
 				448D58E0272687FF00A98AC3 /* GoogleService-Info.plist */,
-				13B07FAE1A68108700A75B9A /* WeCook */,
+				13B07FAE1A68108700A75B9A /* FoodPlan */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* WeCookTests */,
+				00E356EF1AD99517003FC87E /* FoodPlanTests */,
 				44059C5B270C6F73006D32BF /* OneSignalNotificationServiceExtension */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
@@ -451,8 +451,8 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* WeCook.app */,
-				00E356EE1AD99517003FC87E /* WeCookTests.xctest */,
+				13B07F961A680F5B00A75B9A /* FoodPlan.app */,
+				00E356EE1AD99517003FC87E /* FoodPlanTests.xctest */,
 				44059C5A270C6F73006D32BF /* OneSignalNotificationServiceExtension.appex */,
 			);
 			name = Products;
@@ -461,9 +461,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* WeCookTests */ = {
+		00E356ED1AD99517003FC87E /* FoodPlanTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "WeCookTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "FoodPlanTests" */;
 			buildPhases = (
 				39BF6E67B41653BEAE21A177 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -477,14 +477,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = WeCookTests;
-			productName = WeCookTests;
-			productReference = 00E356EE1AD99517003FC87E /* WeCookTests.xctest */;
+			name = FoodPlanTests;
+			productName = FoodPlanTests;
+			productReference = 00E356EE1AD99517003FC87E /* FoodPlanTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* WeCook */ = {
+		13B07F861A680F5B00A75B9A /* FoodPlan */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "WeCook" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "FoodPlan" */;
 			buildPhases = (
 				004EF43136693F8CA55F8FC0 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -503,9 +503,9 @@
 			dependencies = (
 				44059C60270C6F73006D32BF /* PBXTargetDependency */,
 			);
-			name = WeCook;
-			productName = WeCook;
-			productReference = 13B07F961A680F5B00A75B9A /* WeCook.app */;
+			name = FoodPlan;
+			productName = FoodPlan;
+			productReference = 13B07F961A680F5B00A75B9A /* FoodPlan.app */;
 			productType = "com.apple.product-type.application";
 		};
 		44059C59270C6F73006D32BF /* OneSignalNotificationServiceExtension */ = {
@@ -547,7 +547,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "WeCook" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "FoodPlan" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -560,8 +560,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* WeCook */,
-				00E356ED1AD99517003FC87E /* WeCookTests */,
+				13B07F861A680F5B00A75B9A /* FoodPlan */,
+				00E356ED1AD99517003FC87E /* FoodPlanTests */,
 				44059C59270C6F73006D32BF /* OneSignalNotificationServiceExtension */,
 			);
 		};
@@ -684,7 +684,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-WeCook-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-FoodPlan-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -711,15 +711,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WeCook/Pods-WeCook-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-FoodPlan/Pods-FoodPlan-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WeCook/Pods-WeCook-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-FoodPlan/Pods-FoodPlan-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WeCook/Pods-WeCook-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FoodPlan/Pods-FoodPlan-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		39BF6E67B41653BEAE21A177 /* [CP] Check Pods Manifest.lock */ = {
@@ -737,7 +737,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-WeCook-WeCookTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-FoodPlan-FoodPlanTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -750,15 +750,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WeCook-WeCookTests/Pods-WeCook-WeCookTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-FoodPlan-FoodPlanTests/Pods-FoodPlan-FoodPlanTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WeCook-WeCookTests/Pods-WeCook-WeCookTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-FoodPlan-FoodPlanTests/Pods-FoodPlan-FoodPlanTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WeCook-WeCookTests/Pods-WeCook-WeCookTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FoodPlan-FoodPlanTests/Pods-FoodPlan-FoodPlanTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		518AF9887668F418C5C3D7D1 /* [CP-User] [RNFB] Core Configuration */ = {
@@ -780,15 +780,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WeCook-WeCookTests/Pods-WeCook-WeCookTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-FoodPlan-FoodPlanTests/Pods-FoodPlan-FoodPlanTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WeCook-WeCookTests/Pods-WeCook-WeCookTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-FoodPlan-FoodPlanTests/Pods-FoodPlan-FoodPlanTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WeCook-WeCookTests/Pods-WeCook-WeCookTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FoodPlan-FoodPlanTests/Pods-FoodPlan-FoodPlanTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A69F0411C5CF1713E0C14DAC /* [CP] Check Pods Manifest.lock */ = {
@@ -819,15 +819,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WeCook/Pods-WeCook-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-FoodPlan/Pods-FoodPlan-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WeCook/Pods-WeCook-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-FoodPlan/Pods-FoodPlan-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WeCook/Pods-WeCook-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FoodPlan/Pods-FoodPlan-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -856,7 +856,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* WeCookTests.m in Sources */,
+				00E356F31AD99517003FC87E /* FoodPlanTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -882,7 +882,7 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* WeCook */;
+			target = 13B07F861A680F5B00A75B9A /* FoodPlan */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 		44059C60270C6F73006D32BF /* PBXTargetDependency */ = {
@@ -907,14 +907,14 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D00E0F998B1D6F98048EBE45 /* Pods-WeCook-WeCookTests.debug.xcconfig */;
+			baseConfigurationReference = D00E0F998B1D6F98048EBE45 /* Pods-FoodPlan-FoodPlanTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = WeCookTests/Info.plist;
+				INFOPLIST_FILE = FoodPlanTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -928,17 +928,17 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WeCook.app/WeCook";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FoodPlan.app/FoodPlan";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 120AB5D8337DCBAE843ED662 /* Pods-WeCook-WeCookTests.release.xcconfig */;
+			baseConfigurationReference = 120AB5D8337DCBAE843ED662 /* Pods-FoodPlan-FoodPlanTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = WeCookTests/Info.plist;
+				INFOPLIST_FILE = FoodPlanTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -952,23 +952,23 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WeCook.app/WeCook";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FoodPlan.app/FoodPlan";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BF1B5E62F1E80A7082B54D0D /* Pods-WeCook.debug.xcconfig */;
+			baseConfigurationReference = BF1B5E62F1E80A7082B54D0D /* Pods-FoodPlan.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = WeCook/WeCook.entitlements;
+				CODE_SIGN_ENTITLEMENTS = FoodPlan/FoodPlan.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = YRW27439QY;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
-				INFOPLIST_FILE = WeCook/Info.plist;
+				INFOPLIST_FILE = FoodPlan/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Foodplan;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -983,7 +983,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ru.foodplan.app;
-				PRODUCT_NAME = WeCook;
+				PRODUCT_NAME = FoodPlan;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -992,19 +992,19 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F675EB3071577948BFCEAC16 /* Pods-WeCook.release.xcconfig */;
+			baseConfigurationReference = F675EB3071577948BFCEAC16 /* Pods-FoodPlan.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = WeCook/WeCookRelease.entitlements;
+				CODE_SIGN_ENTITLEMENTS = FoodPlan/FoodPlanRelease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = YRW27439QY;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
-				INFOPLIST_FILE = WeCook/Info.plist;
+				INFOPLIST_FILE = FoodPlan/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Foodplan;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1019,7 +1019,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ru.foodplan.app;
-				PRODUCT_NAME = WeCook;
+				PRODUCT_NAME = FoodPlan;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1056,7 +1056,7 @@
 				MARKETING_VERSION = 1.12;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = ru.foodstar.app.OneSignalNotificationServiceExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.foodplan.app.OneSignalNotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1237,7 +1237,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "WeCookTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "FoodPlanTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -1246,7 +1246,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "WeCook" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "FoodPlan" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -1264,7 +1264,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "WeCook" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "FoodPlan" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

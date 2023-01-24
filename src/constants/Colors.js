@@ -5,8 +5,8 @@ const Colors = {
   darkGray:'#6F707A',
   redColor:'#EB5757',
   // yellow:'#FFF500',
-  yellow:'#FFE600',
-  underLayYellow:'#FFD600'
+  yellow:'#4FB500',
+  underLayYellow:'#00C108'
 };
 
 export default Colors;

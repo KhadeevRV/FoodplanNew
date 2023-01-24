@@ -1,4 +1,4 @@
-rootProject.name = 'Foodplan'
+rootProject.name = 'FoodPlan'
 include ':react-native-yamap'
 project(':react-native-yamap').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-yamap/android')
 include ':react-native-yamap'
