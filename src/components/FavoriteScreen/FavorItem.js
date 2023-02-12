@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, {useState, useEffect, useMemo, useCallback} from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,10 +9,14 @@ import {
   Image,
   Platform,
   TouchableHighlight,
-  TouchableOpacity,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
-import {FlatList, ScrollView} from 'react-native-gesture-handler';
+import {
+  FlatList,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native-gesture-handler';
 import common from '../../../Utilites/Common';
 import {getStatusBarHeight, getBottomSpace} from 'react-native-iphone-x-helper';
 import Colors from '../../constants/Colors';
@@ -23,6 +27,7 @@ import {observer} from 'mobx-react-lite';
 import DropShadow from 'react-native-drop-shadow';
 import network from '../../../Utilites/Network';
 import {getLabelImage} from '../MenuScreen/DayRecipeCard';
+import {GreyBtn} from '../GreyBtn';
 
 const FavorItem = observer(
   ({recept, onPress, listHandler, fromHoliday = false}) => {
@@ -48,96 +53,31 @@ const FavorItem = observer(
       return false;
     }, [network.basketInfo?.recipes]);
 
-    const addBtn = () => {
-      const iconUri = network.isBasketUser()
-        ? require('../../../assets/icons/basket.png')
-        : require('../../../assets/icons/list.png');
-      return (
-        <View style={{position: 'absolute', zIndex: 2000, top: 10, right: 10}}>
-          <TouchableOpacity
-            style={{
-              width: 36,
-              height: 36,
-              borderRadius: 18,
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: Platform.select({ios: null, android: '#E5E5E5'}),
-              overflow: 'hidden',
-            }}
-            onPress={() =>
-              listHandler(
-                network.isBasketUser() ? isInBasket : isInList,
-                recept,
-              )
-            }
-            disabled={isLoading}
-            activeOpacity={1}>
-            <>
-              {Platform.OS == 'ios' ? (
-                <BlurView
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    bottom: 0,
-                    right: 0,
-                    borderRadius: 17,
-                  }}
-                  blurType="xlight"
-                  blurAmount={24}
-                  blurRadius={24}
-                  reducedTransparencyFallbackColor={'#FFF'}
-                />
-              ) : null}
-              {!isLoading ? (
-                <Image
-                  source={iconUri}
-                  style={{
-                    width: network.isBasketUser() ? 22 : 18,
-                    height: 22,
-                  }}
-                />
-              ) : (
-                <ActivityIndicator color={Colors.textColor} />
-              )}
-            </>
-          </TouchableOpacity>
-        </View>
-      );
-    };
+    const isAdded = useMemo(() => {
+      if (network.isBasketUser()) {
+        return isInBasket;
+      } else {
+        return isInList;
+      }
+    }, [isInBasket, isInList, network.isBasketUser()]);
 
-    const renderDeleteBtn = () => {
-      return (
-        <View style={{position: 'absolute', zIndex: 2000, top: 10, right: 10}}>
-          <TouchableHighlight
-            style={{
-              width: 36,
-              height: 36,
-              borderRadius: 18,
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: Colors.yellow,
-            }}
-            onPress={() =>
-              listHandler(
-                network.isBasketUser() ? isInBasket : isInList,
-                recept,
-              )
-            }
-            disabled={isLoading}
-            underlayColor={Colors.underLayYellow}>
-            {!isLoading ? (
-              <Image
-                source={require('../../../assets/icons/complete.png')}
-                style={{width: 16, height: 12}}
-              />
-            ) : (
-              <ActivityIndicator color={Colors.textColor} />
-            )}
-          </TouchableHighlight>
-        </View>
+    const deleteFromFavor = useCallback(async () => {
+      Alert.alert(
+        network?.strings?.Attention,
+        network?.strings?.FavorAlertTitle,
+        [
+          {
+            text: network?.strings?.Yes,
+            onPress: () => network.deleteFromFavor(recept),
+          },
+          {
+            text: network?.strings?.DeleteButtonCancel,
+            style: 'destructive',
+          },
+        ],
+        {cancelable: true},
       );
-    };
+    }, [recept]);
 
     const isNewView = [
       <View
@@ -158,6 +98,92 @@ const FavorItem = observer(
     ];
 
     const isNew = !!recept?.new;
+
+    const renderBtnTitle = () => {
+      if (isLoading) {
+        return (
+          <ActivityIndicator
+            color={Colors.textColor}
+            style={{marginVertical: 8, width: 12, height: 12}}
+            size={12}
+          />
+        );
+      }
+      if (isAdded) {
+        return (
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Text style={[styles.btnTitle, {marginRight: 2}]}>
+              {network?.strings?.Added}
+            </Text>
+            <Image
+              source={require('../../../assets/icons/complete.png')}
+              style={{width: 10, height: 8}}
+            />
+          </View>
+        );
+      }
+      if (!isAccess) {
+        return (
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Image
+              source={require('../../../assets/icons/accessRec.png')}
+              style={{width: 14, height: 14, marginRight: 2}}
+            />
+            <Text style={styles.btnTitle}>
+              {network?.strings?.UnlockRecept}
+            </Text>
+          </View>
+        );
+      }
+      return (
+        <Text style={styles.btnTitle}>
+          {network.isBasketUser()
+            ? network?.strings?.RecipeBasketAdd
+            : network?.strings?.RecipeListAdd}
+        </Text>
+      );
+    };
+
+    const addFavorBtn = () => {
+      const imgUri = require('../../../assets/icons/heartRed.png');
+      return (
+        <View style={{position: 'absolute', zIndex: 2000, top: 10, right: 10}}>
+          <TouchableOpacity
+            style={{
+              width: 36,
+              height: 36,
+              borderRadius: 18,
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: Platform.select({ios: null, android: '#E5E5E5'}),
+              overflow: 'hidden',
+            }}
+            onPress={deleteFromFavor}
+            activeOpacity={1}>
+            <>
+              {Platform.OS == 'ios' ? (
+                <BlurView
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    bottom: 0,
+                    right: 0,
+                    borderRadius: 17,
+                  }}
+                  blurType="xlight"
+                  blurAmount={24}
+                  blurRadius={24}
+                  reducedTransparencyFallbackColor={'#FFF'}
+                />
+              ) : null}
+              <Image source={imgUri} style={{width: 22, height: 21}} />
+            </>
+          </TouchableOpacity>
+        </View>
+      );
+    };
+
     return (
       <>
         <View
@@ -179,16 +205,7 @@ const FavorItem = observer(
               key={recept?.images?.big_webp}
               style={styles.image}>
               {isNew ? isNewView : null}
-              {!network.isBasketUser()
-                ? isInList
-                  ? renderDeleteBtn()
-                  : addBtn()
-                : null}
-              {network.isBasketUser() && network.enableBasket()
-                ? isInBasket
-                  ? renderDeleteBtn()
-                  : addBtn()
-                : null}
+              {addFavorBtn()}
               {isAccess ? null : (
                 <View
                   style={[
@@ -227,34 +244,55 @@ const FavorItem = observer(
             </FastImage>
             <View
               style={{
-                height: 64,
-                justifyContent: 'center',
+                flexDirection: 'row',
+                alignItems: 'center',
                 paddingHorizontal: 16,
+                paddingVertical: 10,
               }}>
-              <Text style={styles.title} numberOfLines={2}>
-                {isUnavailable ? (
-                  <View style={{width: 11, height: 11, marginRight: 4}}>
-                    <Image
-                      style={{width: 11, height: 11}}
-                      source={require('../../../assets/icons/unavailable.png')}
-                    />
-                  </View>
-                ) : null}
-                {!isAccess ? (
-                  <View style={{width: 11, height: 11, marginRight: 4}}>
-                    <Image
-                      style={{
-                        width: 12,
-                        height: 12,
-                        top: Platform.OS == 'ios' ? 0 : 2,
-                      }}
-                      source={require('../../../assets/icons/accessRec.png')}
-                    />
-                  </View>
-                ) : null}
-                {Platform.OS == 'android' && isUnavailable ? '  ' : ''}
-                {recept?.name}
-              </Text>
+              <View
+                style={{
+                  paddingRight: 8,
+                  justifyContent: 'center',
+                  height: 36,
+                  width: '50%',
+                }}>
+                <Text style={styles.title} numberOfLines={2}>
+                  {isUnavailable ? (
+                    <View style={{width: 11, height: 11, marginRight: 4}}>
+                      <Image
+                        style={{
+                          width: 11,
+                          height: 11,
+                          top: Platform.OS == 'ios' ? 0 : 2,
+                        }}
+                        source={require('../../../assets/icons/unavailable.png')}
+                      />
+                    </View>
+                  ) : null}
+                  {Platform.OS == 'android' && isUnavailable ? '  ' : ''}
+                  {recept?.name}
+                </Text>
+              </View>
+              <View style={{width: '50%'}}>
+                <GreyBtn
+                  containerStyle={{
+                    alignItems: 'center',
+                    marginTop: 0,
+                    paddingVertical: 7,
+                    zIndex: 100,
+                    // width: isBig ? 108 : '100%',
+                  }}
+                  backgroundColor={isAdded ? Colors.yellow : '#EEEEEE'}
+                  underlayColor={isAdded ? Colors.underLayYellow : '#F5F5F5'}
+                  onPress={() =>
+                    listHandler(
+                      network.isBasketUser() ? isInBasket : isInList,
+                      recept,
+                    )
+                  }>
+                  {renderBtnTitle()}
+                </GreyBtn>
+              </View>
             </View>
           </TouchableOpacity>
         </View>
@@ -316,5 +354,15 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 16,
     justifyContent: 'flex-end',
     height: common.getLengthByIPhone7(192),
+  },
+  btnTitle: {
+    fontFamily: Platform.select({
+      ios: 'SF Pro Display',
+      android: 'SFProDisplay-Bold',
+    }),
+    fontSize: 12,
+    fontWeight: '700',
+    lineHeight: 14,
+    color: Colors.textColor,
   },
 });

@@ -196,7 +196,12 @@ const BottomListBtn = observer(
                       ? require('../../assets/icons/listMenu.png')
                       : require('../../assets/icons/menu.png')
                   }
-                  style={{width: 22, height: 20, marginRight: 7}}
+                  style={{
+                    width: 22,
+                    height: 20,
+                    marginRight: 7,
+                    tintColor: '#FFF',
+                  }}
                 />
                 {fromBasket ? (
                   <Text style={styles.addsTitle}>
@@ -268,7 +273,7 @@ const styles = StyleSheet.create({
     }),
     fontSize: 16,
     lineHeight: 19,
-    color: Colors.textColor,
+    color: '#FFF',
   },
   basketView: {
     position: 'absolute',
@@ -283,7 +288,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
     lineHeight: 19,
-    color: Colors.textColor,
+    color: '#FFF',
   },
   priceText: {
     fontFamily: Platform.select({
@@ -291,7 +296,7 @@ const styles = StyleSheet.create({
       android: 'SFProDisplay-Regular',
     }),
     fontSize: 14,
-    color: Colors.textColor,
+    color: '#FFF',
     lineHeight: 18,
   },
   orderSumText: {

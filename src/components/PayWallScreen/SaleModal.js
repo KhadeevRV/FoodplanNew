@@ -14,6 +14,7 @@ export const SaleModal = observer(({modal, closeModal, navigation}) => {
   const modalRef = useRef(null);
   const [textLayout, setTextLayout] = useState({});
   const [loading, setLoading] = useState(false);
+
   const onPay = async () => {
     const isPayed = await payHandle(
       data,
@@ -64,19 +65,6 @@ export const SaleModal = observer(({modal, closeModal, navigation}) => {
       backdropOpacity={0.4}
       style={{margin: 0, justifyContent: 'flex-end'}}>
       <View style={styles.mainBlock}>
-        <View style={{marginBottom: 16, flexDirection: 'row'}}>
-          <Text allowFontScaling={false} style={styles.title}>
-            {network?.strings?.SaleModalTitle}
-          </Text>
-          <Text allowFontScaling={false} style={styles.title}>
-            {' '}
-          </Text>
-          <Text
-            allowFontScaling={false}
-            style={[styles.title, {color: '#FFD600'}]}>
-            {network?.strings?.SaleModalTitle2}
-          </Text>
-        </View>
         <Text
           allowFontScaling={false}
           style={[styles.planTitle, {marginBottom: 4}]}>
@@ -84,7 +72,7 @@ export const SaleModal = observer(({modal, closeModal, navigation}) => {
         </Text>
         <Text
           allowFontScaling={false}
-          style={[styles.subtitle, {marginBottom: 24}]}>
+          style={[styles.subtitle, {marginBottom: 42}]}>
           {data?.subtitle}
         </Text>
         <View style={styles.planView}>
@@ -116,6 +104,7 @@ export const SaleModal = observer(({modal, closeModal, navigation}) => {
                 height: 7,
                 width: textLayout?.width ? textLayout?.width + 5 : 0,
                 top: 10 + (textLayout?.y ?? 0),
+                tintColor: '#00C108',
               }}
             />
             <Text allowFontScaling={false} style={styles.planPriceDesc}>
@@ -127,7 +116,7 @@ export const SaleModal = observer(({modal, closeModal, navigation}) => {
               width: 10,
               height: 18,
               transform: [{rotate: '180deg'}],
-              tintColor: '#A157FF',
+              tintColor: '#00C108',
             }}
             source={require('../../../assets/icons/goBack.png')}
           />
@@ -139,7 +128,7 @@ export const SaleModal = observer(({modal, closeModal, navigation}) => {
               allowFontScaling={false}
               style={[
                 styles.planPriceValue,
-                {marginVertical: 8, color: '#A157FF'},
+                {marginVertical: 8, color: '#00C108',},
               ]}>
               {data?.price}
             </Text>
@@ -175,18 +164,10 @@ export const SaleModal = observer(({modal, closeModal, navigation}) => {
 });
 
 const styles = StyleSheet.create({
-  title: {
-    fontFamily:
-      Platform.OS == 'ios' ? 'SF Pro Display' : 'SFProDisplay-Regular',
-    fontSize: 16,
-    lineHeight: 18,
-    color: Colors.textColor,
-    fontWeight: Platform.select({ios: '800', android: 'bold'}),
-  },
   mainBlock: {
     backgroundColor: '#FFF',
     paddingBottom: getBottomSpace(),
-    paddingTop: 32,
+    paddingTop: 44,
     paddingHorizontal: 16,
     borderTopStartRadius: 16,
     borderTopEndRadius: 16,
@@ -194,7 +175,7 @@ const styles = StyleSheet.create({
   },
   planView: {
     flexDirection: 'row',
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#FFF9D8',
     borderRadius: 16,
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -231,7 +212,7 @@ const styles = StyleSheet.create({
       Platform.OS == 'ios' ? 'SF Pro Display' : 'SFProDisplay-Regular',
     fontSize: 32,
     lineHeight: 38,
-    color: '#A157FF',
+    color: '#00C108',
     fontWeight: Platform.select({ios: '800', android: 'bold'}),
   },
   subtitle: {

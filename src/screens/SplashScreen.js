@@ -96,11 +96,11 @@ export const SplashScreen = observer(({navigation}) => {
       } else {
         // navigation.navigate('OnboardingStack');
         //!
-        Object.keys(network?.onboarding).length
-          ? navigation.navigate('OnboardingStack')
-          : navigation.navigate('MainStack');
+        // Object.keys(network?.onboarding).length
+        //   ? navigation.navigate('OnboardingStack')
+        //   : navigation.navigate('MainStack');
         //!
-        // navigation.navigate('MainStack');
+        navigation.navigate('MainStack');
       }
     }
   };

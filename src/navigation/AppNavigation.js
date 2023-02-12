@@ -55,6 +55,7 @@ import ThirdQuizScreen from '../screens/QuizScreens/ThirdQuizScreen';
 import PersonalizingScreen from '../screens/PersonalizingScreen';
 import EmailLoginScreen from '../screens/EmailScreens/EmailLoginScreen';
 import RecoverPassScreen from '../screens/EmailScreens/RecoverPassScreen';
+import { ModalManager } from '../services/ModalManager';
 
 const SlideFromBottom = {...TransitionPresets.ModalSlideFromBottomIOS};
 const SlideFromRight = {...TransitionPresets.SlideFromRightIOS};
@@ -412,9 +413,10 @@ const AppStack = observer(() => {
   );
 });
 
+export const navigationRef = React.createRef(null);
+
 export const createRootNavigator = () => {
   const AllScreens = () => {
-    const navigationRef = useRef();
     const routeNameRef = useRef();
     return (
       <NavigationContainer
@@ -439,12 +441,14 @@ export const createRootNavigator = () => {
                 // console.warn(previousRouteName,'screenTime:', (new Date() - network.screenDate)/1000)
               }
               network.screenDate = new Date();
+              network.currentScreen = currentRouteName;
             });
             // console.warn(currentRouteName)
           }
           routeNameRef.current = currentRouteName;
         }}>
         <AppStack />
+        <ModalManager />
       </NavigationContainer>
     );
   };

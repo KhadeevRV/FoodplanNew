@@ -121,7 +121,9 @@ export const UnavailableProductsModal = observer(
             style={styles.touchContainer}
             disabled={network.isLoadingBasket}
             underlayColor={Colors.underLayYellow}>
-            <Text style={styles.subText}>{network?.strings?.NotAdd}</Text>
+            <Text style={[styles.subText, {color: '#FFF'}]}>
+              {network?.strings?.NotAdd}
+            </Text>
           </TouchableHighlight>
           <TouchableOpacity
             style={{alignItems: 'center', paddingVertical: 17}}

@@ -130,18 +130,7 @@ const MenuScreen = observer(({navigation}) => {
 
   const header = [
     <View style={styles.header} key={'menuHeader'}>
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <Image
-          source={require('../../assets/img/splashLogo.png')}
-          style={{
-            width: 24,
-            height: 24,
-            tintColor: Colors.textColor,
-            marginRight: 3,
-          }}
-        />
-        <Text style={styles.headerTitle}>WeCook</Text>
-      </View>
+      <Text style={styles.headerTitle}>Меню недели</Text>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <TouchableOpacity
           activeOpacity={1}
@@ -606,7 +595,7 @@ const MenuScreen = observer(({navigation}) => {
           {/*  }}>*/}
           {/*  {storiesBody}*/}
           {/*</ScrollView>*/}
-          {userStore && network.isBasketUser() ? (
+          {network.isBasketUser() ? (
             <StoreView
               key={userStore.id}
               store={userStore}
@@ -624,7 +613,35 @@ const MenuScreen = observer(({navigation}) => {
                 })
               }
             />
-          ) : null}
+          ) : (
+            <ShadowView
+              key={'emptyStore'}
+              firstContStyle={{marginHorizontal: 16, marginTop: 16}}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('StoresScreen', {
+                    title: network.user?.addresses.map(item =>
+                      item?.id == network.user?.address_active
+                        ? item?.full_address
+                        : null,
+                    ),
+                    coords: network.user.addresses.find(
+                      adr => adr.id == network.user.address_active,
+                    ),
+                    currentStore: network?.user?.store_id,
+                  })
+                }
+                style={{
+                  padding: 16,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Text style={[styles.addsTitle, {fontWeight: 'bold'}]}>
+                  Без доставки
+                </Text>
+              </TouchableOpacity>
+            </ShadowView>
+          )}
           {network.isBasketUser() ? (
             network?.user?.address_active ? (
               <ShadowView

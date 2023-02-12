@@ -33,7 +33,7 @@ export const TrialModal = observer(
       {
         title: network?.strings?.TrialModalTitle1,
         subtitle: network?.strings?.TrialModalSubtitle1,
-        customTextStyle: {color: '#FFD600', textDecorationLine: 'line-through'},
+        customTextStyle: {color: '#00C108', textDecorationLine: 'line-through'},
       },
       {
         title: network?.strings?.TrialModalTitle2,
@@ -85,7 +85,7 @@ export const TrialModal = observer(
                     {network?.strings?.TrialModalMainTitle + ' '}
                     <Text
                       allowFontScaling={false}
-                      style={[styles.title, {color: '#FFD600'}]}>
+                      style={[styles.title, {color: '#00C108'}]}>
                       {network?.strings?.TrialModalMainTitle2}
                     </Text>
                   </Text>
@@ -138,6 +138,7 @@ export const TrialModal = observer(
                 marginTop: 16,
               }}>
               <Text
+                allowFontScaling={false}
                 style={[styles.descText, {marginRight: 24}]}
                 onPress={() => Linking.openURL('https://wecook.app/terms')}>
                 {network?.strings?.Terms}
@@ -159,7 +160,7 @@ const styles = StyleSheet.create({
       Platform.OS == 'ios' ? 'SF Pro Display' : 'SFProDisplay-Regular',
     fontSize: 32,
     lineHeight: 38,
-    marginBottom: common.getLengthByIPhone7(40),
+    marginBottom: 40,
     color: Colors.textColor,
     fontWeight: Platform.select({ios: '800', android: 'bold'}),
   },
@@ -170,8 +171,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderTopStartRadius: 16,
     borderTopEndRadius: 16,
-    height: '78%',
-    // height: 400,
+    // height: '78%',
+    minHeight: 650,
+    // height: '100%',
     // justifyContent: 'space-between',
   },
   row: {

@@ -47,6 +47,8 @@ class Network {
   enableReceptDayScreen = false;
   userCards = [];
   currentCard = null;
+  currentScreen = null;
+  modals = [];
   products_count = [];
   unavailableRecipes = [];
   strings = {};
@@ -130,19 +132,27 @@ class Network {
     //     ],
     //   );
     // }
-    let newDish = dish;
-    const newArr = [newDish, ...this.favorDishes];
-    newDish.new = true;
-    this.favorDishes = newArr;
-    newArr.length == 2 ? (this.user.favorTrigger = true) : null;
-    await favorHandler(dish.id, 'add');
-    ampInstance.logEvent('added to favorites', {recipe_id: dish?.id});
+    try {
+      let newDish = dish;
+      const newArr = [newDish, ...this.favorDishes];
+      newArr.length == 2 ? (this.user.favorTrigger = true) : null;
+      await favorHandler(dish.id, 'add');
+      newDish.new = true;
+      runInAction(() => (this.favorDishes = newArr));
+      ampInstance.logEvent('added to favorites', {recipe_id: dish?.id});
+    } catch (e) {
+      this.sendAnalyticError(JSON.stringify(e));
+    }
   }
 
-  deleteFromFavor(dish) {
-    const newArr = this.favorDishes.filter(item => item.id != dish.id);
-    this.favorDishes = newArr;
-    favorHandler(dish.id, 'remove');
+  async deleteFromFavor(dish) {
+    try {
+      await favorHandler(dish.id, 'remove');
+      const newArr = this.favorDishes.filter(item => item.id != dish.id);
+      runInAction(() => (this.favorDishes = newArr));
+    } catch (e) {
+      this.sendAnalyticError(JSON.stringify(e));
+    }
   }
 
   canOpenRec(rec) {
@@ -385,7 +395,7 @@ export function getMenu() {
     })
       .then(response => {
         response.json().then(data => {
-          console.log('getMenu: ' + JSON.stringify(data));
+          // console.log('getMenu: ' + JSON.stringify(data));
           if (data.status == 'ok') {
             mobx.runInAction(() => {
               network.allDishes = data.menu;
@@ -2266,6 +2276,76 @@ export function getUserFromLink(user_token) {
       })
       .catch(err => {
         console.warn(err);
+        network.sendAnalyticError(JSON.stringify(err));
+        reject('Unknown error.Try again later.');
+      });
+  });
+}
+
+export function sendModalId(id) {
+  return new Promise(function (resolve, reject) {
+    fetch(Config.apiDomain + 'modal/close', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + network.access_token,
+      },
+      body: JSON.stringify({
+        id,
+      }),
+    })
+      .then(response => {
+        response
+          .json()
+          .then(data => {
+            console.log('sendModalId', data);
+            if (data.status == 'ok') {
+              resolve();
+            } else {
+              network.sendAnalyticError(JSON.stringify(data.message));
+              reject();
+            }
+          })
+          .catch(err => {
+            network.sendAnalyticError(JSON.stringify(err));
+            console.warn(err);
+            reject();
+          });
+      })
+      .catch(err => {
+        console.warn(err);
+        network.sendAnalyticError(JSON.stringify(err));
+        reject('Unknown error.Try again later.');
+      });
+  });
+}
+
+export function getModals() {
+  return new Promise(function (resolve, reject) {
+    fetch(Config.apiDomain + 'modals/get', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + network.access_token,
+        Accept: 'application/json',
+      },
+    })
+      .then(response => {
+        console.log('getModalsresponse: ' + JSON.stringify(response));
+        response.json().then(data => {
+          console.log('getModals: ' + JSON.stringify(data));
+          if (data.status == 'ok') {
+            mobx.runInAction(() => {
+              network.modals = data?.data;
+            });
+            resolve();
+          } else {
+            network.sendAnalyticError(JSON.stringify(data.message));
+            reject(data.message);
+          }
+        });
+      })
+      .catch(err => {
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });

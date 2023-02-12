@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {
   View,
   Text,
@@ -16,14 +16,44 @@ import LinearGradient from 'react-native-linear-gradient';
 const PayWallItem = ({plan, onPress = () => null, pressed}) => {
   const [linewidth, setlinewidth] = useState(0);
 
+  const checksView = useMemo(() => {
+    const body = [];
+    for (let i = 0; i < plan?.items?.length; i++) {
+      const item = plan?.items[i];
+      body.push(
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'flex-start',
+            paddingVertical: 5,
+            maxWidth: common.getLengthByIPhone7(290),
+          }}
+          key={item + i.toString()}>
+          <Image
+            source={require('../../../assets/icons/complete.png')}
+            style={{
+              width: 10,
+              height: 8,
+              marginRight: 9,
+              tintColor: '#00C108',
+              top: 6,
+            }}
+          />
+          <Text style={{...styles.checkText}}>{item}</Text>
+        </View>,
+      );
+    }
+    return body;
+  }, [plan?.items]);
+
   return (
     <TouchableHighlight
       style={{
         ...styles.card,
-        backgroundColor: pressed ? '#FFF' : '#F5F5F5',
+        backgroundColor: pressed ? '#FFF9D8' : '#F5F5F5',
         borderColor: pressed ? Colors.yellow : '#F5F5F5',
       }}
-      underlayColor={'#FFF'}
+      underlayColor={'#FFF9D8'}
       onPress={() => onPress()}>
       <>
         <View
@@ -51,6 +81,19 @@ const PayWallItem = ({plan, onPress = () => null, pressed}) => {
           )}
           <Text style={[styles.desc]}>{plan?.desc}</Text>
         </View>
+        {checksView}
+        <View
+          style={[
+            styles.point,
+            {backgroundColor: pressed ? Colors.underLayYellow : '#E9E6E6'},
+          ]}>
+          {pressed && (
+            <Image
+              source={require('../../../assets/icons/complete.png')}
+              style={{width: 10, height: 8}}
+            />
+          )}
+        </View>
       </>
     </TouchableHighlight>
   );
@@ -62,10 +105,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5',
     borderRadius: 16,
     borderWidth: 4,
-    paddingVertical: 8,
-    paddingHorizontal: 12,
+    padding: 12,
     marginBottom: 8,
-    height: 66,
+    minHeight: 98,
   },
   title: {
     fontFamily: Platform.select({
@@ -101,7 +143,7 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
     paddingHorizontal: 4,
     borderRadius: 10,
-    backgroundColor: '#A157FF',
+    backgroundColor: '#00C108',
   },
   priceText: {
     fontFamily: Platform.select({
@@ -112,6 +154,26 @@ const styles = StyleSheet.create({
     lineHeight: 19,
     fontWeight: Platform.select({ios: '800', android: 'bold'}),
     color: Colors.textColor,
+  },
+  checkText: {
+    fontFamily: Platform.select({
+      ios: 'SF Pro Display',
+      android: 'SFProDisplay-Medium',
+    }),
+    fontSize: 14,
+    lineHeight: 17,
+    fontWeight: '500',
+  },
+  point: {
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 8,
+    position: 'absolute',
+    right: 12,
+    bottom: 8,
   },
 });
 

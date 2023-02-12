@@ -241,26 +241,6 @@ const PayWallScreen = observer(({navigation, route}) => {
     searchSelectedPlan();
   }, [notTrialPlans.length]);
 
-  const checksView = [];
-  for (let i = 0; i < screen?.list.length; i++) {
-    const item = screen?.list[i];
-    checksView.push(
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          paddingVertical: 11,
-        }}
-        key={item?.text}>
-        <Image
-          style={{width: 18, height: 18, marginRight: 11}}
-          source={{uri: item?.icon}}
-        />
-        <Text style={{...styles.subtitle, maxWidth: '92%'}}>{item?.text}</Text>
-      </View>,
-    );
-  }
-
   const onPayTrial = async () => {
     try {
       const isPayed = await payHandle(
@@ -295,7 +275,7 @@ const PayWallScreen = observer(({navigation, route}) => {
         key={'PaywallTitle'}>
         <Text style={styles.logoTitle}>
           WeCook{' '}
-          <Text style={[styles.logoTitle, {color: '#FFD600'}]}>Prime</Text>
+          <Text style={[styles.logoTitle, {color: '#00C108'}]}>Prime</Text>
         </Text>
       </View>
     );
@@ -352,40 +332,17 @@ const PayWallScreen = observer(({navigation, route}) => {
         contentContainerStyle={{paddingTop: 16}}
         showsVerticalScrollIndicator={false}>
         {/*<Text style={styles.title}>{screen?.title}</Text>*/}
-        <FlatList
-          showsHorizontalScrollIndicator={false}
-          horizontal
-          contentContainerStyle={{
-            paddingLeft: 16,
-            paddingBottom: 16,
-            paddingRight: 6,
-          }}
-          data={screen?.recipes}
-          extraData={screen?.recipes}
-          keyExtractor={(item, index) => 'PaywallDish_' + item.id + index}
-          scrollEventThrottle={16}
-          pagingEnabled={true}
-          decelerationRate={Platform.select({ios: 'fast', android: 0.8})}
-          snapToInterval={
-            common.getLengthByIPhone7(0) - common.getLengthByIPhone7(32)
-          }
-          disableIntervalMomentum={true}
-          snapToAlignment={'center'}
-          snapToOffsets={screen?.recipes?.map(
-            (item, i) => i * (common.getLengthByIPhone7(304) + 7),
-          )}
-          renderItem={({item, index}) => (
-            <DayRecipeCard
-              recept={item}
-              fromPaywall
-              onPress={() => null}
-              listHandler={() => null}
-              key={item.id}
-            />
-          )}
-        />
         <View style={{paddingHorizontal: 16}}>
-          {checksView}
+          <Image
+            source={{uri: screen?.image}}
+            borderRadius={16}
+            style={{
+              width: '100%',
+              alignSelf: 'center',
+              height: 146,
+              borderRadius: 16,
+            }}
+          />
           <View style={{marginTop: 24}}>{plansView}</View>
         </View>
       </ScrollView>
@@ -479,15 +436,6 @@ const styles = StyleSheet.create({
     lineHeight: 26,
     fontWeight: Platform.select({ios: '800', android: 'bold'}),
     marginBottom: 30,
-  },
-  subtitle: {
-    fontFamily: Platform.select({
-      ios: 'SF Pro Display',
-      android: 'SFProDisplay-Regular',
-    }),
-    fontSize: 14,
-    lineHeight: 17,
-    fontWeight: '500',
   },
   decr: {
     fontFamily: Platform.select({
