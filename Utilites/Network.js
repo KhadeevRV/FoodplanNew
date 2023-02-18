@@ -136,7 +136,7 @@ class Network {
       let newDish = dish;
       const newArr = [newDish, ...this.favorDishes];
       newArr.length == 2 ? (this.user.favorTrigger = true) : null;
-      await favorHandler(dish.id, 'add');
+      favorHandler(dish.id, 'add');
       newDish.new = true;
       runInAction(() => (this.favorDishes = newArr));
       ampInstance.logEvent('added to favorites', {recipe_id: dish?.id});
@@ -147,7 +147,7 @@ class Network {
 
   async deleteFromFavor(dish) {
     try {
-      await favorHandler(dish.id, 'remove');
+      favorHandler(dish.id, 'remove');
       const newArr = this.favorDishes.filter(item => item.id != dish.id);
       runInAction(() => (this.favorDishes = newArr));
     } catch (e) {
@@ -2339,6 +2339,37 @@ export function getModals() {
               network.modals = data?.data;
             });
             resolve();
+          } else {
+            network.sendAnalyticError(JSON.stringify(data.message));
+            reject(data.message);
+          }
+        });
+      })
+      .catch(err => {
+        network.sendAnalyticError(JSON.stringify(err));
+        reject('Unknown error.Try again later.');
+      });
+  });
+}
+
+export function loginEmail({email, code}) {
+  const body = {email};
+  code ? (body.code = code) : null;
+  return new Promise(function (resolve, reject) {
+    fetch(Config.apiDomain + 'auth/login/email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + network.access_token,
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(body),
+    })
+      .then(response => {
+        response.json().then(data => {
+          console.log('loginEmail: ' + email + JSON.stringify(data));
+          if (data.status == 'ok') {
+            resolve(data?.data);
           } else {
             network.sendAnalyticError(JSON.stringify(data.message));
             reject(data.message);

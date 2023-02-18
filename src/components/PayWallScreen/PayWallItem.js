@@ -35,7 +35,7 @@ const PayWallItem = ({plan, onPress = () => null, pressed}) => {
               width: 10,
               height: 8,
               marginRight: 9,
-              tintColor: '#00C108',
+              tintColor: Colors.underLayYellow,
               top: 6,
             }}
           />
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
     paddingHorizontal: 4,
     borderRadius: 10,
-    backgroundColor: '#00C108',
+    backgroundColor: Colors.underLayYellow,
   },
   priceText: {
     fontFamily: Platform.select({

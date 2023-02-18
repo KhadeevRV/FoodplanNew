@@ -25,7 +25,7 @@ export default class App extends Component {
     // LogBox.ignoreAllLogs()
     changeNavigationBarColor('#000000');
     if (Platform.OS === 'android') {
-      // StatusBar.setBackgroundColor('#4FB500', true);
+      // StatusBar.setBackgroundColor('#7CB518', true);
       // StatusBar.setBarStyle('dark-content', true);
     } else {
       StatusBar.setBarStyle('dark-content', true);

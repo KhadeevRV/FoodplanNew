@@ -180,7 +180,7 @@ const DayRecipeCard = observer(({recept, onPress, listHandler}) => {
           </Text>
           <Image
             source={require('../../../assets/icons/complete.png')}
-            style={{width: 10, height: 8}}
+            style={{width: 10, height: 8, tintColor: '#FFF'}}
           />
         </View>
       );

@@ -262,7 +262,7 @@ const PayScreen = observer(({navigation}) => {
           {/*      width: 20,*/}
           {/*      height: 20,*/}
           {/*      borderRadius: 6,*/}
-          {/*      backgroundColor: isSave ? '#4FB500' : '#D3D3D3',*/}
+          {/*      backgroundColor: isSave ? '#7CB518' : '#D3D3D3',*/}
           {/*      alignItems: 'center',*/}
           {/*      justifyContent: 'center',*/}
           {/*    }}>*/}

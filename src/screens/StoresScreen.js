@@ -35,7 +35,6 @@ import network, {
 } from '../../Utilites/Network';
 import {ShadowView} from '../components/ShadowView';
 import {ampInstance} from '../../App';
-import {strings} from '../../assets/localization/localization';
 
 export const StoreView = ({
   store,
@@ -43,7 +42,7 @@ export const StoreView = ({
   isSelect = false,
   isCurrent = false,
 }) => {
-  const isAvailable = store.hasOwnProperty('is_available')
+  const isAvailable = store?.hasOwnProperty('is_available')
     ? store.is_available
     : true;
   return (
@@ -97,7 +96,7 @@ export const StoreView = ({
               <View
                 style={[
                   styles.dotContainer,
-                  {backgroundColor: isCurrent ? '#4FB500' : Colors.grayColor},
+                  {backgroundColor: isCurrent ? '#7CB518' : Colors.grayColor},
                 ]}>
                 {isCurrent ? (
                   <View
@@ -305,7 +304,7 @@ const StoresScreen = observer(({navigation, route}) => {
                 <View
                   style={[
                     styles.dotContainer,
-                    {backgroundColor: isList ? '#4FB500' : Colors.grayColor},
+                    {backgroundColor: isList ? '#7CB518' : Colors.grayColor},
                   ]}>
                   {isList ? (
                     <View

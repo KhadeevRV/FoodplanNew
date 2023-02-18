@@ -247,7 +247,7 @@ const OrderStatusScreen = observer(({navigation, route}) => {
                       styles.statusContainer,
                       {
                         backgroundColor:
-                          status.id <= currentStatusId ? '#4FB500' : '#F5F5F5',
+                          status.id <= currentStatusId ? '#7CB518' : '#F5F5F5',
                       },
                     ]}>
                     <Image

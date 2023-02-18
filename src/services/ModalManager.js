@@ -42,7 +42,6 @@ export const ModalManager = observer(() => {
 
   useEffect(() => {
     const newData = checkModal(network.currentScreen);
-    console.log(network.currentScreen, network?.modals);
     if (newData) {
       setData(newData);
       setTimeout(() => {

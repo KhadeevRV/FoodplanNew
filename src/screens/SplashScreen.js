@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useRef, useCallback} from 'react';
 import {
-  AsyncStorage,
   Text,
   Animated,
   StyleSheet,
@@ -28,6 +27,7 @@ import network, {
   getList,
   getUserInfo,
   getUserFromLink,
+  getModals,
 } from '../../Utilites/Network';
 import {observer} from 'mobx-react-lite';
 import FastImage from 'react-native-fast-image';
@@ -54,6 +54,7 @@ import {
 import {CheckDymanicLink} from './ReceptDayScreen';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import {useInterval} from './ReceptScreen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const SplashScreen = observer(({navigation}) => {
   const initSubs = async items => {
@@ -96,11 +97,11 @@ export const SplashScreen = observer(({navigation}) => {
       } else {
         // navigation.navigate('OnboardingStack');
         //!
-        // Object.keys(network?.onboarding).length
-        //   ? navigation.navigate('OnboardingStack')
-        //   : navigation.navigate('MainStack');
+        Object.keys(network?.onboarding).length
+          ? navigation.navigate('OnboardingStack')
+          : navigation.navigate('MainStack');
         //!
-        navigation.navigate('MainStack');
+        // navigation.navigate('MainStack');
       }
     }
   };
@@ -175,6 +176,7 @@ export const SplashScreen = observer(({navigation}) => {
         getStores(),
         getUserCards(),
         getFavors(),
+        getModals(),
       ]);
       ampInstance.logEvent('app opened');
       const subItems = await getTariffs();
@@ -210,6 +212,11 @@ export const SplashScreen = observer(({navigation}) => {
   const screenDelay = 24 * 60 * 60 * 1000;
   const checkReceptScreenDate = async () => {
     const receptDayDate = await AsyncStorage.getItem('receptDayDate');
+    const alreadySignIn = await AsyncStorage.getItem('alreadySignIn');
+    if (!alreadySignIn) {
+      AsyncStorage.setItem('alreadySignIn', 'Yes');
+      return;
+    }
     if (receptDayDate) {
       const date = new Date(receptDayDate);
       if (
@@ -221,6 +228,7 @@ export const SplashScreen = observer(({navigation}) => {
     } else {
       runInAction(() => (network.enableReceptDayScreen = true));
     }
+    // await AsyncStorage.setItem('signInCount', signInCount + 1);
   };
 
   useEffect(() => {

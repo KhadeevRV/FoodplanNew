@@ -360,7 +360,7 @@ const MenuScreen = observer(({navigation}) => {
                     styles.statusContainer,
                     {
                       backgroundColor:
-                        index <= statusIndex ? '#4FB500' : '#F5F5F5',
+                        index <= statusIndex ? '#7CB518' : '#F5F5F5',
                     },
                   ]}>
                   <Image
@@ -597,7 +597,7 @@ const MenuScreen = observer(({navigation}) => {
           {/*</ScrollView>*/}
           {network.isBasketUser() ? (
             <StoreView
-              key={userStore.id}
+              key={userStore?.id}
               store={userStore}
               onPress={() =>
                 navigation.navigate('StoresScreen', {
