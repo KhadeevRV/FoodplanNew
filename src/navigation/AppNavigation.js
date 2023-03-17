@@ -56,6 +56,11 @@ import PersonalizingScreen from '../screens/PersonalizingScreen';
 import EmailLoginScreen from '../screens/EmailScreens/EmailLoginScreen';
 import SendEmailCodeScreen from '../screens/EmailScreens/SendEmailCodeScreen';
 import {ModalManager} from '../services/ModalManager';
+import HelloScreen from '../screens/HelloScreen';
+import ChooseLoginScreen from '../screens/ChooseLoginScreen';
+import ChooseEatScreen from '../screens/QuizScreens/ChooseEatScreen';
+import UserInfoScreen from '../screens/QuizScreens/UserInfoScreen';
+import ChooseListOrDeliveryScreen from '../screens/QuizScreens/ChooseListOrDeliveryScreen';
 
 const SlideFromBottom = {...TransitionPresets.ModalSlideFromBottomIOS};
 const SlideFromRight = {...TransitionPresets.SlideFromRightIOS};
@@ -86,12 +91,33 @@ const OnboardingStack = observer(() => {
           cardStyle: {backgroundColor: '#FFF'},
         };
       }}
-      // initialRouteName={'PersonalizingScreen'}
       initialRouteName={
         Object.keys(network?.onboarding).length
           ? Object.keys(network?.onboarding)[0]
-          : 'WelcomeScreen'
+          : Object.keys(network?.registerOnboarding).length
+          ? Object.keys(network?.registerOnboarding)[0]
+          : 'HelloScreen'
       }>
+      <Stack.Screen
+        name="HelloScreen"
+        options={{gestureEnabled: false, header: () => null}}
+        component={HelloScreen}
+      />
+      <Stack.Screen
+        name="ChooseLoginScreen"
+        options={{gestureEnabled: false, header: () => null}}
+        component={ChooseLoginScreen}
+      />
+      <Stack.Screen
+        name="UserInfoScreen"
+        options={{gestureEnabled: false, header: () => null}}
+        component={UserInfoScreen}
+      />
+      <Stack.Screen
+        name="ChooseListOrDeliveryScreen"
+        options={{gestureEnabled: false, header: () => null}}
+        component={ChooseListOrDeliveryScreen}
+      />
       <Stack.Screen
         name="WelcomeScreen"
         options={{gestureEnabled: false, header: () => null}}
@@ -118,6 +144,11 @@ const OnboardingStack = observer(() => {
         name="SecondQuizScreen"
         options={{gestureEnabled: true, header: () => null}}
         component={SecondQuizScreen}
+      />
+      <Stack.Screen
+        name="ChooseEatScreen"
+        options={{gestureEnabled: false, header: () => null}}
+        component={ChooseEatScreen}
       />
       <Stack.Screen
         name="ThirdQuizScreen"

@@ -1,8 +1,8 @@
 const Config = {
-  apiDomain: 'https://dev.foodplan.ru/api/',
-  url: 'https://dev.foodplan.ru',
+  apiDomain: 'https://foodplan.menu/api/',
+  url: 'https://foodplan.menu',
   version: '1.0',
-  appName: 'WeCook',
+  appName: 'Foodplan',
   urlTile: 'http://tile.stamen.com/terrain/{z}/{x}/{y}.jpg',
   newSlideInUp: {
     0: {

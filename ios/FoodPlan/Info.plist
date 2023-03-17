@@ -25,7 +25,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb1850543118666862</string>
+				<string>fb745105936380970</string>
 			</array>
 		</dict>
 		<dict>
@@ -36,6 +36,14 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>ru.foodplan.app</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.741267126814-t7i3iijliova6mfs080uc154bf70okmt</string>
 			</array>
 		</dict>
 	</array>

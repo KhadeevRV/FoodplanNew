@@ -5,6 +5,12 @@ PODS:
     - Amplitude (= 8.10.0)
     - React-Core
   - AnalyticsConnector (1.0.0)
+  - AppAuth (1.6.0):
+    - AppAuth/Core (= 1.6.0)
+    - AppAuth/ExternalUserAgent (= 1.6.0)
+  - AppAuth/Core (1.6.0)
+  - AppAuth/ExternalUserAgent (1.6.0):
+    - AppAuth/Core
   - boost-for-react-native (1.63.0)
   - BVLinearGradient (2.5.6):
     - React
@@ -138,6 +144,10 @@ PODS:
   - GoogleMaps/Base (7.0.0)
   - GoogleMaps/Maps (7.0.0):
     - GoogleMaps/Base
+  - GoogleSignIn (6.2.4):
+    - AppAuth (~> 1.5)
+    - GTMAppAuth (~> 1.3)
+    - GTMSessionFetcher/Core (< 3.0, >= 1.1)
   - GoogleUtilities/AppDelegateSwizzler (7.10.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -157,6 +167,10 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.10.0):
     - GoogleUtilities/Logger
+  - GTMAppAuth (1.3.1):
+    - AppAuth/Core (~> 1.6)
+    - GTMSessionFetcher/Core (< 3.0, >= 1.5)
+  - GTMSessionFetcher/Core (2.3.0)
   - libwebp (1.2.4):
     - libwebp/demux (= 1.2.4)
     - libwebp/mux (= 1.2.4)
@@ -502,6 +516,12 @@ PODS:
     - React
   - ReactNativeLocalization (2.3.1):
     - React-Core
+  - RNAppleAuthentication (2.2.2):
+    - React-Core
+  - RNCAsyncStorage (1.17.11):
+    - React-Core
+  - RNCPicker (2.4.8):
+    - React-Core
   - RNDeviceInfo (8.5.0):
     - React-Core
   - RNFastImage (8.5.11):
@@ -525,6 +545,9 @@ PODS:
     - React-Core
     - RNFBApp
   - RNGestureHandler (2.4.1):
+    - React-Core
+  - RNGoogleSignin (9.0.2):
+    - GoogleSignIn (~> 6.2)
     - React-Core
   - RNIap (7.5.6):
     - React-Core
@@ -641,6 +664,9 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "ReactNativeART (from `../node_modules/@react-native-community/art`)"
   - ReactNativeLocalization (from `../node_modules/react-native-localization`)
+  - "RNAppleAuthentication (from `../node_modules/@invertase/react-native-apple-authentication`)"
+  - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
+  - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNFastImage (from `../node_modules/react-native-fast-image`)
   - "RNFBAnalytics (from `../node_modules/@react-native-firebase/analytics`)"
@@ -648,6 +674,7 @@ DEPENDENCIES:
   - "RNFBAppDistribution (from `../node_modules/@react-native-firebase/app-distribution`)"
   - "RNFBDynamicLinks (from `../node_modules/@react-native-firebase/dynamic-links`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - "RNGoogleSignin (from `../node_modules/@react-native-google-signin/google-signin`)"
   - RNIap (from `../node_modules/react-native-iap`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNRate (from `../node_modules/react-native-rate`)
@@ -664,6 +691,7 @@ SPEC REPOS:
   trunk:
     - Amplitude
     - AnalyticsConnector
+    - AppAuth
     - boost-for-react-native
     - CardIO
     - FBAEMKit
@@ -684,7 +712,10 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleMaps
+    - GoogleSignIn
     - GoogleUtilities
+    - GTMAppAuth
+    - GTMSessionFetcher
     - libwebp
     - nanopb
     - OneSignal
@@ -801,6 +832,12 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/art"
   ReactNativeLocalization:
     :path: "../node_modules/react-native-localization"
+  RNAppleAuthentication:
+    :path: "../node_modules/@invertase/react-native-apple-authentication"
+  RNCAsyncStorage:
+    :path: "../node_modules/@react-native-async-storage/async-storage"
+  RNCPicker:
+    :path: "../node_modules/@react-native-picker/picker"
   RNDeviceInfo:
     :path: "../node_modules/react-native-device-info"
   RNFastImage:
@@ -815,6 +852,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/dynamic-links"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNGoogleSignin:
+    :path: "../node_modules/@react-native-google-signin/google-signin"
   RNIap:
     :path: "../node_modules/react-native-iap"
   RNPermissions:
@@ -850,6 +889,7 @@ SPEC CHECKSUMS:
   Amplitude: 2904f346250510b9e19a4e2262017bcf1d4368f9
   amplitude-react-native: 20f37edeceb5966927dc28fb6c229a812a58c010
   AnalyticsConnector: 4c386d5972ac9da86e22d668564dbbac97558754
+  AppAuth: 8fca6b5563a5baef2c04bee27538025e4ceb2add
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   BVLinearGradient: e3aad03778a456d77928f594a649e96995f1c872
   CardIO: 56983b39b62f495fc6dae9ad7cf875143df06443
@@ -877,7 +917,10 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: 5ba1164e3c844ba84272555e916d0a6d3d977e91
   GoogleDataTransport: 1c8145da7117bd68bbbed00cf304edb6a24de00f
   GoogleMaps: 6e9c923ca035989709fcb5771544fda4cc5fa2a4
+  GoogleSignIn: 5651ce3a61e56ca864160e79b484cd9ed3f49b7a
   GoogleUtilities: bad72cb363809015b1f7f19beb1f1cd23c589f95
+  GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
+  GTMSessionFetcher: 3a63d75eecd6aa32c2fc79f578064e1214dfdec2
   libwebp: f62cb61d0a484ba548448a4bd52aabf150ff6eef
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   OneSignal: ec0981cf056f4723da54bfd46842c3c2adf00df3
@@ -926,6 +969,9 @@ SPEC CHECKSUMS:
   ReactCommon: 3a88b42affa0809e2524f978700a22841b04a421
   ReactNativeART: 78edc68dd4a1e675338cd0cd113319cf3a65f2ab
   ReactNativeLocalization: 076497d7ca70341c751cd3b3e7c86187332a182d
+  RNAppleAuthentication: 0571c08da8c327ae2afc0261b48b4a515b0286a6
+  RNCAsyncStorage: 8616bd5a58af409453ea4e1b246521bb76578d60
+  RNCPicker: 0bf8ef8f7800524f32d2bb2a8bcadd53eda0ecd1
   RNDeviceInfo: a674f06c5a5bd496aebb809cbc3be61cfd612a65
   RNFastImage: 1f2cab428712a4baaf78d6169eaec7f622556dd7
   RNFBAnalytics: f76bfa164ac235b00505deb9fc1776634056898c
@@ -933,6 +979,7 @@ SPEC CHECKSUMS:
   RNFBAppDistribution: 4e7df69ff3469cad8f19d06c6e3b3986cb74c77c
   RNFBDynamicLinks: 4cb7df93b3bea086d743ecb78127c3d11b38510d
   RNGestureHandler: 4f4986408310a43f1606c391f38f76e0d6e790d5
+  RNGoogleSignin: 22e468a9474dbcb8618d8847205ad4f0b2575d13
   RNIap: d248609d1b8937e63bd904e865c318e9b1457eff
   RNPermissions: 34d678157c800b25b22a488e4d8babb57456e796
   RNRate: 94f57c773e155ca0d0aeeba9c10a32bce9030daf

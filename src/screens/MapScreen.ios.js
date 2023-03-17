@@ -57,6 +57,9 @@ const MapScreen = observer(({navigation, route}) => {
   const [addressTips, setAddressTips] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
   const fromOnboarding = route.params?.fromOnboarding;
+  const withBack =
+    fromOnboarding &&
+    Object.keys(network.registerOnboarding)[0] === 'MapScreen';
   const screen = network.onboarding?.MapScreen;
   const snapPoints = useMemo(
     () => [
@@ -425,15 +428,17 @@ const MapScreen = observer(({navigation, route}) => {
             },
           ]}
         />
-        <TouchableOpacity
-          disabled={isLoading}
-          style={styles.backView}
-          onPress={() => navigation.goBack()}>
-          <Image
-            source={require('../../assets/icons/back.png')}
-            style={{width: 18, height: 18}}
-          />
-        </TouchableOpacity>
+        {withBack && (
+          <TouchableOpacity
+            disabled={isLoading}
+            style={styles.backView}
+            onPress={() => navigation.goBack()}>
+            <Image
+              source={require('../../assets/icons/back.png')}
+              style={{width: 18, height: 18}}
+            />
+          </TouchableOpacity>
+        )}
         <TouchableOpacity
           disabled={isLoading}
           style={[

@@ -13,7 +13,6 @@ import Common from '../../Utilites/Common';
 import {View} from 'react-native-animatable';
 import network, {
   getMenu,
-  getScreens,
   authUser,
   registerUser,
   getFavors,
@@ -28,6 +27,8 @@ import network, {
   getUserInfo,
   getUserFromLink,
   getModals,
+  getInitialScreens,
+  getRegisterScreens,
 } from '../../Utilites/Network';
 import {observer} from 'mobx-react-lite';
 import FastImage from 'react-native-fast-image';
@@ -55,6 +56,21 @@ import {CheckDymanicLink} from './ReceptDayScreen';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import {useInterval} from './ReceptScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+export const updateAllData = async () => {
+  await Promise.all([
+    getTranslate(),
+    getInitialScreens(),
+    getRegisterScreens(),
+    getMenu(),
+    getStores(),
+    getUserCards(),
+    getFavors(),
+    getModals(),
+    getList(),
+    getBasket(),
+  ]);
+};
 
 export const SplashScreen = observer(({navigation}) => {
   const initSubs = async items => {
@@ -93,11 +109,11 @@ export const SplashScreen = observer(({navigation}) => {
           network.strings?.NoConnectionAlert ??
             network.strings?.NoConnectionAlert,
         );
-        // navigation.navigate('OnboardingStack');
       } else {
         // navigation.navigate('OnboardingStack');
         //!
-        Object.keys(network?.onboarding).length
+        Object.keys(network?.onboarding).length ||
+        Object.keys(network?.registerOnboarding).length
           ? navigation.navigate('OnboardingStack')
           : navigation.navigate('MainStack');
         //!
@@ -169,24 +185,16 @@ export const SplashScreen = observer(({navigation}) => {
         await updateInfo('lang_app', localeValue);
         // await getUserInfo();
       }
-      await Promise.all([
-        getTranslate(),
-        getScreens(),
-        getMenu(),
-        getStores(),
-        getUserCards(),
-        getFavors(),
-        getModals(),
-      ]);
+      await updateAllData();
       ampInstance.logEvent('app opened');
       const subItems = await getTariffs();
-      await Promise.all([initSubs(subItems), getList(), getBasket()]);
+      await initSubs(subItems);
       const fromDeepLink = await CheckDymanicLink();
       console.log('fromDeepLink', fromDeepLink);
       if (fromDeepLink) {
         try {
           await getUserFromLink(fromDeepLink);
-          await getScreens();
+          await getInitialScreens();
         } catch (e) {
           await authUser();
         }

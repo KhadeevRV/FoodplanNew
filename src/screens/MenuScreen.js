@@ -1,4 +1,4 @@
-import React, {useMemo, useState, useRef, useEffect} from 'react';
+import React, {useMemo, useState, useRef, useEffect, useCallback} from 'react';
 import {
   StyleSheet,
   Text,
@@ -568,6 +568,24 @@ const MenuScreen = observer(({navigation}) => {
     }
   }, [network.user?.store_id, network.stores.length]);
 
+  const onNavigateStore = useCallback(() => {
+    if (network.user?.addresses?.length) {
+      navigation.navigate('StoresScreen', {
+        title: network.user?.addresses.map(item =>
+          item?.id == network.user?.address_active ? item?.full_address : null,
+        ),
+        coords: network.user.addresses.find(
+          adr => adr.id == network.user.address_active,
+        ),
+        currentStore: network?.user?.store_id,
+      });
+    } else {
+      navigation.navigate(
+        network.userMap == 'google' ? 'GoogleMapScreen' : 'MapScreen',
+      );
+    }
+  }, [navigation]);
+
   return (
     <>
       <View style={{backgroundColor: '#FFF', flex: 1}}>
@@ -599,38 +617,14 @@ const MenuScreen = observer(({navigation}) => {
             <StoreView
               key={userStore?.id}
               store={userStore}
-              onPress={() =>
-                navigation.navigate('StoresScreen', {
-                  title: network.user?.addresses.map(item =>
-                    item?.id == network.user?.address_active
-                      ? item?.full_address
-                      : null,
-                  ),
-                  coords: network.user.addresses.find(
-                    adr => adr.id == network.user.address_active,
-                  ),
-                  currentStore: network?.user?.store_id,
-                })
-              }
+              onPress={onNavigateStore}
             />
           ) : (
             <ShadowView
               key={'emptyStore'}
               firstContStyle={{marginHorizontal: 16, marginTop: 16}}>
               <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate('StoresScreen', {
-                    title: network.user?.addresses.map(item =>
-                      item?.id == network.user?.address_active
-                        ? item?.full_address
-                        : null,
-                    ),
-                    coords: network.user.addresses.find(
-                      adr => adr.id == network.user.address_active,
-                    ),
-                    currentStore: network?.user?.store_id,
-                  })
-                }
+                onPress={onNavigateStore}
                 style={{
                   padding: 16,
                   flexDirection: 'row',

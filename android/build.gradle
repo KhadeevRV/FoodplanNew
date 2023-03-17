@@ -11,6 +11,7 @@ buildscript {
         androidXAnnotation = "1.1.0"
         androidXBrowser = "1.0.0"
         kotlinVersion = "1.6.0"
+        googlePlayServicesAuthVersion = "19.2.0" // <--- use this version or newer
     }
     repositories {
         google()

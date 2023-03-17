@@ -21,7 +21,6 @@ import {
   TouchableHighlight,
 } from 'react-native-gesture-handler';
 import network, {
-  authUser,
   cancelUserOrder,
   createOrder,
   getUserInfo,
