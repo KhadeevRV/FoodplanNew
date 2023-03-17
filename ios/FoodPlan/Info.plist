@@ -70,10 +70,16 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Access camera</string>
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>Предоставив доступ, вы сможете выбрать фото для рецепта</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>NSLocationWhenInUseUsageDescription</string>
+	<string>Определив ваш адрес, мы проверим наличие продуктов в ближайшем магазине и покажем, что в наличии.</string>
 	<key>NSUserTrackingUsageDescription</key>
-	<string>NSUserTrackingUsageDescription</string>
+	<string>Можно ли использовать данные о вашей активности? Тогда реклама Foodplan будет более актуальной.</string>
+  <key>NSLocationAlwaysUsageDescription</key>
+  <string>Определив ваш адрес, мы проверим наличие продуктов в ближайшем магазине и покажем, что в наличии.</string>
+  <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+  <string>Определив ваш адрес, мы проверим наличие продуктов в ближайшем магазине и покажем, что в наличии.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SFProDisplay-Black.ttf</string>
@@ -163,6 +169,13 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
