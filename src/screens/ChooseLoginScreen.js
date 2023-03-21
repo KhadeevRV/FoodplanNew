@@ -79,8 +79,10 @@ const ChooseLoginScreen = ({navigation}) => {
 
   const gmailSignIn = async () => {
     try {
-      await GoogleSignin.revokeAccess();
-      await GoogleSignin.signOut();
+      if (GoogleSignin.isSignedIn()) {
+        await GoogleSignin.revokeAccess();
+        await GoogleSignin.signOut();
+      }
       await GoogleSignin.hasPlayServices();
       let data = await GoogleSignin.signIn();
       return data;
@@ -96,10 +98,35 @@ const ChooseLoginScreen = ({navigation}) => {
       : navigation.navigate('MainStack');
   };
 
+  const signIn = async (btn, socData) => {
+    try {
+      if (socData) {
+        console.log('network.deviceId', network.deviceId);
+        const data = {...socData, device_id: network.deviceId};
+        const user = await sendDataToUrl({url: btn?.route, data});
+        AsyncStorage.setItem('token', user.token);
+        runInAction(() => {
+          network.user = user;
+          network.access_token = user.token;
+        });
+        await Promise.all([updateAllData(), getRegisterScreens()]);
+        onNavigateNext();
+      } else if (btn?.type == 'registration') {
+        await getRegisterScreens();
+        onNavigateNext();
+      }
+      setLoading(false);
+    } catch (e) {
+      setLoading(false);
+      console.log(e);
+      Alert.alert('Ошибка', 'Ошибка при входе. Пожалуйста, попробуйте позднее');
+    }
+  };
+
   const onBtnPress = async btn => {
     let socData = null;
+    setLoading(true);
     try {
-      setLoading(true);
       switch (btn?.type) {
         case 'registration':
           break;
@@ -117,24 +144,10 @@ const ChooseLoginScreen = ({navigation}) => {
           navigation.navigate('EmailLoginScreen');
           return;
       }
-      if (socData) {
-        const data = {...socData, device_id: network.deviceId};
-        const user = await sendDataToUrl({url: btn?.route, data});
-        AsyncStorage.setItem('token', user.token);
-        runInAction(() => {
-          network.user = user;
-          network.access_token = user.token;
-        });
-        await updateAllData();
-      } else {
-        await getRegisterScreens();
-      }
-      setLoading(false);
-      onNavigateNext();
+      signIn(btn, socData);
     } catch (e) {
       setLoading(false);
       console.log(e);
-      Alert.alert('Ошибка', 'Ошибка при входе. Пожалуйста, попробуйте позднее');
     }
   };
 

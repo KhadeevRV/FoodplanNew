@@ -2426,7 +2426,7 @@ export function sendDataToUrl({url, data}) {
     })
       .then(response => {
         response.json().then(jsonData => {
-          console.log('sendDataToUrl: ' + JSON.stringify(data));
+          console.log('sendDataToUrl: ' + JSON.stringify(jsonData));
           if (jsonData?.status == 'ok') {
             resolve(jsonData?.data);
           } else {

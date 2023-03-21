@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -22,10 +22,17 @@ const UserInfoScreen = observer(({navigation, route}) => {
   const [loading, setloading] = useState(false);
   const [inputColor, setinputColor] = useState('#F5F5F5');
 
-  const screen = network.registerOnboarding.UserInfoScreen;
+  const screen = network.registerOnboarding?.UserInfoScreen;
   const withBack =
     Object.keys(network.registerOnboarding)[0] !== 'UserInfoScreen';
   const fields = screen?.fields;
+
+  const currentField = useMemo(() => {
+    if (fields && fields[step]) {
+      return fields[step];
+    }
+    return null;
+  }, [fields, step]);
 
   const onNext = async () => {
     try {
@@ -58,17 +65,19 @@ const UserInfoScreen = observer(({navigation, route}) => {
       <SafeAreaView />
       <SkipHeader
         withBack={!!withBack}
-        title={fields[step]?.title}
+        title={currentField ? currentField?.title : ''}
         goBack={() => navigation.goBack()}
         withSkip={false}
       />
       <View style={{padding: 16}}>
-        <Text style={styles.title}>{fields[step]?.label}</Text>
+        <Text style={styles.title}>
+          {currentField ? currentField?.label : ''}
+        </Text>
         <TextInput
           style={[styles.input, {backgroundColor: inputColor}]}
           onFocus={() => setinputColor('#EEEEEE')}
           onBlur={() => setinputColor('#F5F5F5')}
-          placeholder={fields[step]?.placeholder}
+          placeholder={currentField ? currentField?.placeholder : ''}
           selectionColor={Colors.textColor}
           value={input}
           onChangeText={setInput}
@@ -76,20 +85,22 @@ const UserInfoScreen = observer(({navigation, route}) => {
         />
       </View>
       <Btn
-        title={fields[step]?.button_text}
+        title={currentField ? currentField?.button_text : null}
         onPress={() => onNext()}
         isLoading={loading}
         customStyle={{
           borderRadius: 16,
           width: common.getLengthByIPhone7(140),
           alignSelf: 'center',
-          backgroundColor: fields[step]?.button_background,
+          backgroundColor: currentField
+            ? currentField?.button_background
+            : '#FFF',
           marginTop: 26,
         }}
         customTextStyle={{
           fontSize: 16,
           lineHeight: 19,
-          color: fields[step]?.button_text_color,
+          color: currentField ? currentField?.button_text_color : '#FFF',
         }}
         backgroundColor={Colors.yellow}
         underlayColor={Colors.underLayYellow}

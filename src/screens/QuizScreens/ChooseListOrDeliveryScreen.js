@@ -15,7 +15,7 @@ import Colors from '../../constants/Colors';
 import network, {sendAnswer, sendDataToUrl} from '../../../Utilites/Network';
 
 const ChooseListOrDeliveryScreen = observer(({navigation}) => {
-  const screen = network.registerOnboarding.ChooseListOrDeliveryScreen;
+  const screen = network.registerOnboarding?.ChooseListOrDeliveryScreen;
 
   const onPress = btn => {
     sendDataToUrl({

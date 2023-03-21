@@ -61,7 +61,6 @@ export const updateAllData = async () => {
   await Promise.all([
     getTranslate(),
     getInitialScreens(),
-    getRegisterScreens(),
     getMenu(),
     getStores(),
     getUserCards(),
@@ -185,7 +184,7 @@ export const SplashScreen = observer(({navigation}) => {
         await updateInfo('lang_app', localeValue);
         // await getUserInfo();
       }
-      await updateAllData();
+      await Promise.all([updateAllData(), getRegisterScreens()]);
       ampInstance.logEvent('app opened');
       const subItems = await getTariffs();
       await initSubs(subItems);

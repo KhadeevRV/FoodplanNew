@@ -33,7 +33,7 @@ import {Picker} from '@react-native-picker/picker';
 import {GreyBtn} from '../../components/GreyBtn';
 
 const PersonsQuizScreen = observer(({navigation}) => {
-  const screen = network.registerOnboarding.PersonsQuizScreen;
+  const screen = network.registerOnboarding?.PersonsQuizScreen;
 
   const items = screen?.values;
   const withBack =
@@ -137,7 +137,7 @@ const PersonsQuizScreen = observer(({navigation}) => {
               }}
               selectedValue={selectedPers}
               onValueChange={itemValue => setSelectedPers(itemValue)}>
-              {items.map((item, index) => (
+              {items?.map((item, index) => (
                 <Picker.Item
                   label={item?.name}
                   value={item?.value}
@@ -147,7 +147,7 @@ const PersonsQuizScreen = observer(({navigation}) => {
             </Picker>
           ) : (
             <WheelPicker
-              data={items.map(item => item.name)}
+              data={items?.map(item => item.name)}
               style={{
                 width: common.getLengthByIPhone7(252),
                 alignSelf: 'center',

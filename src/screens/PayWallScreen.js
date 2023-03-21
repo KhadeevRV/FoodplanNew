@@ -1,33 +1,19 @@
-import React, {
-  Component,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
   Image,
   Platform,
   Alert,
   TouchableOpacity,
   Linking,
 } from 'react-native';
-import {FlatList, ScrollView, TextInput} from 'react-native-gesture-handler';
-import {observer, Observer, useObserver} from 'mobx-react-lite';
-import {runInAction} from 'mobx';
+import {ScrollView} from 'react-native-gesture-handler';
+import {observer} from 'mobx-react-lite';
 import common from '../../Utilites/Common';
-import SkipHeader from '../components/SkipHeader';
 import Colors from '../constants/Colors';
-import network, {
-  payAppleOrAndroid,
-  getMenu,
-  getFavors,
-  getUserInfo,
-} from '../../Utilites/Network';
+import network, {payAppleOrAndroid, getUserInfo} from '../../Utilites/Network';
 import PayWallItem from '../components/PayWallScreen/PayWallItem';
 import {Btn} from '../components/Btn';
 import * as RNIap from 'react-native-iap';
@@ -39,7 +25,7 @@ import {FooterItem} from './ProfileScreen';
 import DayRecipeCard from '../components/MenuScreen/DayRecipeCard';
 import {TrialModal} from '../components/PayWallScreen/TrialModal';
 import RNRestart from 'react-native-restart';
-import {getBottomSpace} from 'react-native-iphone-x-helper';
+import {getBottomSpace, getStatusBarHeight} from 'react-native-iphone-x-helper';
 import {updateAllData} from './SplashScreen';
 
 const sendAnalytics = plan => {
@@ -323,11 +309,15 @@ const PayWallScreen = observer(({navigation, route}) => {
       const endDate = new Date();
       const dateDiff = Math.abs(startDate - endDate);
       console.log('dateDiff', dateDiff);
-      dateDiff > screen?.timeout
-        ? setUserLoadingData(false)
-        : setTimeout(() => {
-            setUserLoadingData(false);
-          }, screen?.timeout - dateDiff);
+      if (screen?.timeout) {
+        dateDiff > screen?.timeout
+          ? setUserLoadingData(false)
+          : setTimeout(() => {
+              setUserLoadingData(false);
+            }, screen?.timeout - dateDiff);
+      } else {
+        setUserLoadingData(false);
+      }
     }
   }, [fromOnboarding, screen?.timeout]);
 
@@ -337,7 +327,6 @@ const PayWallScreen = observer(({navigation, route}) => {
 
   return (
     <>
-      <SafeAreaView style={{backgroundColor: '#FFF'}} />
       <Spinner visible={loading} />
       <ScrollView
         style={{flex: 1, backgroundColor: '#FFF'}}
@@ -459,7 +448,7 @@ const styles = StyleSheet.create({
   },
   closeView: {
     position: 'absolute',
-    top: 0,
+    top: getStatusBarHeight(),
     left: 0,
     padding: 24,
     zIndex: 100,

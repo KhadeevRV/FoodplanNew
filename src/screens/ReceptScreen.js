@@ -699,7 +699,7 @@ const ReceptScreen = observer(({navigation, route}) => {
           underlayColor={Colors.underLayYellow}>
           <Image
             source={require('../../assets/icons/complete.png')}
-            style={{width: 18, height: 14}}
+            style={{width: 18, height: 14, tintColor: '#FFF'}}
           />
         </TouchableHighlight>
       );
@@ -724,9 +724,11 @@ const ReceptScreen = observer(({navigation, route}) => {
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Image
             source={require('../../assets/icons/list.png')}
-            style={{width: 18, height: 23, marginRight: 12}}
+            style={{width: 18, height: 23, marginRight: 12, tintColor: '#FFF'}}
           />
-          <Text style={styles.subText}>{network?.strings?.ToTheList}</Text>
+          <Text style={[styles.subText, {color: '#FFF'}]}>
+            {network?.strings?.ToTheList}
+          </Text>
         </View>
       </TouchableHighlight>
     );
@@ -759,7 +761,7 @@ const ReceptScreen = observer(({navigation, route}) => {
           ) : (
             <Image
               source={require('../../assets/icons/complete.png')}
-              style={{width: 18, height: 14}}
+              style={{width: 18, height: 14, tintColor: '#FFF'}}
             />
           )}
         </TouchableHighlight>
@@ -808,7 +810,9 @@ const ReceptScreen = observer(({navigation, route}) => {
                 source={require('../../assets/icons/basket.png')}
                 style={{width: 23, height: 23, marginRight: 12}}
               />
-              <Text style={styles.subText}>{network.strings?.AddToBasket}</Text>
+              <Text style={[styles.subText, {color: '#FFF'}]}>
+                {network.strings?.AddToBasket}
+              </Text>
             </>
           )}
         </View>
