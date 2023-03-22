@@ -161,7 +161,7 @@ class Network {
     const recAccess = rec?.access;
     const userAccess = this.user?.access;
     // const dayAccess = this.dayDishes.filter(dish => dish.id == rec.id).length;
-    if (userAccess || recAccess || network.isBasketUser()) {
+    if (userAccess || recAccess) {
       return true;
     } else {
       return false;

@@ -757,7 +757,7 @@ const ReceptScreen = observer(({navigation, route}) => {
           disabled={isLoading}
           underlayColor={Colors.underLayYellow}>
           {isLoading ? (
-            <ActivityIndicator color={Colors.textColor} />
+            <ActivityIndicator color={'#FFF'} />
           ) : (
             <Image
               source={require('../../assets/icons/complete.png')}
@@ -803,12 +803,17 @@ const ReceptScreen = observer(({navigation, route}) => {
         underlayColor={Colors.underLayYellow}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           {isLoading ? (
-            <ActivityIndicator color={Colors.textColor} />
+            <ActivityIndicator color={'#FFF'} />
           ) : (
             <>
               <Image
                 source={require('../../assets/icons/basket.png')}
-                style={{width: 23, height: 23, marginRight: 12}}
+                style={{
+                  width: 23,
+                  height: 23,
+                  marginRight: 12,
+                  tintColor: '#FFF',
+                }}
               />
               <Text style={[styles.subText, {color: '#FFF'}]}>
                 {network.strings?.AddToBasket}

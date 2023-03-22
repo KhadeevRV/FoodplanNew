@@ -279,7 +279,12 @@ export const SplashScreen = observer(({navigation}) => {
             justifyContent: 'center',
           }}>
           <Animated.Image
-            style={{width: 70, height: 70, transform: [{translateX: btnAnim}]}}
+            style={{
+              width: 70,
+              height: 70,
+              tintColor: Colors.yellow,
+              transform: [{translateX: btnAnim}],
+            }}
             source={require('../../assets/img/splashIcon.png')}
           />
           <Animated.Image

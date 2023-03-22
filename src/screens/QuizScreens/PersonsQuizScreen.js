@@ -51,9 +51,9 @@ const PersonsQuizScreen = observer(({navigation}) => {
   };
 
   const {startAnim, fadeAnim, marginAnim, contentMargin} = QuizAnimation();
-  console.log(screen);
+
   const [selectedPers, setSelectedPers] = useState(
-    screen?.default ? screen.default - 1 : 0,
+    screen?.default ? screen.default : 0,
   );
 
   useEffect(() => {

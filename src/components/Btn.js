@@ -36,7 +36,7 @@ export const Btn = ({
       underlayColor={underlayColor}
       disabled={disabled}>
       {isLoading ? (
-        <ActivityIndicator size={'small'} color={Colors.textColor} />
+        <ActivityIndicator size={'small'} color={'#FFF'} />
       ) : title ? (
         <Text
           allowFontScaling={false}

@@ -79,7 +79,8 @@ const ChooseLoginScreen = ({navigation}) => {
 
   const gmailSignIn = async () => {
     try {
-      if (GoogleSignin.isSignedIn()) {
+      const isSignedIn = await GoogleSignin.isSignedIn();
+      if (isSignedIn) {
         await GoogleSignin.revokeAccess();
         await GoogleSignin.signOut();
       }
@@ -119,7 +120,7 @@ const ChooseLoginScreen = ({navigation}) => {
     } catch (e) {
       setLoading(false);
       console.log(e);
-      Alert.alert('Ошибка', 'Ошибка при входе. Пожалуйста, попробуйте позднее');
+      Alert.alert('Ошибка', e);
     }
   };
 

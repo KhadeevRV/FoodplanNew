@@ -357,7 +357,7 @@ const MapScreen = observer(({navigation, route}) => {
           disabled={isLoading}
           underlayColor={Colors.underLayYellow}>
           {isLoading ? (
-            <ActivityIndicator color={Colors.textColor} />
+            <ActivityIndicator color={'#FFF'} />
           ) : (
             <Text style={styles.addressSheetValue}>
               {isFullAdr
@@ -475,7 +475,7 @@ const MapScreen = observer(({navigation, route}) => {
             borderRadius: 20,
             elevation: 12,
           }}>
-          <Text style={styles.addressSheetValue}>
+          <Text style={[styles.addressSheetValue, {color: Colors.textColor}]}>
             {network.strings?.WithoutDeliveryButton}
           </Text>
         </TouchableOpacity>

@@ -82,6 +82,9 @@ const UserInfoScreen = observer(({navigation, route}) => {
           value={input}
           onChangeText={setInput}
           autoFocus={true}
+          keyboardType={
+            currentField?.key == 'email' ? 'email-address' : 'default'
+          }
         />
       </View>
       <Btn

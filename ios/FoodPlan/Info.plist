@@ -41,6 +41,8 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string></string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.741267126814-t7i3iijliova6mfs080uc154bf70okmt</string>
@@ -70,16 +72,16 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Access camera</string>
-  <key>NSPhotoLibraryUsageDescription</key>
-  <string>Предоставив доступ, вы сможете выбрать фото для рецепта</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Определив ваш адрес, мы проверим наличие продуктов в ближайшем магазине и покажем, что в наличии.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Определив ваш адрес, мы проверим наличие продуктов в ближайшем магазине и покажем, что в наличии.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Определив ваш адрес, мы проверим наличие продуктов в ближайшем магазине и покажем, что в наличии.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Предоставив доступ, вы сможете выбрать фото для рецепта</string>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>Можно ли использовать данные о вашей активности? Тогда реклама Foodplan будет более актуальной.</string>
-  <key>NSLocationAlwaysUsageDescription</key>
-  <string>Определив ваш адрес, мы проверим наличие продуктов в ближайшем магазине и покажем, что в наличии.</string>
-  <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-  <string>Определив ваш адрес, мы проверим наличие продуктов в ближайшем магазине и покажем, что в наличии.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SFProDisplay-Black.ttf</string>

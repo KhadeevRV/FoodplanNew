@@ -166,7 +166,7 @@ const DayRecipeCard = observer(({recept, onPress, listHandler}) => {
     if (isLoading) {
       return (
         <ActivityIndicator
-          color={Colors.textColor}
+          color={isAdded ? '#FFF' : Colors.textColor}
           style={{width: 14, height: 14}}
           size={14}
         />

@@ -23,7 +23,6 @@ import {runInAction} from 'mobx';
 import {Btn} from '../components/Btn';
 import common from '../../Utilites/Common';
 import Colors from '../constants/Colors';
-import {getBottomSpace, getStatusBarHeight} from 'react-native-iphone-x-helper';
 import network, {
   getBasket,
   getList,
@@ -35,6 +34,7 @@ import network, {
 } from '../../Utilites/Network';
 import {ShadowView} from '../components/ShadowView';
 import {ampInstance} from '../../App';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export const StoreView = ({
   store,
@@ -104,7 +104,7 @@ export const StoreView = ({
                       width: 6,
                       height: 6,
                       borderRadius: 3,
-                      backgroundColor: Colors.textColor,
+                      backgroundColor: '#FFF',
                     }}
                   />
                 ) : null}
@@ -151,6 +151,7 @@ export const StoreView = ({
 
 const StoresScreen = observer(({navigation, route}) => {
   const title = route?.params?.title;
+  const insets = useSafeAreaInsets();
   const [stores, setStores] = useState(route?.params?.stores);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingStores, setIsLoadingStores] = useState(false);
@@ -164,7 +165,7 @@ const StoresScreen = observer(({navigation, route}) => {
   const coords = route?.params?.coords;
   const fullAddress = route?.params?.fullAddress;
   const fromOnboarding = route.params?.fromOnboarding;
-  const screen = network.onboarding?.MapScreen;
+  const screen = network.registerOnboarding?.MapScreen;
 
   const onFetch = async () => {
     try {
@@ -263,9 +264,7 @@ const StoresScreen = observer(({navigation, route}) => {
   return (
     <View style={{flex: 1, backgroundColor: '#FFF'}}>
       {Platform.OS == 'ios' ? (
-        <SafeAreaView
-          style={{backgroundColor: '#FFF', height: getStatusBarHeight()}}
-        />
+        <SafeAreaView style={{backgroundColor: '#FFF', height: insets.top}} />
       ) : (
         <SafeAreaView style={{backgroundColor: '#FFF'}} />
       )}
@@ -312,7 +311,7 @@ const StoresScreen = observer(({navigation, route}) => {
                         width: 6,
                         height: 6,
                         borderRadius: 3,
-                        backgroundColor: Colors.textColor,
+                        backgroundColor: '#FFF',
                       }}
                     />
                   ) : null}
@@ -322,14 +321,14 @@ const StoresScreen = observer(({navigation, route}) => {
           </>
         )}
       </ScrollView>
-      <View style={{paddingBottom: getBottomSpace() + 8}}>
+      <View style={{paddingBottom: insets.bottom + 8}}>
         <TouchableHighlight
           onPress={() => confirmStore()}
           style={styles.touchContainer}
           disabled={isLoading}
           underlayColor={Colors.underLayYellow}>
           {isLoading ? (
-            <ActivityIndicator color={Colors.textColor} />
+            <ActivityIndicator color={'#FFF'} />
           ) : (
             <Text style={styles.touchText}>
               {network.strings?.RetailerOkButton}

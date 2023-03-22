@@ -108,18 +108,11 @@ const PayScreen = observer(({navigation}) => {
       </View>
     </View>,
   ];
-  const mainScroll = useRef(null);
-  // console.log(network.user.ad)
+
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={{flex: 1, backgroundColor: '#FFF'}}>
-        {Platform.OS == 'ios' ? (
-          <SafeAreaView
-            style={{backgroundColor: '#FFF', height: getStatusBarHeight()}}
-          />
-        ) : (
-          <SafeAreaView style={{backgroundColor: '#FFF'}} />
-        )}
+        <SafeAreaView style={{backgroundColor: '#FFF'}} />
         {header}
         <View style={{paddingBottom: 120, paddingHorizontal: 16, flex: 1}}>
           <TouchableOpacity

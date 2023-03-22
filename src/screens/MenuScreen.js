@@ -107,7 +107,7 @@ const MenuScreen = observer(({navigation}) => {
 
   const header = [
     <View style={styles.header} key={'menuHeader'}>
-      <Text style={styles.headerTitle}>Меню недели</Text>
+      <Text style={styles.headerTitle}>{network.strings?.MenuScreenTitle}</Text>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <TouchableOpacity
           activeOpacity={1}
@@ -177,30 +177,6 @@ const MenuScreen = observer(({navigation}) => {
           activeOpacity={1}
           style={{paddingHorizontal: 13, paddingVertical: 11}}
           onPress={() => goToProfile()}>
-          {/*{network.user?.access ? null : (*/}
-          {/*  <View*/}
-          {/*    style={{*/}
-          {/*      width: 10,*/}
-          {/*      height: 10,*/}
-          {/*      borderRadius: 10,*/}
-          {/*      backgroundColor: '#FFF',*/}
-          {/*      position: 'absolute',*/}
-          {/*      top: 11,*/}
-          {/*      right: 14,*/}
-          {/*      justifyContent: 'center',*/}
-          {/*      alignItems: 'center',*/}
-          {/*      zIndex: 100,*/}
-          {/*    }}>*/}
-          {/*    <View*/}
-          {/*      style={{*/}
-          {/*        width: 6,*/}
-          {/*        height: 6,*/}
-          {/*        borderRadius: 3,*/}
-          {/*        backgroundColor: Colors.yellow,*/}
-          {/*      }}*/}
-          {/*    />*/}
-          {/*  </View>*/}
-          {/*)}*/}
           <Image
             source={require('../../assets/icons/profile.png')}
             style={{width: 20, height: 22}}

@@ -86,7 +86,7 @@ const AnalogueProduct = observer(({product, onPress, currentProduct}) => {
                     width: 6,
                     height: 6,
                     borderRadius: 3,
-                    backgroundColor: Colors.textColor,
+                    backgroundColor: '#FFF',
                   }}
                 />
               ) : null}

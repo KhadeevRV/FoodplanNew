@@ -16,9 +16,11 @@ import {observer} from 'mobx-react-lite';
 import Modal from 'react-native-modal';
 import {getBottomSpace} from 'react-native-iphone-x-helper';
 import {runInAction} from 'mobx';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {strings} from '../../assets/localization/localization';
 
 export const CardsModal = observer(({modal, closeModal, navigation}) => {
+  const insets = useSafeAreaInsets();
   const body = useMemo(() => {
     const cards = [];
     for (let i = 0; i < network?.userCards.length; i++) {
@@ -82,7 +84,7 @@ export const CardsModal = observer(({modal, closeModal, navigation}) => {
       propagateSwipe={true}
       backdropOpacity={0.4}
       style={{margin: 0, justifyContent: 'flex-end'}}>
-      <View style={styles.mainBlock}>
+      <View style={[styles.mainBlock, {paddingBottom: 8 + insets.bottom}]}>
         <Text style={styles.title}>{network.strings?.Payment}</Text>
         <ScrollView bounces={false} style={{maxHeight: 300}}>
           {body}
@@ -102,7 +104,9 @@ export const CardsModal = observer(({modal, closeModal, navigation}) => {
         <TouchableOpacity
           style={{alignItems: 'center', paddingVertical: 17}}
           onPress={closeModal}>
-          <Text style={styles.subText}>{network.strings?.CloseCreditCardPopover}</Text>
+          <Text style={styles.subText}>
+            {network.strings?.CloseCreditCardPopover}
+          </Text>
         </TouchableOpacity>
       </View>
     </Modal>
@@ -122,7 +126,6 @@ const styles = StyleSheet.create({
   },
   mainBlock: {
     backgroundColor: '#FFF',
-    paddingBottom: 8 + getBottomSpace(),
     paddingTop: 22,
     borderTopStartRadius: 16,
     borderTopEndRadius: 16,

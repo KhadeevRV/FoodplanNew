@@ -9,7 +9,6 @@ import {
   Platform,
   TouchableHighlight,
   ScrollView,
-  ActivityIndicator,
 } from 'react-native';
 import Colors from '../constants/Colors';
 import network, {selectUserAddress} from '../../Utilites/Network';

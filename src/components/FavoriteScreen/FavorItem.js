@@ -103,21 +103,21 @@ const FavorItem = observer(
       if (isLoading) {
         return (
           <ActivityIndicator
-            color={Colors.textColor}
-            style={{marginVertical: 8, width: 12, height: 12}}
-            size={12}
+            color={isAdded ? '#FFF' : Colors.textColor}
+            style={{marginVertical: 8, width: 6, height: 6}}
+            size={6}
           />
         );
       }
       if (isAdded) {
         return (
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Text style={[styles.btnTitle, {marginRight: 2}]}>
+            <Text style={[styles.btnTitle, {marginRight: 2, color: '#FFF'}]}>
               {network?.strings?.Added}
             </Text>
             <Image
               source={require('../../../assets/icons/complete.png')}
-              style={{width: 10, height: 8}}
+              style={{width: 10, height: 8, tintColor: '#FFF'}}
             />
           </View>
         );

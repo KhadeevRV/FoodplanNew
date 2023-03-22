@@ -9,11 +9,11 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import {TouchableHighlight} from 'react-native-gesture-handler';
-import {getBottomSpace} from 'react-native-iphone-x-helper';
 import common from '../../Utilites/Common';
 import network from '../../Utilites/Network';
 import Colors from '../constants/Colors';
 import {strings} from '../../assets/localization/localization';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 const BottomListBtn = observer(
   ({
@@ -45,10 +45,11 @@ const BottomListBtn = observer(
         network.basketInfo?.summa_in_cart,
         network.basketInfo?.delivery_free_min,
       ) == 100;
+    const insets = useSafeAreaInsets();
 
     if (!network.isBasketUser()) {
       return (
-        <View style={styles.container}>
+        <View style={[styles.container, {paddingBottom: 8 + insets.bottom}]}>
           <TouchableHighlight
             onPress={() => navigation.navigate('ListScreen')}
             style={{
@@ -94,7 +95,12 @@ const BottomListBtn = observer(
     }
 
     return (
-      <View style={[styles.container, containerStyle]}>
+      <View
+        style={[
+          styles.container,
+          {paddingBottom: 8 + insets.bottom},
+          containerStyle,
+        ]}>
         <View
           style={[
             styles.line,
@@ -180,7 +186,7 @@ const BottomListBtn = observer(
           underlayColor={Colors.underLayYellow}>
           {isLoading || network.isLoadingBasket ? (
             <View>
-              <ActivityIndicator color={Colors.textColor} />
+              <ActivityIndicator color={'#FFF'} />
             </View>
           ) : (
             <View
@@ -246,7 +252,6 @@ const styles = StyleSheet.create({
     padding: 16,
     paddingTop: 8,
     backgroundColor: '#FFF',
-    paddingBottom: getBottomSpace() + 8,
     borderTopWidth: 0.5,
     borderColor: '#D3D3D3',
   },
