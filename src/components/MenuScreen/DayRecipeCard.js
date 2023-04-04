@@ -87,9 +87,9 @@ const DayRecipeCard = observer(({recept, onPress, listHandler}) => {
   const isInFavor = !!network.favorDishes.filter(item => item.id == recept.id)
     .length;
   const isLoading = network.isLoadingBasket == recept.id;
-  const isUnavailable = !!network.unavailableRecipes.filter(
-    item => item.id == recept.id,
-  ).length;
+  const isUnavailable =
+    network.isBasketUser() &&
+    !!network.unavailableRecipes.filter(item => item.id == recept.id).length;
   const isAccess = network.canOpenRec(recept);
   const isInBasket = useMemo(() => {
     if (network.basketInfo?.recipes) {

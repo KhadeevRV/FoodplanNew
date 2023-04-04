@@ -27,6 +27,7 @@ import {TrialModal} from '../components/PayWallScreen/TrialModal';
 import RNRestart from 'react-native-restart';
 import {getBottomSpace, getStatusBarHeight} from 'react-native-iphone-x-helper';
 import {updateAllData} from './SplashScreen';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const sendAnalytics = plan => {
   let today = new Date();
@@ -98,6 +99,7 @@ const PayWallScreen = observer(({navigation, route}) => {
   const [textMode, setTextMode] = useState('privacy');
   const [privacyModal, setprivacyModal] = useState(false);
   const [trialModal, setTrialModal] = useState(false);
+  const insets = useSafeAreaInsets();
 
   const screen = data ?? network.registerOnboarding.PayWallScreen;
   const notTrialPlans = useMemo(() => {
@@ -283,7 +285,7 @@ const PayWallScreen = observer(({navigation, route}) => {
             style={{
               flexDirection: 'row',
               alignItems: 'flex-start',
-              marginBottom: 16,
+              marginBottom: 14,
             }}
             key={i.toString()}>
             <Image
@@ -344,14 +346,10 @@ const PayWallScreen = observer(({navigation, route}) => {
         {/*<Text style={styles.title}>{screen?.title}</Text>*/}
         <Image
           source={{uri: screen?.image}}
-          borderBottomLeftRadius={24}
-          borderBottomRightRadius={24}
           style={{
             width: '100%',
             alignSelf: 'center',
-            height: common.getLengthByIPhone7(272),
-            borderBottomLeftRadius: 24,
-            borderBottomRightRadius: 24,
+            height: common.getLengthByIPhone7(264),
           }}
         />
         <View style={{marginVertical: 24, paddingHorizontal: 16}}>
@@ -364,7 +362,7 @@ const PayWallScreen = observer(({navigation, route}) => {
           alignItems: 'center',
           padding: 8,
           backgroundColor: '#FFF',
-          paddingBottom: getBottomSpace(),
+          paddingBottom: insets.bottom + 8,
         }}>
         {/*{footerArr.map(item => (*/}
         {/*  <FooterItem title={item.title} onPress={item.onPress} key={item.id} />*/}
@@ -401,7 +399,7 @@ const PayWallScreen = observer(({navigation, route}) => {
           style={{
             flexDirection: 'row',
             justifyContent: 'center',
-            marginTop: 16,
+            marginTop: 8,
           }}>
           <Text
             style={[styles.restoreText, {marginRight: 24}]}

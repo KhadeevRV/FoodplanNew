@@ -37,9 +37,9 @@ const FavorItem = observer(
       .length;
     const isAccess = network?.canOpenRec(recept);
     const isLoading = network.isLoadingBasket == recept.id;
-    const isUnavailable = !!network.unavailableRecipes.filter(
-      item => item.id == recept.id,
-    ).length;
+    const isUnavailable =
+      network.isBasketUser() &&
+      !!network.unavailableRecipes.filter(item => item.id == recept.id).length;
     const isInBasket = useMemo(() => {
       if (network.basketInfo?.recipes) {
         const hasRec = network.basketInfo?.recipes?.find(

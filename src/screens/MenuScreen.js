@@ -197,34 +197,49 @@ const MenuScreen = observer(({navigation}) => {
       });
     }
   };
+
+  const openPaywall = () => {
+    if (network.paywalls?.paywall_sale_modal) {
+      setSaleModal(true);
+    } else {
+      navigation.navigate('PayWallScreen', {
+        data: network.paywalls[network.user?.banner?.type],
+      });
+    }
+  };
+
   const listHandler = (isInBasket, recept) => {
     if (network.isBasketUser()) {
       const isUnavailable = network.unavailableRecipes.find(
         rec => rec.id == recept.id,
       );
-      if (isInBasket || !isUnavailable) {
+      if (isInBasket) {
         network.basketHandle(
           isInBasket,
           recept.id,
           recept.persons,
           'MenuScreen',
         );
-      } else {
+        return;
+      }
+      if (!network.canOpenRec(recept)) {
+        openPaywall();
+        return;
+      }
+      if (isUnavailable) {
         setUnavailableRecipe(recept);
         setUnavailableModal(true);
+        return;
       }
+      network.basketHandle(isInBasket, recept.id, recept.persons, 'MenuScreen');
     } else {
       // Если блюдо в списке, то удаляем. Если нет, то проверяем, можно ли его добавить(открыть)
       if (isInBasket) {
         network.deleteFromList(recept);
       } else if (network.canOpenRec(recept)) {
         network.addToList(recept);
-      } else if (network.paywalls?.paywall_sale_modal) {
-        setSaleModal(true);
       } else {
-        navigation.navigate('PayWallScreen', {
-          data: network.paywalls[network.user?.banner?.type],
-        });
+        openPaywall();
       }
     }
   };
@@ -463,9 +478,9 @@ const MenuScreen = observer(({navigation}) => {
   }, [network.user?.store_id, network.stores.length]);
 
   const onNavigateStore = useCallback(() => {
-    if (network.user?.addresses?.length) {
+    if (network.user?.addresses?.length && network.user?.shop_id) {
       navigation.navigate('StoresScreen', {
-        title: network.user?.addresses.map(item =>
+        title: network.user?.addresses?.map(item =>
           item?.id == network.user?.address_active ? item?.full_address : null,
         ),
         coords: network.user.addresses.find(
@@ -475,7 +490,7 @@ const MenuScreen = observer(({navigation}) => {
       });
     } else {
       navigation.navigate(
-        network.userMap == 'google' ? 'GoogleMapScreen' : 'MapScreen',
+        network?.userMap == 'google' ? 'GoogleMapScreen' : 'MapScreen',
       );
     }
   }, [navigation]);

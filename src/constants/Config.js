@@ -18,6 +18,7 @@ const Config = {
       translateY: 0,
     },
   },
+  isDev: __DEV__,
 };
 
 export default Config;

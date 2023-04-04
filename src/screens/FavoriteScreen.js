@@ -54,34 +54,48 @@ const FavoriteScreen = observer(({navigation}) => {
     }
   };
 
+  const openPaywall = () => {
+    if (network.paywalls?.paywall_sale_modal) {
+      setSaleModal(true);
+    } else {
+      navigation.navigate('PayWallScreen', {
+        data: network.paywalls[network.user?.banner?.type],
+      });
+    }
+  };
+
   const listHandler = (isInBasket, recept) => {
     if (network.isBasketUser()) {
       const isUnavailable = network.unavailableRecipes.find(
         rec => rec.id == recept.id,
       );
-      if (isInBasket || !isUnavailable) {
+      if (isInBasket) {
         network.basketHandle(
           isInBasket,
           recept.id,
           recept.persons,
-          'FavoriteScreen',
+          'MenuScreen',
         );
-      } else {
+        return;
+      }
+      if (!network.canOpenRec(recept)) {
+        openPaywall();
+        return;
+      }
+      if (isUnavailable) {
         setUnavailableRecipe(recept);
         setUnavailableModal(true);
+        return;
       }
+      network.basketHandle(isInBasket, recept.id, recept.persons, 'MenuScreen');
     } else {
       // Если блюдо в списке, то удаляем. Если нет, то проверяем, можно ли его добавить(открыть)
       if (isInBasket) {
         network.deleteFromList(recept);
       } else if (network.canOpenRec(recept)) {
         network.addToList(recept);
-      } else if (network.paywalls?.paywall_sale_modal) {
-        setSaleModal(true);
       } else {
-        navigation.navigate('PayWallScreen', {
-          data: network.paywalls[network.user?.banner?.type],
-        });
+        openPaywall();
       }
     }
   };

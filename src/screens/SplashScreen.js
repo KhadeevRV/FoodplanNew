@@ -251,14 +251,14 @@ export const SplashScreen = observer(({navigation}) => {
     allDone();
   }, [funcDone, animDone]);
 
-  useEffect(() => {
-    const onFocus = navigation.addListener('focus', () => {
-      if (Platform.OS == 'android') {
-        StatusBar.setBackgroundColor('rgba(255, 230, 100, 1)', true);
-      }
-    });
-    return onFocus;
-  }, [navigation]);
+  // useEffect(() => {
+  //   const onFocus = navigation.addListener('focus', () => {
+  //     if (Platform.OS == 'android') {
+  //       StatusBar.setBackgroundColor('rgba(255, 230, 100, 1)', true);
+  //     }
+  //   });
+  //   return onFocus;
+  // }, [navigation]);
   useEffect(() => {
     const onBlur = navigation.addListener('blur', () => {
       if (Platform.OS == 'android') {
@@ -270,7 +270,13 @@ export const SplashScreen = observer(({navigation}) => {
 
   return (
     <>
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: '#FFF',
+        }}>
         <View
           style={{
             width: '100%',

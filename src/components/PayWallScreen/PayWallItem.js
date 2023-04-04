@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import {
   View,
   Text,
@@ -15,63 +15,124 @@ import LinearGradient from 'react-native-linear-gradient';
 import network from '../../../Utilites/Network';
 
 const PayWallItem = ({plan, onPress = () => null, pressed}) => {
+  const color = useMemo(() => {
+    if (pressed) {
+      return '#FFF';
+    }
+    return Colors.textColor;
+  }, [pressed]);
+
+  const renderItems = useCallback(() => {
+    if (plan?.items && plan?.items?.length) {
+      return plan.items.map((item, i) => (
+        <View
+          key={i.toString()}
+          style={{flexDirection: 'row', alignItems: 'center', marginTop: 4}}>
+          <Text
+            style={[styles.desc, {color: pressed ? '#FFF' : Colors.grayColor}]}>
+            {item?.text}
+          </Text>
+          <Image
+            style={{width: 24, height: 24, marginLeft: 8}}
+            source={{uri: item?.icon}}
+          />
+        </View>
+      ));
+    }
+    return null;
+  }, [plan.items, pressed]);
+
+  const isHit = plan?.hit;
+
+  const renderHitView = useCallback(() => {
+    if (isHit) {
+      return (
+        <LinearGradient
+          colors={['rgba(255, 91, 1, 1)', 'rgba(255, 224, 1, 1)']}
+          start={{x: 0, y: 1}}
+          end={{x: 1, y: 1}}
+          style={styles.hitView}>
+          <Text style={styles.hitText} allowFontScaling={false}>
+            Популярно
+          </Text>
+        </LinearGradient>
+      );
+    }
+    return null;
+  }, []);
+
+  // {plan?.hit ? (
+  //   <View
+  //     style={[
+  //       styles.saleView,
+  //       {
+  //         backgroundColor: Colors.underLayYellow,
+  //         position: 'absolute',
+  //         top: -6,
+  //         right: -8,
+  //         borderRadius: 4,
+  //       },
+  //     ]}>
+  //     <Text style={styles.hitText}>Популярно</Text>
+  //   </View>
+  // ) : (
+  //   <View />
+  // )}
   return (
     <TouchableHighlight
       style={{
         ...styles.card,
-        backgroundColor: pressed ? '#FFF' : '#F5F5F5',
-        borderColor: pressed ? Colors.yellow : '#F5F5F5',
+        backgroundColor: pressed ? Colors.yellow : '#EAEAEA',
+        paddingTop: isHit ? 0 : 12,
       }}
-      underlayColor={'#FFF'}
+      underlayColor={'rgba(234, 234, 234, 0.5)'}
       onPress={() => onPress()}>
       <>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
-          <Text style={styles.title}>{plan?.name}</Text>
-          {plan?.sale ? (
-            <View style={styles.saleView}>
-              <Text style={styles.hitText}>{plan?.sale}</Text>
-            </View>
-          ) : (
-            <View />
-          )}
-          {plan?.hit ? (
+        {renderHitView()}
+        <View style={{paddingHorizontal: 16}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}>
+            <Text style={[styles.title, {color}]}>{plan?.name}</Text>
             <View
-              style={[
-                styles.saleView,
-                {
-                  backgroundColor: Colors.underLayYellow,
-                  position: 'absolute',
-                  top: -6,
-                  right: -8,
-                  borderRadius: 4,
-                },
-              ]}>
-              <Text style={styles.hitText}>Популярно</Text>
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              {plan?.old_price ? (
+                <Text
+                  style={[
+                    styles.priceText,
+                    {
+                      marginRight: 8,
+                      textDecorationLine: 'line-through',
+                      color,
+                    },
+                  ]}>
+                  {plan?.old_price}
+                </Text>
+              ) : null}
+              <Text style={[styles.priceText, {color}]}>{plan?.price}</Text>
             </View>
-          ) : (
-            <View />
-          )}
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginTop: 4,
-          }}>
-          {plan?.old_price ? (
-            <Text
-              style={[
-                styles.desc,
-                {marginRight: 4, textDecorationLine: 'line-through'},
-              ]}>
-              {plan?.old_price + ' ' + network?.strings?.Currency}
-            </Text>
+          </View>
+          {plan?.desc || plan?.items?.length ? (
+            <View
+              style={{
+                marginTop: 8,
+              }}>
+              <Text
+                style={[
+                  styles.desc,
+                  {color: pressed ? '#FFF' : Colors.grayColor},
+                ]}>
+                {plan?.desc}
+              </Text>
+              {renderItems()}
+            </View>
           ) : null}
-          <Text style={[styles.desc]}>{plan?.desc}</Text>
         </View>
       </>
     </TouchableHighlight>
@@ -83,9 +144,7 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: '#F5F5F5',
     borderRadius: 16,
-    borderWidth: 2,
     paddingVertical: 12,
-    paddingHorizontal: 16,
     marginBottom: 8,
   },
   title: {
@@ -103,19 +162,28 @@ const styles = StyleSheet.create({
       ios: 'SF Pro Display',
       android: 'SFProDisplay-Medium',
     }),
-    fontSize: 12,
+    fontSize: 13,
     lineHeight: 14,
+    letterSpacing: -0.24,
     fontWeight: '500',
     color: Colors.textColor,
+  },
+  hitView: {
+    paddingVertical: 4,
+    alignItems: 'center',
+    marginBottom: 12,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
   },
   hitText: {
     fontFamily: Platform.select({
       ios: 'SF Pro Display',
-      android: 'SFProDisplay-Medium',
+      android: 'SFProDisplay-Bold',
     }),
-    fontSize: 11,
-    lineHeight: 14,
-    fontWeight: '500',
+    fontSize: 12,
+    lineHeight: 16,
+    fontWeight: '700',
+    letterSpacing: -0.24,
     color: '#FFF',
   },
   saleView: {
@@ -128,11 +196,11 @@ const styles = StyleSheet.create({
   priceText: {
     fontFamily: Platform.select({
       ios: 'SF Pro Display',
-      android: 'SFProDisplay',
+      android: 'SFProDisplay-Medium',
     }),
-    fontSize: 16,
-    lineHeight: 19,
-    fontWeight: Platform.select({ios: '800', android: 'bold'}),
+    fontSize: 17,
+    lineHeight: 20,
+    fontWeight: '500',
     color: Colors.textColor,
   },
 });

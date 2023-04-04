@@ -52,8 +52,8 @@ const ProfileScreen = observer(({navigation}) => {
 
   const rateApp = () => {
     let options = {
-      AppleAppID: '1577136146',
-      GooglePackageName: 'app.wecook',
+      AppleAppID: '1540264589',
+      GooglePackageName: 'com.foodplan',
       OtherAndroidURL: 'http://www.randomappstore.com/app/47172391',
       preferredAndroidMarket: AndroidMarket.Google,
       preferInApp: false,
