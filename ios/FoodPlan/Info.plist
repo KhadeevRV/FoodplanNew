@@ -25,7 +25,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb745105936380970</string>
+				<string>fb169090182524304</string>
 			</array>
 		</dict>
 		<dict>
@@ -52,11 +52,11 @@
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>FacebookAppID</key>
-	<string>745105936380970</string>
+	<string>169090182524304</string>
 	<key>FacebookClientToken</key>
-	<string>1b2502accb93e17efee6e911864046d3</string>
+	<string>f9c5bee68a04203aa3aed8df31c0daca</string>
 	<key>FacebookDisplayName</key>
-	<string>Foodplan New</string>
+	<string>Foodplan</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

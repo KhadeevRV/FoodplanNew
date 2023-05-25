@@ -176,9 +176,10 @@ export const SplashScreen = observer(({navigation}) => {
     getStatus();
     try {
       let newToken = await AsyncStorage.getItem('token');
+      newToken ? runInAction(() => (network.access_token = newToken)) : null;
       console.warn('object123123', newToken);
       network.setUniqueId();
-      await authUser();
+      await authUser(newToken ?? undefined);
       const localeValue = strings.getInterfaceLanguage();
       if (network?.user?.lang_app !== localeValue) {
         await updateInfo('lang_app', localeValue);
@@ -195,7 +196,7 @@ export const SplashScreen = observer(({navigation}) => {
           await getUserFromLink(fromDeepLink);
           await getInitialScreens();
         } catch (e) {
-          await authUser();
+          await authUser(newToken ?? undefined);
         }
       }
       const urls = [];

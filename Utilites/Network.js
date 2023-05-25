@@ -343,7 +343,13 @@ class Network {
 const network = new Network();
 export default network;
 
-export function authUser(email, password) {
+export function authUser(token) {
+  let body = {
+    device_id: network.deviceId,
+    // device_id: '99ACDCAF-F1B7-4F46-981C-50D66E7A9F21',
+    push_id: network.pushId,
+    token,
+  };
   return new Promise(function (resolve, reject) {
     fetch(Config.apiDomain + 'auth/login', {
       method: 'POST',
@@ -351,13 +357,7 @@ export function authUser(email, password) {
         'Content-Type': 'application/json',
         Accept: 'application/json',
       },
-      body: JSON.stringify({
-        device_id: network.deviceId,
-        // device_id: '99ACDCAF-F1B7-4F46-981C-50D66E7A9F21',
-        push_id: network.pushId,
-        email,
-        password,
-      }),
+      body: JSON.stringify(body),
     })
       .then(response => {
         response.json().then(data => {
