@@ -4,36 +4,26 @@ import {
   Text,
   View,
   SafeAreaView,
-  Image,
   Platform,
   KeyboardAvoidingView,
   Alert,
   AsyncStorage,
 } from 'react-native';
-import {
-  TouchableOpacity,
-  FlatList,
-  ScrollView,
-  TextInput,
-} from 'react-native-gesture-handler';
+import {ScrollView, TextInput} from 'react-native-gesture-handler';
 import network, {
   getBasket,
   getCode,
   getFavors,
-  getList,
   getMenu,
   getUserInfo,
-  sendAnswer,
   updateInfo,
 } from '../../Utilites/Network';
-import {observer, Observer, useObserver} from 'mobx-react-lite';
+import {observer} from 'mobx-react-lite';
 import {runInAction} from 'mobx';
 import {Btn} from '../components/Btn';
-import common from '../../Utilites/Common';
 import SkipHeader from '../components/SkipHeader';
 import Colors from '../constants/Colors';
 import Spinner from 'react-native-loading-spinner-overlay';
-import {strings} from '../../assets/localization/localization';
 
 const LoginScreen = observer(({navigation, route}) => {
   const [phone, setPhone] = useState('+');
@@ -161,7 +151,12 @@ const LoginScreen = observer(({navigation, route}) => {
           }
           // onPress={() => sendPhoneWithoutCode()}
           customStyle={{borderRadius: 16}}
-          customTextStyle={{fontWeight: '600', fontSize: 16, lineHeight: 19}}
+          customTextStyle={{
+            fontWeight: '600',
+            fontSize: 16,
+            lineHeight: 19,
+            color: '#FFF',
+          }}
           backgroundColor={Colors.yellow}
           underlayColor={Colors.underLayYellow}
           disabled={phone.length < 2}

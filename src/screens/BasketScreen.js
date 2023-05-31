@@ -390,7 +390,7 @@ const BasketScreen = observer(({navigation, route}) => {
         fromBasket
         isLoading={network.isLoadingBasketInfo || isLoading}
         onPress={() => {
-          if (network.user?.phone) {
+          if (!network.user?.phone) {
             navigation.navigate('LoginScreen', {
               from: 'PayScreen',
             });
