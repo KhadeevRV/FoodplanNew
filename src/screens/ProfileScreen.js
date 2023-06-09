@@ -62,7 +62,7 @@ const ProfileScreen = observer(({navigation}) => {
     };
     Rate.rate(options, success => {
       if (success) {
-        console.warn(success);
+        console.log(success);
       }
     });
   };

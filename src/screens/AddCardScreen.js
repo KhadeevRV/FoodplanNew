@@ -43,6 +43,7 @@ import {useInterval} from './ReceptScreen';
 import {runInAction} from 'mobx';
 import {ampInstance} from '../../App';
 import {strings} from '../../assets/localization/localization';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 const AddCardScreen = observer(({navigation}) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -54,6 +55,7 @@ const AddCardScreen = observer(({navigation}) => {
   const [time, setTime] = useState(0);
   const [cardType, setCardType] = useState('');
   const delay = 500;
+  const insets = useSafeAreaInsets();
 
   const getCardImage = type => {
     switch (type) {
@@ -314,6 +316,7 @@ const AddCardScreen = observer(({navigation}) => {
           <Btn
             backgroundColor={Colors.yellow}
             title={network.strings?.AddCardButton}
+            customTextStyle={{color: '#FFF'}}
             onPress={addCard}
             disabled={
               isLoading || !cardNumber || !cardDate || cardCVV.length !== 3

@@ -31,7 +31,7 @@ export const StoriesModal = observer(({modal, closeModal, stop, setStop,currentP
     }
     const scroll = useRef()
     useEffect(() => {
-        // console.warn(modal,scroll)
+        // console.log(modal,scroll)
         setTimeout(() => {
             scroll.current != undefined && scroll.current != null ? scroll.current.scrollTo({x: SCREEN_WIDTH * currentPage, y: 0, animated: false}) : null
         }, 100);  

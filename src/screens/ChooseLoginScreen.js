@@ -31,7 +31,7 @@ const ChooseLoginScreen = ({navigation}) => {
   const screen = network.onboarding?.ChooseLoginScreen;
 
   const onAppleButtonPress = async () => {
-    console.warn('Beginning Apple Authentication');
+    console.log('Beginning Apple Authentication');
     try {
       const appleAuthRequestResponse = await appleAuth.performRequest({
         requestedOperation: appleAuth.Operation.LOGIN,
@@ -45,7 +45,7 @@ const ChooseLoginScreen = ({navigation}) => {
       return appleAuthRequestResponse;
     } catch (error) {
       if (error.code === appleAuth.Error.CANCELED) {
-        console.warn('User canceled Apple Sign in.');
+        console.log('User canceled Apple Sign in.');
       } else {
         Alert.alert(
           Config.appName,

@@ -81,7 +81,7 @@ export const WebViewModal = ({
   };
 
   const checkUrl = async event => {
-    console.warn('faceface', event.nativeEvent.url);
+    console.log('faceface', event.nativeEvent.url);
     const succsStr = 'fb-access.php';
     const denyStr = 'fb-error.php';
     const succsPay = 'success';

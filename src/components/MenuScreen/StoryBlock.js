@@ -135,7 +135,7 @@ export const StoryBlock = observer(({closeModal = null,stories,stop,setStop,curr
 
     // useEffect(() => {
     //     videoRef.current != undefined && videoRef.current != null ? videoRef.current.seek(0) : setVideoLoad(true)
-    //     // stories[currentStory].video.length ? console.warn(stories[currentStory].video) : setTimeout(() => {
+    //     // stories[currentStory].video.length ? console.log(stories[currentStory].video) : setTimeout(() => {
     //     //     setStop(false)
     //     // }, 300); 
     // }, [currentStory])
@@ -159,7 +159,7 @@ export const StoryBlock = observer(({closeModal = null,stories,stop,setStop,curr
                     text:'OK', onPress: () => closeModal()
                 }])}               // Callback when video cannot be loaded
                 onLoadStart ={() => {
-                    // console.warn('start')
+                    // console.log('start')
                         setVideoLoad(false)
                 }}
                 onBuffer={(e) => {
@@ -210,7 +210,7 @@ export const StoryBlock = observer(({closeModal = null,stories,stop,setStop,curr
                 onPress={() => {
                     const newCur = parseInt(Math.floor(progress / 100) - 1)
                     const newProgress = newCur * 100
-                    // console.warn(network.stories[1].image)
+                    // console.log(network.stories[1].image)
                     if(newCur < stories.length && newCur != -1){
                         setProgress(newProgress)
                         setCurrentStory(newCur)
@@ -288,7 +288,7 @@ export const StoryBlock = observer(({closeModal = null,stories,stop,setStop,curr
                 onPress={() => {
                     const newCur = parseInt(Math.floor(progress / 100) - 1)
                     const newProgress = newCur * 100
-                    // console.warn(network.stories[1].image)
+                    // console.log(network.stories[1].image)
                     if(newCur > 0){
                         setProgress(newProgress)
                         setCurrentStory(newCur)
@@ -308,7 +308,7 @@ export const StoryBlock = observer(({closeModal = null,stories,stop,setStop,curr
                     onPress={() => {
                         const newCur = parseInt(Math.floor(progress / 100) + 1)
                         const newProgress = newCur * 100
-                        // console.warn(network.stories[1].image)
+                        // console.log(network.stories[1].image)
                         if(newCur < stories.length ){
                             setProgress(newProgress)
                             setCurrentStory(newCur)
@@ -329,7 +329,7 @@ export const StoryBlock = observer(({closeModal = null,stories,stop,setStop,curr
                 onPress={() => {
                     const newCur = parseInt(Math.floor(progress / 100) + 1)
                     const newProgress = newCur * 100
-                        // console.warn(network.stories[1].image)
+                        // console.log(network.stories[1].image)
                     if(newCur < stories.length){
                         setProgress(newProgress)
                         setCurrentStory(newCur)
@@ -367,7 +367,7 @@ export const StoryBlock = observer(({closeModal = null,stories,stop,setStop,curr
                                 onPress={() => {
                                     const newCur = parseInt(Math.floor(progress / 100) - 1)
                                     const newProgress = newCur * 100
-                                    // console.warn(network.stories[1].image)
+                                    // console.log(network.stories[1].image)
                                     if(newCur > 0){
                                         setProgress(newProgress)
                                         setCurrentStory(newCur)
@@ -387,7 +387,7 @@ export const StoryBlock = observer(({closeModal = null,stories,stop,setStop,curr
                                     onPress={() => {
                                         const newCur = parseInt(Math.floor(progress / 100) + 1)
                                         const newProgress = newCur * 100
-                                        // console.warn(network.stories[1].image)
+                                        // console.log(network.stories[1].image)
                                         if(newCur < stories.length ){
                                             setProgress(newProgress)
                                             setCurrentStory(newCur)
@@ -408,7 +408,7 @@ export const StoryBlock = observer(({closeModal = null,stories,stop,setStop,curr
                                 onPress={() => {
                                     const newCur = parseInt(Math.floor(progress / 100) + 1)
                                     const newProgress = newCur * 100
-                                        // console.warn(network.stories[1].image)
+                                        // console.log(network.stories[1].image)
                                     if(newCur < stories.length){
                                         setProgress(newProgress)
                                         setCurrentStory(newCur)
@@ -518,7 +518,7 @@ export const StoryBlock = observer(({closeModal = null,stories,stop,setStop,curr
                                 onPress={() => {
                                     const newCur = parseInt(Math.floor(progress / 100) - 1)
                                     const newProgress = newCur * 100
-                                    // console.warn(network.stories[1].image)
+                                    // console.log(network.stories[1].image)
                                     if(newCur > 0){
                                         setProgress(newProgress)
                                         setCurrentStory(newCur)
@@ -538,7 +538,7 @@ export const StoryBlock = observer(({closeModal = null,stories,stop,setStop,curr
                                     onPress={() => {
                                         const newCur = parseInt(Math.floor(progress / 100) + 1)
                                         const newProgress = newCur * 100
-                                        // console.warn(network.stories[1].image)
+                                        // console.log(network.stories[1].image)
                                         if(newCur < stories.length ){
                                             setProgress(newProgress)
                                             setCurrentStory(newCur)
@@ -559,7 +559,7 @@ export const StoryBlock = observer(({closeModal = null,stories,stop,setStop,curr
                                 onPress={() => {
                                     const newCur = parseInt(Math.floor(progress / 100) + 1)
                                     const newProgress = newCur * 100
-                                        // console.warn(network.stories[1].image)
+                                        // console.log(network.stories[1].image)
                                     if(newCur < stories.length){
                                         setProgress(newProgress)
                                         setCurrentStory(newCur)

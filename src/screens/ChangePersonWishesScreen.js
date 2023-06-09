@@ -91,7 +91,7 @@ const ChangeWishesScreen = observer(({navigation, route}) => {
             padding: 16,
             paddingVertical: 15,
           }}
-          onLayout={e => console.warn(e.nativeEvent.layout.height)}>
+          onLayout={e => console.log(e.nativeEvent.layout.height)}>
           <Text style={styles.title}>{network.sectionNames[i]}</Text>
           {network.user?.preference == network.sectionNames[i] ? (
             <Image

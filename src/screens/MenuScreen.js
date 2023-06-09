@@ -454,7 +454,7 @@ const MenuScreen = observer(({navigation}) => {
       console.log('Prompt response:', response);
     });
     const deviceInfo = await OneSignal.getDeviceState();
-    console.warn('deviceInfooo', deviceInfo);
+    console.log('deviceInfooo', deviceInfo);
     runInAction(() => (network.pushId = deviceInfo.userId));
     authUser();
   };

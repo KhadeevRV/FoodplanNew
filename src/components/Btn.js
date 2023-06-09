@@ -34,7 +34,7 @@ export const Btn = ({
       }}
       onPress={() => onPress()}
       underlayColor={underlayColor}
-      disabled={disabled}>
+      disabled={disabled || isLoading}>
       {isLoading ? (
         <ActivityIndicator size={'small'} color={'#FFF'} />
       ) : title ? (

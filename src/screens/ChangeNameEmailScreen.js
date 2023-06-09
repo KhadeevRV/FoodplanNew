@@ -33,7 +33,7 @@ const ChangeNameEmailScreen = observer(({navigation, route}) => {
 
   const save = () => {
     runInAction(() => (network.user[what] = inputValue));
-    // console.warn(what,inputValue)
+    // console.log(what,inputValue)
     what == 'name' ? ampInstance.logEvent('name confirmed') : null;
     updateInfo(what, inputValue);
     navigation.goBack();

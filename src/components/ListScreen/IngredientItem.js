@@ -118,7 +118,7 @@ export const IngredientItem = ({
   });
 
   const onPressedIn = async (duration = 200) => {
-    // console.warn('textRef.current',textRef.current)
+    // console.log('textRef.current',textRef.current)
     if (Platform.OS == 'ios') {
       setTimeout(() => {
         textRef.current.measure((x, y, w, h) => {
@@ -146,7 +146,7 @@ export const IngredientItem = ({
     //     easing: Easing.linear,
     //     useNativeDriver: false,
     // }).start();
-    // console.warn(animStart)
+    // console.log(animStart)
     setTimeout(() => {
       animateStrike(0, 200);
     }, Platform.select({ios: 200, android: 100}));

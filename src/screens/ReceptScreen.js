@@ -276,7 +276,7 @@ const ReceptScreen = observer(({navigation, route}) => {
       !fromHistory ||
       network.listDishes.find(dish => dish.id == currentRec.id)
     ) {
-      console.warn('object');
+      console.log('object');
       setTime(new Date());
     }
   };

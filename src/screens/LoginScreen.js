@@ -86,7 +86,7 @@ const LoginScreen = observer(({navigation, route}) => {
       }
     } catch (err) {
       setloading(false);
-      console.warn(err);
+      console.log(err);
       Alert.alert(network.strings?.Error, err);
     }
   };

@@ -473,12 +473,12 @@ export const createRootNavigator = () => {
                     value: (new Date() - network.screenDate) / 1000,
                     screenTime: (new Date() - network.screenDate) / 1000,
                   });
-                  // console.warn(previousRouteName,'screenTime:', (new Date() - network.screenDate)/1000)
+                  // console.log(previousRouteName,'screenTime:', (new Date() - network.screenDate)/1000)
                 }
                 network.screenDate = new Date();
                 network.currentScreen = currentRouteName;
               });
-              // console.warn(currentRouteName)
+              // console.log(currentRouteName)
             }
             routeNameRef.current = currentRouteName;
           }}>

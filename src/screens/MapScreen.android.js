@@ -108,7 +108,7 @@ const MapScreen = observer(({navigation, route}) => {
         err => sendError(withAlert),
       );
     } catch (error) {
-      console.warn(error);
+      console.log(error);
     }
   };
 

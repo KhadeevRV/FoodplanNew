@@ -37,17 +37,20 @@ const EmailLoginScreen = observer(({navigation, route}) => {
   };
 
   const login = async () => {
+    if (loading) {
+      return;
+    }
+    setloading(true);
     try {
-      setloading(true);
       // await authUser(email, password);
       await loginEmail({email});
       navigation.navigate('SendEmailCodeScreen', {email});
       // await getScreens();
-      setloading(false);
       // onNavigateNext();
     } catch (e) {
-      setloading(false);
       Alert.alert(strings.Error, e);
+    } finally {
+      setloading(false);
     }
   };
 
@@ -96,9 +99,14 @@ const EmailLoginScreen = observer(({navigation, route}) => {
         }}>
         <Btn
           title={network.strings?.SignIn}
-          onPress={login}
+          onPress={() => login()}
           customStyle={{borderRadius: 16}}
-          customTextStyle={{fontWeight: '600', fontSize: 16, lineHeight: 19}}
+          customTextStyle={{
+            fontWeight: '600',
+            fontSize: 16,
+            lineHeight: 19,
+            color: '#FFF',
+          }}
           backgroundColor={Colors.yellow}
           underlayColor={Colors.underLayYellow}
           disabled={!common.validMail(email)}

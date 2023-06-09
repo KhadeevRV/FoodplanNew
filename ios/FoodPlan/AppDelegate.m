@@ -36,6 +36,7 @@ static void InitializeFlipper(UIApplication *application) {
                       didFinishLaunchingWithOptions:launchOptions];
   [GMSServices provideAPIKey:@"AIzaSyBckD6xwkxL5GDA8fXrlFCW74xxoBRYWRw"];
   [FIRApp configure];
+  [YMKMapKit setLocale:@"ru_RU"];
   [YMKMapKit setApiKey: @"31460ec9-f312-465d-a25a-e3017559ad4f"];
 #ifdef FB_SONARKIT_ENABLED
   InitializeFlipper(application);

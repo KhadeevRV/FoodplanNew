@@ -54,7 +54,7 @@ const SettingsScreen = observer(({navigation}) => {
   ];
 
   const toggleSwitch = val => {
-    console.warn(val);
+    console.log(val);
     updateInfo('push_active', !isEnabled);
     runInAction(() => (network.user.show_push = val));
     setIsEnabled(val);

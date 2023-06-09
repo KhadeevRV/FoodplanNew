@@ -57,13 +57,13 @@ export const MyTabBar = observer(({ state, descriptors, navigation }) => {
         alignItems:'center',}}
         onLayout={(e) => {
             if(Platform.OS == 'android'){
-                console.warn('COORDS',e.nativeEvent.layout.width)
+                console.log('COORDS',e.nativeEvent.layout.width)
                 setbtnPos(e.nativeEvent.layout.width)
             } else {
                 e.target.measure( 
                     (x, y,width,height) => {
                         setbtnPos(width)
-                        // console.warn('COORDS',width)
+                        // console.log('COORDS',width)
                     },
                   );
             }

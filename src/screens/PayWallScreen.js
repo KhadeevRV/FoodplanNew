@@ -122,7 +122,7 @@ const PayWallScreen = observer(({navigation, route}) => {
         purchaseDate <= new Date(transcation.transactionDate) ||
         !purchaseDate
       ) {
-        console.warn(
+        console.log(
           'checkTransactionsDONE',
           new Date(transcation.transactionDate),
           transcation.productId,

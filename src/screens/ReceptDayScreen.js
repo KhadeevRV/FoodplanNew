@@ -94,7 +94,7 @@ export const CheckDymanicLink = async navigation => {
     }
   });
   dynamicLinks().onLink(link => {
-    // console.warn('linklinklinklink',link)
+    // console.log('linklinklinklink',link)
     handleDynamicLink(link?.url);
   });
   const linkResult = await dynamicLinks()

@@ -76,17 +76,17 @@ export const SplashScreen = observer(({navigation}) => {
     try {
       await RNIap.initConnection();
       await RNIap.getProducts(items).then(products =>
-        console.warn('productsss: ' + JSON.stringify(products)),
+        console.log('productsss: ' + JSON.stringify(products)),
       );
       await RNIap.getSubscriptions(items).then(products =>
-        console.warn('getSubscriptionssss: ' + JSON.stringify(products)),
+        console.log('getSubscriptionssss: ' + JSON.stringify(products)),
       );
     } catch (error) {
-      console.warn('err: ' + error);
+      console.log('err: ' + error);
     }
     let purchaseUpdated = purchaseUpdatedListener(async purchase => {
       const receipt = purchase.transactionReceipt;
-      console.warn('purchase', purchase);
+      console.log('purchase', purchase);
       if (receipt) {
         RNIap.finishTransaction(receipt);
       }
@@ -129,7 +129,7 @@ export const SplashScreen = observer(({navigation}) => {
       const trackingStatus = await requestTrackingPermission();
       await getStatus(trackingStatus);
     }
-    console.warn('tracking', tracking);
+    console.log('tracking', tracking);
   };
   const delay = 45;
   const [stop, setStop] = useState(false);
@@ -177,7 +177,7 @@ export const SplashScreen = observer(({navigation}) => {
     try {
       let newToken = await AsyncStorage.getItem('token');
       newToken ? runInAction(() => (network.access_token = newToken)) : null;
-      console.warn('object123123', newToken);
+      console.log('object123123', newToken);
       network.setUniqueId();
       await authUser(newToken ?? undefined);
       const localeValue = strings.getInterfaceLanguage();
@@ -211,7 +211,7 @@ export const SplashScreen = observer(({navigation}) => {
       }
       setFuncDone(true);
     } catch (e) {
-      console.warn('object', e);
+      console.log('object', e);
       setErr(true);
       setFuncDone(true);
     }

@@ -71,13 +71,13 @@ const AboutSubScreen = observer(({navigation}) => {
         // Отправляем id на сервер
         payAppleOrAndroid(receipt)
           .then(async () => {
-            console.warn('receipt', receipt);
+            console.log('receipt', receipt);
             // Обновление инфы о пользователе
             try {
               await getUserInfo();
               setLoading(false);
             } catch (error) {
-              console.warn(error);
+              console.log(error);
               setLoading(false);
               Alert.alert(network?.strings?.Error, network?.strings?.BuyError, [
                 {
@@ -96,7 +96,7 @@ const AboutSubScreen = observer(({navigation}) => {
       })
       .catch(err => {
         setLoading(false);
-        console.warn('err requestPurchase: ' + err);
+        console.log('err requestPurchase: ' + err);
       });
   };
 

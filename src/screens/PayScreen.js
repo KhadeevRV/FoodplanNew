@@ -170,7 +170,7 @@ const PayScreen = observer(({navigation}) => {
                   <FloatingLabelInput
                     label={network.strings?.Entrance}
                     value={entrance}
-                    onChangeText={value => setEntrance(value)}
+                    onChangeText={setEntrance}
                     keyboardType="numeric"
                     containerStyles={styles.input}
                     customLabelStyles={{
@@ -179,7 +179,6 @@ const PayScreen = observer(({navigation}) => {
                       fontSizeFocused: 10,
                       fontSizeBlurred: 16,
                     }}
-                    labelStyles={[styles.inputText]}
                   />
                 </View>
                 <View style={{flex: 0.47}}>
@@ -187,7 +186,7 @@ const PayScreen = observer(({navigation}) => {
                     label={network.strings?.Floor}
                     value={floor}
                     keyboardType="numeric"
-                    onChangeText={value => setFloor(value)}
+                    onChangeText={setFloor}
                     containerStyles={styles.input}
                     customLabelStyles={{
                       colorBlurred: '#9A9A9A',
@@ -195,7 +194,6 @@ const PayScreen = observer(({navigation}) => {
                       fontSizeFocused: 10,
                       fontSizeBlurred: 16,
                     }}
-                    labelStyles={styles.inputText}
                   />
                 </View>
               </View>
@@ -211,7 +209,7 @@ const PayScreen = observer(({navigation}) => {
                     label={network.strings?.Appartment}
                     value={flat}
                     keyboardType="numeric"
-                    onChangeText={value => setFlat(value)}
+                    onChangeText={setFlat}
                     containerStyles={styles.input}
                     customLabelStyles={{
                       colorBlurred: '#9A9A9A',
@@ -219,7 +217,6 @@ const PayScreen = observer(({navigation}) => {
                       fontSizeFocused: 10,
                       fontSizeBlurred: 16,
                     }}
-                    labelStyles={styles.inputText}
                   />
                 </View>
                 <View style={{flex: 0.47}}>
@@ -228,7 +225,7 @@ const PayScreen = observer(({navigation}) => {
                     maxLength={10}
                     value={intercom}
                     keyboardType="numbers-and-punctuation"
-                    onChangeText={value => setIntercom(value)}
+                    onChangeText={setIntercom}
                     containerStyles={styles.input}
                     customLabelStyles={{
                       colorBlurred: '#9A9A9A',
@@ -236,43 +233,11 @@ const PayScreen = observer(({navigation}) => {
                       fontSizeFocused: 10,
                       fontSizeBlurred: 16,
                     }}
-                    labelStyles={styles.inputText}
                   />
                 </View>
               </View>
             </View>
           )}
-          {/*<TouchableOpacity*/}
-          {/*  activeOpacity={0.9}*/}
-          {/*  style={{*/}
-          {/*    paddingVertical: 16,*/}
-          {/*    flexDirection: 'row',*/}
-          {/*    alignItems: 'center',*/}
-          {/*  }}*/}
-          {/*  onPress={() => setIsSave(prev => !prev)}>*/}
-          {/*  <View*/}
-          {/*    style={{*/}
-          {/*      width: 20,*/}
-          {/*      height: 20,*/}
-          {/*      borderRadius: 6,*/}
-          {/*      backgroundColor: isSave ? '#7CB518' : '#D3D3D3',*/}
-          {/*      alignItems: 'center',*/}
-          {/*      justifyContent: 'center',*/}
-          {/*    }}>*/}
-          {/*    {isSave ? (*/}
-          {/*      <Image*/}
-          {/*        source={require('../../assets/icons/complete.png')}*/}
-          {/*        style={{*/}
-          {/*          width: 10,*/}
-          {/*          height: 8,*/}
-          {/*        }}*/}
-          {/*      />*/}
-          {/*    ) : null}*/}
-          {/*  </View>*/}
-          {/*  <Text style={[styles.saveText, {marginLeft: 16}]}>*/}
-          {/*    Сохранить адрес для следующих заказов*/}
-          {/*  </Text>*/}
-          {/*</TouchableOpacity>*/}
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Image
               source={require('../../assets/icons/comment.png')}
@@ -293,7 +258,6 @@ const PayScreen = observer(({navigation}) => {
                 fontSizeFocused: 10,
                 fontSizeBlurred: 16,
               }}
-              labelStyles={styles.inputText}
             />
           </View>
           <View style={{paddingTop: 20}}>

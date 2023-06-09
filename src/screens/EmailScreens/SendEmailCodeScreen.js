@@ -1,39 +1,28 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
   View,
   SafeAreaView,
-  Image,
   Platform,
   KeyboardAvoidingView,
-  TouchableOpacity,
-  AsyncStorage,
   Alert,
 } from 'react-native';
 import {FlatList, ScrollView, TextInput} from 'react-native-gesture-handler';
 import network, {
-  getFavors,
-  getMenu,
-  getModals,
   getRegisterScreens,
-  getStores,
-  getUserCards,
-  getUserInfo,
   loginEmail,
 } from '../../../Utilites/Network';
 import {observer} from 'mobx-react-lite';
-import {Btn} from '../../components/Btn';
 import SkipHeader from '../../components/SkipHeader';
 import Colors from '../../constants/Colors';
 import Spinner from 'react-native-loading-spinner-overlay';
-import common from '../../../Utilites/Common';
-import {strings} from '../../../assets/localization/localization';
 import {GreyBtn} from '../../components/GreyBtn';
 import {runInAction} from 'mobx';
 import {ampInstance} from '../../../App';
 import {useInterval} from '../ReceptScreen';
 import {updateAllData} from '../SplashScreen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SendEmailCodeScreen = observer(({navigation, route}) => {
   const [code, setCode] = useState('');
@@ -58,7 +47,12 @@ const SendEmailCodeScreen = observer(({navigation, route}) => {
       );
       return;
     }
-    navigation.navigate('ProfileScreen');
+    if (onboardingKeys.length) {
+      navigation.goBack();
+      navigation.navigate('OnboardingStack', {screen: onboardingKeys[0]});
+    } else {
+      navigation.navigate('ProfileScreen');
+    }
   };
 
   const sendAgain = async () => {
@@ -73,24 +67,38 @@ const SendEmailCodeScreen = observer(({navigation, route}) => {
     }
   };
 
-  const codeHandler = async finalCode => {
+  const codeHandler = async () => {
+    if (loading || code.length !== 4) {
+      return;
+    }
+    console.log('asfasFHAJSFHAJSFH', code);
     setloading(true);
     try {
-      const data = await loginEmail({email, code: finalCode});
+      const data = await loginEmail({email, code});
       if (data) {
         runInAction(async () => {
           network.user = data;
+          console.log('tokentoken', data.token, data);
+          network.access_token = data.token;
+          AsyncStorage.setItem('token', data.token);
           await Promise.all([getRegisterScreens(), updateAllData()]);
           ampInstance.logEvent('login email');
-          setloading(false);
+          setCode('');
           onNavigateNext();
         });
       }
     } catch (err) {
-      setloading(false);
       Alert.alert(network.strings?.Error, err);
+    } finally {
+      setloading(false);
     }
   };
+
+  useEffect(() => {
+    if (code.length === 4) {
+      codeHandler();
+    }
+  }, [code]);
 
   return (
     <KeyboardAvoidingView
@@ -124,14 +132,9 @@ const SendEmailCodeScreen = observer(({navigation, route}) => {
             value={code}
             keyboardType={'numeric'}
             placeholder={'0000'}
-            maxLength={6}
+            maxLength={4}
             placeholderTextColor={'#9A9A9A'}
-            onChangeText={text => {
-              setCode(text);
-              if (text.length === 4) {
-                codeHandler(text);
-              }
-            }}
+            onChangeText={setCode}
             autoFocus={true}
           />
         </View>

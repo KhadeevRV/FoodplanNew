@@ -1,7 +1,7 @@
 import React from 'react';
 import {observable, runInAction} from 'mobx';
 import * as mobx from 'mobx';
-import {AsyncStorage, Platform, Alert} from 'react-native';
+import {Platform, Alert} from 'react-native';
 import Config from '../src/constants/Config';
 import Rate, {AndroidMarket} from 'react-native-rate';
 import {getUniqueId} from 'react-native-device-info';
@@ -9,6 +9,7 @@ import InAppReview from 'react-native-in-app-review';
 import base64 from 'react-native-base64';
 import {ampInstance} from '../App';
 import LocalizedStrings from 'react-native-localization';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class Network {
   ingredients = [];
@@ -236,7 +237,7 @@ class Network {
                       Authorization: 'Bearer ' + network.access_token,
                     },
                   });
-                  console.warn('disableAlert()');
+                  console.log('disableAlert()');
                   this.user.show_feedback_alert = false;
                 }
               });
@@ -348,8 +349,11 @@ export function authUser(token) {
     device_id: network.deviceId,
     // device_id: '99ACDCAF-F1B7-4F46-981C-50D66E7A9F21',
     push_id: network.pushId,
-    token,
   };
+  if (token) {
+    body.token = token;
+  }
+  console.log('BOOOODY', body)
   return new Promise(function (resolve, reject) {
     fetch(Config.apiDomain + 'auth/login', {
       method: 'POST',
@@ -361,7 +365,7 @@ export function authUser(token) {
     })
       .then(response => {
         response.json().then(data => {
-          console.warn('authUser: ' + network.deviceId + JSON.stringify(data));
+          console.log('authUser: ' + network.deviceId + JSON.stringify(data));
           if (data.token) {
             AsyncStorage.setItem('token', data.token);
             mobx.runInAction(() => {
@@ -376,7 +380,7 @@ export function authUser(token) {
         });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -536,7 +540,7 @@ export function getTariffs() {
     })
       .then(response => {
         response.json().then(data => {
-          console.warn('getTariffs: ' + JSON.stringify(data));
+          console.log('getTariffs: ' + JSON.stringify(data));
           if (data.length) {
             resolve(data);
           } else {
@@ -546,7 +550,7 @@ export function getTariffs() {
         });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -562,7 +566,7 @@ export function sendAnswer(
   persons,
   phone,
 ) {
-  console.warn(
+  console.log(
     JSON.stringify({
       device_id: network.deviceId,
       form,
@@ -594,7 +598,7 @@ export function sendAnswer(
         response
           .json()
           .then(data => {
-            console.warn('sendAnswer: ' + JSON.stringify(data));
+            console.log('sendAnswer: ' + JSON.stringify(data));
             if (data) {
               resolve();
             } else {
@@ -608,7 +612,7 @@ export function sendAnswer(
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -636,7 +640,7 @@ export function payAppleOrAndroid(receipt) {
         response
           .json()
           .then(data => {
-            console.warn('payApple: ' + JSON.stringify(data));
+            console.log('payApple: ' + JSON.stringify(data));
             if (data.status == 'ok') {
               resolve();
             } else {
@@ -644,7 +648,7 @@ export function payAppleOrAndroid(receipt) {
               reject();
             }
           })
-          .catch(err => console.warn(err, response));
+          .catch(err => console.log(err, response));
       })
       .catch(err => {
         network.sendAnalyticError(JSON.stringify(err));
@@ -666,7 +670,7 @@ export function getList() {
         response
           .json()
           .then(data => {
-            console.warn('getList: ' + JSON.stringify(data));
+            console.log('getList: ' + JSON.stringify(data));
             if (data) {
               runInAction(() => (network.listDishes = data));
               resolve();
@@ -688,7 +692,7 @@ export function getList() {
 }
 
 export function listAdd(id) {
-  console.warn('listAdd', id);
+  console.log('listAdd', id);
   return new Promise(function (resolve, reject) {
     fetch(Config.apiDomain + 'list/add', {
       method: 'POST',
@@ -702,7 +706,7 @@ export function listAdd(id) {
         response
           .json()
           .then(data => {
-            console.warn('listAdd: ' + JSON.stringify(data));
+            console.log('listAdd: ' + JSON.stringify(data));
             if (data.status == 'ok') {
               resolve();
             } else {
@@ -723,7 +727,7 @@ export function listAdd(id) {
 }
 
 export function listRemove(id) {
-  console.warn('listRemove', id);
+  console.log('listRemove', id);
   return new Promise(function (resolve, reject) {
     fetch(Config.apiDomain + 'list/remove', {
       method: 'POST',
@@ -737,7 +741,7 @@ export function listRemove(id) {
         response
           .json()
           .then(data => {
-            console.warn('listRemove: ' + JSON.stringify(data));
+            console.log('listRemove: ' + JSON.stringify(data));
             if (data.status == 'ok') {
               resolve();
             } else {
@@ -747,12 +751,12 @@ export function listRemove(id) {
           })
           .catch(err => {
             network.sendAnalyticError(JSON.stringify(err));
-            console.warn(err);
+            console.log(err);
             reject();
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -772,7 +776,7 @@ export function listClear() {
         response
           .json()
           .then(data => {
-            console.warn('listClear: ' + JSON.stringify(data));
+            console.log('listClear: ' + JSON.stringify(data));
             if (data.status == 'ok') {
               resolve();
             } else {
@@ -781,13 +785,13 @@ export function listClear() {
             }
           })
           .catch(err => {
-            console.warn(err);
+            console.log(err);
             network.sendAnalyticError(JSON.stringify(err));
             reject();
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -827,13 +831,13 @@ export function basketAdd(id, persons = network.user?.persons) {
             }
           })
           .catch(err => {
-            console.warn(err);
+            console.log(err);
             network.sendAnalyticError(JSON.stringify(err));
             reject();
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -870,13 +874,13 @@ export function basketRemove(id) {
             }
           })
           .catch(err => {
-            console.warn(err);
+            console.log(err);
             network.sendAnalyticError(JSON.stringify(err));
             reject();
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -884,7 +888,7 @@ export function basketRemove(id) {
 }
 
 export function getHistory(page = 1) {
-  console.warn('page', page);
+  console.log('page', page);
   const url = network.isBasketUser()
     ? Config.apiDomain + `cart/history?page=${page}`
     : Config.apiDomain + `list/history?page=${page}`;
@@ -901,7 +905,7 @@ export function getHistory(page = 1) {
         response
           .json()
           .then(data => {
-            console.warn('getHistory: ' + JSON.stringify(data));
+            console.log('getHistory: ' + JSON.stringify(data));
             if (data.data) {
               mobx.runInAction(() => {
                 if (page == 1) {
@@ -933,13 +937,13 @@ export function getHistory(page = 1) {
             }
           })
           .catch(err => {
-            console.warn(err);
+            console.log(err);
             network.sendAnalyticError(JSON.stringify(err));
             reject();
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -949,7 +953,7 @@ export function getHistory(page = 1) {
 export function updateInfo(what, value) {
   let formdata = new FormData();
   formdata.append(what, value);
-  console.warn('object', formdata);
+  console.log('object', formdata);
   return new Promise(function (resolve, reject) {
     fetch(Config.apiDomain + 'user/update', {
       method: 'POST',
@@ -964,7 +968,7 @@ export function updateInfo(what, value) {
         response
           .json()
           .then(data => {
-            console.warn('updateInfo: ' + JSON.stringify(data));
+            console.log('updateInfo: ' + JSON.stringify(data));
             if (data?.status != 'error') {
               resolve();
             }
@@ -977,13 +981,13 @@ export function updateInfo(what, value) {
             }
           })
           .catch(err => {
-            console.warn(err);
+            console.log(err);
             network.sendAnalyticError(JSON.stringify(err));
             reject();
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -991,7 +995,7 @@ export function updateInfo(what, value) {
 }
 
 export function ingredientHandler(id, action) {
-  console.warn(id, action);
+  console.log(id, action);
   let formdata = new FormData();
   formdata.append('ingredient', id);
   formdata.append('action', action);
@@ -1009,7 +1013,7 @@ export function ingredientHandler(id, action) {
         response
           .json()
           .then(data => {
-            console.warn('ingredientHandler: ' + JSON.stringify(data));
+            console.log('ingredientHandler: ' + JSON.stringify(data));
             if (data) {
               resolve();
             } else {
@@ -1018,13 +1022,13 @@ export function ingredientHandler(id, action) {
             }
           })
           .catch(err => {
-            console.warn(err);
+            console.log(err);
             network.sendAnalyticError(JSON.stringify(err));
             reject();
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -1044,7 +1048,7 @@ export function getFavors() {
         response
           .json()
           .then(data => {
-            console.warn('getFavors: ' + JSON.stringify(data));
+            console.log('getFavors: ' + JSON.stringify(data));
             if (data) {
               mobx.runInAction(() => {
                 network.favorDishes = data;
@@ -1056,13 +1060,13 @@ export function getFavors() {
             }
           })
           .catch(err => {
-            console.warn(err);
+            console.log(err);
             network.sendAnalyticError(JSON.stringify(err));
             reject();
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -1087,7 +1091,7 @@ export function favorHandler(id, action) {
         response
           .json()
           .then(data => {
-            console.warn('favorHandler: ', action, JSON.stringify(data));
+            console.log('favorHandler: ', action, JSON.stringify(data));
             if (data) {
               resolve();
             } else {
@@ -1096,13 +1100,13 @@ export function favorHandler(id, action) {
             }
           })
           .catch(err => {
-            console.warn(err);
+            console.log(err);
             network.sendAnalyticError(JSON.stringify(err));
             reject();
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -1139,7 +1143,7 @@ export function getUserInfo(get_order_status) {
         });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -1159,7 +1163,7 @@ export function getCode(phone) {
     })
       .then(response => {
         response.json().then(data => {
-          console.warn('getCode: ' + JSON.stringify(data));
+          console.log('getCode: ' + JSON.stringify(data));
           if (data.status == 'Ok') {
             resolve();
           } else {
@@ -1169,7 +1173,7 @@ export function getCode(phone) {
         });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -1177,7 +1181,7 @@ export function getCode(phone) {
 }
 
 export function sendCode(phone, code) {
-  console.warn(JSON.stringify({code, phone}));
+  console.log(JSON.stringify({code, phone}));
   return new Promise(function (resolve, reject) {
     fetch(Config.apiDomain + 'user/verifycode', {
       method: 'POST',
@@ -1190,7 +1194,7 @@ export function sendCode(phone, code) {
     })
       .then(response => {
         response.json().then(data => {
-          console.warn('sendCode: ' + JSON.stringify(data));
+          console.log('sendCode: ' + JSON.stringify(data));
           if (data.status == 'ok') {
             resolve();
           } else {
@@ -1200,7 +1204,7 @@ export function sendCode(phone, code) {
         });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -1219,7 +1223,7 @@ export function getRecipe(url) {
     })
       .then(response => {
         response.json().then(data => {
-          console.warn('getRecipe: ' + JSON.stringify(data));
+          console.log('getRecipe: ' + JSON.stringify(data));
           if (data.status == 'ok') {
             resolve(data.data);
           } else {
@@ -1229,7 +1233,7 @@ export function getRecipe(url) {
         });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -1248,7 +1252,7 @@ export function getSocials() {
     })
       .then(response => {
         response.json().then(data => {
-          console.warn('getSocials: ' + JSON.stringify(data));
+          console.log('getSocials: ' + JSON.stringify(data));
           if (data.status == 'ok') {
             resolve(data.data);
           } else {
@@ -1258,7 +1262,7 @@ export function getSocials() {
         });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -1278,7 +1282,7 @@ export function setRecipePersons(recipe_id, perons) {
     })
       .then(response => {
         response.json().then(data => {
-          console.warn('setRecipePersons: ' + JSON.stringify(data));
+          console.log('setRecipePersons: ' + JSON.stringify(data));
           if (data.status == 'ok') {
             resolve(data.data);
           } else {
@@ -1288,7 +1292,7 @@ export function setRecipePersons(recipe_id, perons) {
         });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -1305,7 +1309,7 @@ export function iSeeYourDaddy(id) {
     })
       .then(response => {
         response.json().then(data => {
-          console.warn('iSeeYourDaddy: ' + JSON.stringify(data));
+          console.log('iSeeYourDaddy: ' + JSON.stringify(data));
           if (data.status == 'ok') {
             resolve();
           } else {
@@ -1315,7 +1319,7 @@ export function iSeeYourDaddy(id) {
         });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -1323,7 +1327,7 @@ export function iSeeYourDaddy(id) {
 }
 
 export function getShortLink(link) {
-  console.warn('oldLink', link);
+  console.log('oldLink', link);
   return new Promise(function (resolve, reject) {
     fetch(Config.apiDomain + 'generate-short-link', {
       method: 'POST',
@@ -1336,7 +1340,7 @@ export function getShortLink(link) {
     })
       .then(response => {
         response.json().then(data => {
-          console.warn('getShortLink: ' + JSON.stringify(data));
+          console.log('getShortLink: ' + JSON.stringify(data));
           if (data.status == 'ok') {
             resolve(data.link);
           } else {
@@ -1346,7 +1350,7 @@ export function getShortLink(link) {
         });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -1377,7 +1381,7 @@ export function searchProduct(search_query) {
         });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -1406,7 +1410,7 @@ export function getAnalogues(ingredient_id, ingredient_count) {
         });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -1436,7 +1440,7 @@ export function setUserAddress(lat, lon, address, yandex_data) {
         });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -1466,7 +1470,7 @@ export function getStores() {
         });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -1496,7 +1500,7 @@ export function selectUserAddress(id) {
         });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -1536,13 +1540,13 @@ export function productAdd(product, ingredient_count, ingredient_id) {
             }
           })
           .catch(err => {
-            console.warn(err);
+            console.log(err);
             network.sendAnalyticError(JSON.stringify(err));
             reject();
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -1583,13 +1587,13 @@ export function toggleRec(recipe_id) {
             }
           })
           .catch(err => {
-            console.warn(err);
+            console.log(err);
             network.sendAnalyticError(JSON.stringify(err));
             reject();
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -1618,13 +1622,13 @@ export function basketClear() {
             }
           })
           .catch(err => {
-            console.warn(err);
+            console.log(err);
             network.sendAnalyticError(JSON.stringify(err));
             reject();
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -1660,12 +1664,12 @@ export function getStoresByCoords(latitude, longitude) {
           })
           .catch(err => {
             network.sendAnalyticError(JSON.stringify(err));
-            console.warn(err);
+            console.log(err);
             reject();
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -1700,13 +1704,13 @@ export function changeProductCount(product_id, quantity) {
             }
           })
           .catch(err => {
-            console.warn(err);
+            console.log(err);
             network.sendAnalyticError(JSON.stringify(err));
             reject();
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -1738,13 +1742,13 @@ export function sendCheck(TransactionId, PaRes) {
             }
           })
           .catch(err => {
-            console.warn(err);
+            console.log(err);
             network.sendAnalyticError(JSON.stringify(err));
             reject();
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -1780,13 +1784,13 @@ export function getUserCards() {
             }
           })
           .catch(err => {
-            console.warn(err);
+            console.log(err);
             network.sendAnalyticError(JSON.stringify(err));
             reject();
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -1828,13 +1832,13 @@ export function addUserCard(
             }
           })
           .catch(err => {
-            console.warn(err);
+            console.log(err);
             network.sendAnalyticError(JSON.stringify(err));
             reject();
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -1877,13 +1881,13 @@ export function updateAddress(id, entrance, floor, flat, intercom) {
           })
           .catch(err => {
             network.sendAnalyticError(JSON.stringify(err));
-            console.warn(err);
+            console.log(err);
             reject();
           });
       })
       .catch(err => {
         network.sendAnalyticError(JSON.stringify(err));
-        console.warn(err);
+        console.log(err);
         reject('Unknown error.Try again later.');
       });
   });
@@ -1916,13 +1920,13 @@ export function createOrder(delivery_address, card_id, comment) {
             }
           })
           .catch(err => {
-            console.warn(err);
+            console.log(err);
             network.sendAnalyticError(JSON.stringify(err));
             reject();
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -1952,13 +1956,13 @@ export function cancelUserOrder(id_in_table) {
             }
           })
           .catch(err => {
-            console.warn(err);
+            console.log(err);
             network.sendAnalyticError(JSON.stringify(err));
             reject();
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -1988,12 +1992,12 @@ export function getUserIP() {
           })
           .catch(err => {
             network.sendAnalyticError(JSON.stringify(err));
-            console.warn(err);
+            console.log(err);
             reject();
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -2025,12 +2029,12 @@ export function getUnavailableProducts() {
           })
           .catch(err => {
             network.sendAnalyticError(JSON.stringify(err));
-            console.warn(err);
+            console.log(err);
             reject();
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -2066,12 +2070,12 @@ export function getTranslate() {
           })
           .catch(err => {
             network.sendAnalyticError(JSON.stringify(err));
-            console.warn(err);
+            console.log(err);
             reject();
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -2101,12 +2105,12 @@ export function deleteUser() {
           })
           .catch(err => {
             network.sendAnalyticError(JSON.stringify(err));
-            console.warn(err);
+            console.log(err);
             reject();
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -2136,12 +2140,12 @@ export function getPrivacyAndAgreement() {
           })
           .catch(err => {
             network.sendAnalyticError(JSON.stringify(err));
-            console.warn(err);
+            console.log(err);
             reject();
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -2173,12 +2177,12 @@ export function getGeoData(body) {
           })
           .catch(err => {
             network.sendAnalyticError(JSON.stringify(err));
-            console.warn(err);
+            console.log(err);
             reject();
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -2218,12 +2222,12 @@ export function yandexGeoToCoords(text) {
           })
           .catch(err => {
             network.sendAnalyticError(JSON.stringify(err));
-            console.warn(err);
+            console.log(err);
             reject();
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -2255,12 +2259,12 @@ export function sendNewPass(email) {
           })
           .catch(err => {
             network.sendAnalyticError(JSON.stringify(err));
-            console.warn(err);
+            console.log(err);
             reject();
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -2301,12 +2305,12 @@ export function getUserFromLink(user_token) {
           })
           .catch(err => {
             network.sendAnalyticError(JSON.stringify(err));
-            console.warn(err);
+            console.log(err);
             reject();
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -2339,12 +2343,12 @@ export function sendModalId(id) {
           })
           .catch(err => {
             network.sendAnalyticError(JSON.stringify(err));
-            console.warn(err);
+            console.log(err);
             reject();
           });
       })
       .catch(err => {
-        console.warn(err);
+        console.log(err);
         network.sendAnalyticError(JSON.stringify(err));
         reject('Unknown error.Try again later.');
       });
@@ -2397,7 +2401,7 @@ export function loginEmail({email, code}) {
     })
       .then(response => {
         response.json().then(data => {
-          console.log('loginEmail: ' + email + JSON.stringify(data));
+          console.log('loginEmail: ' + email + code + JSON.stringify(data));
           if (data.status == 'ok') {
             resolve(data?.data);
           } else {

@@ -13,7 +13,7 @@ export const Notification = ({notif=null}) => {
       if(icon == 'info'){
         return <Image style={{width:22,height:22,marginRight:10}} source={require('../../assets/icons/notification.png')}/>
       }
-      // console.warn(icon,style,customProps)
+      // console.log(icon,style,customProps)
     }
 
     return (
