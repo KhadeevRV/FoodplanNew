@@ -44,9 +44,11 @@ import {runInAction} from 'mobx';
 import {ampInstance} from '../../App';
 import {strings} from '../../assets/localization/localization';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {VpnModal} from '../components/AddCardScreen/VpnModal';
 
 const AddCardScreen = observer(({navigation}) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [modal, setModal] = useState(false);
   const [cardNumber, setCardNumber] = useState('');
   const [cardDate, setCardDate] = useState('');
   const [cardCVV, setCardCVV] = useState('');
@@ -207,6 +209,10 @@ const AddCardScreen = observer(({navigation}) => {
     }
   };
 
+  useEffect(() => {
+    setTimeout(() => setModal(true), 700);
+  }, []);
+
   return (
     <>
       <KeyboardAvoidingView
@@ -326,6 +332,7 @@ const AddCardScreen = observer(({navigation}) => {
         </View>
       </KeyboardAvoidingView>
       <View style={{height: getBottomSpace(), backgroundColor: '#FFF'}} />
+      <VpnModal modal={modal} closeModal={() => setModal(false)} />
     </>
   );
 });

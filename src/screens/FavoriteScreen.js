@@ -1,4 +1,4 @@
-import React, {Component, useState, useRef, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,37 +7,23 @@ import {
   Image,
   Platform,
   TouchableOpacity,
-  ImageBackground,
-  Animated,
-  Dimensions,
-  Alert,
 } from 'react-native';
-import {
-  FlatList,
-  ScrollView,
-  TextInput,
-  TouchableHighlight,
-} from 'react-native-gesture-handler';
-import network, {getList} from '../../Utilites/Network';
-import {observer, Observer, useObserver} from 'mobx-react-lite';
+import {FlatList} from 'react-native-gesture-handler';
+import network from '../../Utilites/Network';
+import {observer} from 'mobx-react-lite';
 import {runInAction} from 'mobx';
-import {Btn} from '../components/Btn';
 import common from '../../Utilites/Common';
 import Colors from '../constants/Colors';
-import LinearGradient from 'react-native-linear-gradient';
-import {getBottomSpace} from 'react-native-iphone-x-helper';
 import FavorItem from '../components/FavoriteScreen/FavorItem';
-import {FilterModal} from '../components/MenuScreen/FilterModal';
 import BottomListBtn from '../components/BottomListBtn';
 import {UnavailableProductsModal} from '../components/UnavailableProductsModal';
-import {strings} from '../../assets/localization/localization';
 import {SaleModal} from '../components/PayWallScreen/SaleModal';
 
 const FavoriteScreen = observer(({navigation}) => {
-  const [filteredFavors, setFilteredFavors] = useState(network.favorDishes);
-  const [filterModal, setFilterModal] = useState(false);
-  const filterNames = ['Завтраки', 'Обеды', 'Ужины', 'Салаты', 'Десерты'];
-  const [currentFilters, setCurrentFilters] = useState([]);
+  // const [filteredFavors, setFilteredFavors] = useState(network.favorDishes);
+  // const [filterModal, setFilterModal] = useState(false);
+  // const filterNames = ['Завтраки', 'Обеды', 'Ужины', 'Салаты', 'Десерты'];
+  // const [currentFilters, setCurrentFilters] = useState([]);
   const [unavailableModal, setUnavailableModal] = useState(false);
   const [unavailableRecipe, setUnavailableRecipe] = useState({});
   const [saleModal, setSaleModal] = useState(false);
@@ -100,21 +86,21 @@ const FavoriteScreen = observer(({navigation}) => {
     }
   };
 
-  const filterHandler = what => {
-    setCurrentFilters(what);
-    if (what.length) {
-      const newFavor = network.favorDishes.filter(dish => {
-        for (let i = 0; i < what.length; i++) {
-          if (dish?.eating == what[i]) {
-            return true;
-          }
-        }
-      });
-      setFilteredFavors(newFavor);
-    } else {
-      setFilteredFavors(network.favorDishes);
-    }
-  };
+  // const filterHandler = what => {
+  //   setCurrentFilters(what);
+  //   if (what.length) {
+  //     const newFavor = network.favorDishes.filter(dish => {
+  //       for (let i = 0; i < what.length; i++) {
+  //         if (dish?.eating == what[i]) {
+  //           return true;
+  //         }
+  //       }
+  //     });
+  //     setFilteredFavors(newFavor);
+  //   } else {
+  //     setFilteredFavors(network.favorDishes);
+  //   }
+  // };
 
   const header = [
     <View style={styles.header} key={'favorHeader'}>
@@ -160,7 +146,7 @@ const FavoriteScreen = observer(({navigation}) => {
         <FlatList
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{padding: 16}}
-          data={filteredFavors}
+          data={network.favorDishes}
           extraData={network.favorDishes}
           initialNumToRender={3}
           keyExtractor={(item, index) => item.id}

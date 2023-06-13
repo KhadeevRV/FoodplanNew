@@ -1,15 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
-  View,
   Text,
   StyleSheet,
-  Image,
   TouchableHighlight,
   Platform,
   ActivityIndicator,
 } from 'react-native';
 import Colors from '../constants/Colors';
-import Common from '../../Utilites/Common';
 
 export const Btn = ({
   customStyle = {},
@@ -43,9 +40,9 @@ export const Btn = ({
           style={{...styles.title, ...customTextStyle}}>
           {title}
         </Text>
-      ) : (
-        children
-      )}
+      ) : children ? (
+        <>{children}</>
+      ) : null}
     </TouchableHighlight>
   );
 };
