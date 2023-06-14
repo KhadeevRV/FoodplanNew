@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef, useCallback} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   Text,
   Animated,
@@ -9,22 +9,18 @@ import {
   StatusBar,
 } from 'react-native';
 import Colors from '../constants/Colors';
-import Common from '../../Utilites/Common';
 import {View} from 'react-native-animatable';
 import network, {
   getMenu,
   authUser,
-  registerUser,
   getFavors,
   getTariffs,
   getBasket,
   getStores,
   getUserCards,
-  basketClear,
   updateInfo,
   getTranslate,
   getList,
-  getUserInfo,
   getUserFromLink,
   getModals,
   getInitialScreens,
@@ -45,15 +41,8 @@ import Config from '../constants/Config';
 import {ampInstance} from '../../App';
 import {strings} from '../../assets/localization/localization';
 import * as RNIap from 'react-native-iap';
-import {
-  InAppPurchase,
-  PurchaseError,
-  SubscriptionPurchase,
-  purchaseErrorListener,
-  purchaseUpdatedListener,
-} from 'react-native-iap';
+import {purchaseErrorListener, purchaseUpdatedListener} from 'react-native-iap';
 import {CheckDymanicLink} from './ReceptDayScreen';
-import dynamicLinks from '@react-native-firebase/dynamic-links';
 import {useInterval} from './ReceptScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

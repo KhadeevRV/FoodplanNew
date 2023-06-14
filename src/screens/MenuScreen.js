@@ -41,6 +41,7 @@ import {CheckDymanicLink} from './ReceptDayScreen';
 import {ampInstance} from '../../App';
 import {UnavailableProductsModal} from '../components/UnavailableProductsModal';
 import {SaleModal} from '../components/PayWallScreen/SaleModal';
+import LinearGradient from 'react-native-linear-gradient';
 
 const ChangeMenuBtn = ({visible, onPress, title}) => {
   if (!visible) {
@@ -185,20 +186,23 @@ const MenuScreen = observer(({navigation}) => {
       </View>
     </View>,
   ];
-  const openRec = rec => {
-    if (network.canOpenRec(rec)) {
-      const recept = network.allDishes.find(item => item.id == rec.id);
-      navigation.navigate('ReceptScreen', {rec: recept});
-    } else if (network.paywalls?.paywall_sale_modal) {
-      setSaleModal(true);
-    } else {
-      navigation.navigate('PayWallScreen', {
-        data: network.paywalls[network.user?.banner?.type],
-      });
-    }
-  };
+  const openRec = useCallback(
+    rec => {
+      if (network.canOpenRec(rec)) {
+        const recept = network.allDishes.find(item => item.id == rec.id);
+        navigation.navigate('ReceptScreen', {rec: recept});
+      } else if (network.paywalls?.paywall_sale_modal) {
+        setSaleModal(true);
+      } else {
+        navigation.navigate('PayWallScreen', {
+          data: network.paywalls[network.user?.banner?.type],
+        });
+      }
+    },
+    [navigation],
+  );
 
-  const openPaywall = () => {
+  const openPaywall = useCallback(() => {
     if (network.paywalls?.paywall_sale_modal) {
       setSaleModal(true);
     } else {
@@ -206,43 +210,51 @@ const MenuScreen = observer(({navigation}) => {
         data: network.paywalls[network.user?.banner?.type],
       });
     }
-  };
+  }, [navigation]);
 
-  const listHandler = (isInBasket, recept) => {
-    if (network.isBasketUser()) {
-      const isUnavailable = network.unavailableRecipes.find(
-        rec => rec.id == recept.id,
-      );
-      if (isInBasket) {
+  const listHandler = useCallback(
+    (isInBasket, recept) => {
+      if (network.isBasketUser()) {
+        const isUnavailable = network.unavailableRecipes.find(
+          rec => rec.id == recept.id,
+        );
+        if (isInBasket) {
+          network.basketHandle(
+            isInBasket,
+            recept.id,
+            recept.persons,
+            'MenuScreen',
+          );
+          return;
+        }
+        if (!network.canOpenRec(recept)) {
+          openPaywall();
+          return;
+        }
+        if (isUnavailable) {
+          setUnavailableRecipe(recept);
+          setUnavailableModal(true);
+          return;
+        }
         network.basketHandle(
           isInBasket,
           recept.id,
           recept.persons,
           'MenuScreen',
         );
-        return;
-      }
-      if (!network.canOpenRec(recept)) {
-        openPaywall();
-        return;
-      }
-      if (isUnavailable) {
-        setUnavailableRecipe(recept);
-        setUnavailableModal(true);
-        return;
-      }
-      network.basketHandle(isInBasket, recept.id, recept.persons, 'MenuScreen');
-    } else {
-      // Если блюдо в списке, то удаляем. Если нет, то проверяем, можно ли его добавить(открыть)
-      if (isInBasket) {
-        network.deleteFromList(recept);
-      } else if (network.canOpenRec(recept)) {
-        network.addToList(recept);
       } else {
-        openPaywall();
+        // Если блюдо в списке, то удаляем. Если нет, то проверяем, можно ли его добавить(открыть)
+        if (isInBasket) {
+          network.deleteFromList(recept);
+        } else if (network.canOpenRec(recept)) {
+          network.addToList(recept);
+        } else {
+          openPaywall();
+        }
       }
-    }
-  };
+    },
+    [openPaywall],
+  );
   // const filterHandler = (what, weekName = 'Текущая') => {
   //   setCurrentFilters(what);
   //   const initArr = weekName == 'Текущая' ? network.allDishes : network.oldMenu;
@@ -354,26 +366,47 @@ const MenuScreen = observer(({navigation}) => {
   for (let i = 0; i < network.dayDishes.length; i++) {
     dayRecipeScreens.push(i * (common.getLengthByIPhone7(304) + 7));
   }
-  const renderMenu = () => {
+  const renderMenu = useCallback(() => {
     const menu = [];
     for (let i = 0; i < network.sectionNames.length; i++) {
       const section = network.sectionNames[i];
       const sectionDishes = network.allDishes.filter(
         dish => dish.section_name == section,
       );
+      if (!sectionDishes.length) {
+        return null;
+      }
       let sectionsInterval = sectionDishes.map(
         (item, index) =>
           index * (item?.is_big ? common.getLengthByIPhone7(272) : 164) + 15,
       );
+      const secBackground = sectionDishes[0]?.section_background;
+      const isColor = secBackground ? secBackground[0] == '#' : false;
       menu.push(
         <View key={section}>
-          <Text style={[styles.subtitle, {marginLeft: 16}]}>{section}</Text>
+          <Text style={[styles.subtitle, {marginLeft: 16, marginTop: 8}]}>
+            {section}
+          </Text>
+          {!!secBackground && (
+            <Image
+              source={{
+                uri: isColor ? undefined : secBackground,
+              }}
+              style={[
+                StyleSheet.absoluteFill,
+                {
+                  zIndex: -1,
+                  backgroundColor: isColor ? secBackground : undefined,
+                },
+              ]}
+            />
+          )}
           <FlatList
             showsHorizontalScrollIndicator={false}
             horizontal
             contentContainerStyle={{
               paddingLeft: 16,
-              paddingBottom: 22,
+              paddingBottom: 14,
               paddingTop: 12,
               paddingRight: 6,
             }}
@@ -403,7 +436,7 @@ const MenuScreen = observer(({navigation}) => {
       );
     }
     return menu;
-  };
+  }, [listHandler, openRec]);
 
   useEffect(() => {
     const onFocus = navigation.addListener('focus', () => {

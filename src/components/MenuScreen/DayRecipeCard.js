@@ -81,6 +81,7 @@ export const getLabelImage = label => {
 
 const DayRecipeCard = observer(({recept, onPress, listHandler}) => {
   const [page, setPage] = useState(0);
+  const isForKids = !!recept?.is_for_kids;
   const isBig = !!recept?.is_big;
   const isInList = !!network.listDishes.filter(item => item.id == recept.id)
     .length;
@@ -216,6 +217,12 @@ const DayRecipeCard = observer(({recept, onPress, listHandler}) => {
             ...styles.card,
             width: isBig ? 272 : 160,
           }}>
+          {isForKids && (
+            <Image
+              source={{uri: recept?.label_for_kids}}
+              style={styles.kidsIcon}
+            />
+          )}
           <View
             style={{
               width: '100%',
@@ -363,5 +370,13 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     lineHeight: 14,
     color: Colors.textColor,
+  },
+  kidsIcon: {
+    position: 'absolute',
+    width: 40,
+    height: 40,
+    top: 10,
+    left: 10,
+    zIndex: 10,
   },
 });

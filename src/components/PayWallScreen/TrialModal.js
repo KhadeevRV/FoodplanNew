@@ -14,11 +14,7 @@ import {
 } from 'react-native';
 import Colors from '../../constants/Colors';
 import common from '../../../Utilites/Common';
-import network, {
-  getUnavailableProducts,
-  getUserInfo,
-  selectUserAddress,
-} from '../../../Utilites/Network';
+import network from '../../../Utilites/Network';
 import {observer} from 'mobx-react-lite';
 import Modal from 'react-native-modal';
 import Config from '../../constants/Config';

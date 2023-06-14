@@ -210,7 +210,7 @@ const StoresScreen = observer(({navigation, route}) => {
             fullAddress,
           );
         }
-        await getUnavailableProducts();
+        getUnavailableProducts();
       } else {
         await updateInfo('work_type', 'list');
         await getList();

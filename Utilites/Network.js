@@ -2014,7 +2014,6 @@ export function getUnavailableProducts() {
       },
     })
       .then(response => {
-        console.log(response);
         response
           .json()
           .then(data => {
@@ -2054,7 +2053,7 @@ export function getTranslate() {
         response
           .json()
           .then(data => {
-            console.log('getTranslate', data);
+            // console.log('getTranslate', data);
             if (data.status == 'ok') {
               runInAction(() => {
                 network.strings = new LocalizedStrings(data.translates);

@@ -3,7 +3,6 @@ import {
   StyleSheet,
   Text,
   View,
-  AsyncStorage,
   Dimensions,
   Image,
   Animated as ReactAnimated,
@@ -24,6 +23,7 @@ import Config from '../constants/Config';
 import {useFocusEffect} from '@react-navigation/native';
 import changeNavigationBarColor from 'react-native-navigation-bar-color';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const CheckDymanicLink = async navigation => {
   const handleDynamicLink = link => {
