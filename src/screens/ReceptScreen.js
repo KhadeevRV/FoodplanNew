@@ -1,4 +1,4 @@
-import React, {Component, useRef, useState, useMemo, useEffect} from 'react';
+import React, {useRef, useState, useMemo, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,43 +9,24 @@ import {
   TouchableHighlight,
   Platform,
   ActivityIndicator,
-  BackHandler,
   StatusBar,
-  ImageBackground,
   Alert,
 } from 'react-native';
-import {observer, Observer, useObserver} from 'mobx-react-lite';
-import BottomSheet from 'reanimated-bottom-sheet';
-import {
-  getStatusBarHeight,
-  isIphoneX,
-  getBottomSpace,
-} from 'react-native-iphone-x-helper';
+import {observer} from 'mobx-react-lite';
+import {getStatusBarHeight, getBottomSpace} from 'react-native-iphone-x-helper';
 import common from '../../Utilites/Common';
-import BottomSheetBehavior from 'reanimated-bottom-sheet';
 import Colors from '../constants/Colors';
-import DropShadow from 'react-native-drop-shadow';
-import Animated from 'react-native-reanimated';
 import LinearGradient from 'react-native-linear-gradient';
 import Share from 'react-native-share';
 import {BlurView} from '@react-native-community/blur';
 import {Notification} from '../components/Notification';
-import {showMessage} from 'react-native-flash-message';
-import {
-  TouchableWithoutFeedback,
-  ScrollView,
-} from 'react-native-gesture-handler';
-import {GestureHandlerRefContext} from '@react-navigation/stack';
-import {useScrollToTop} from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
 import KeepAwake from 'react-native-keep-awake';
 import network, {getShortLink} from '../../Utilites/Network';
 import {runInAction} from 'mobx';
-import Modal from 'react-native-modal';
 import {Modalize} from 'react-native-modalize';
 import {UnavailableProductsModal} from '../components/UnavailableProductsModal';
 import {ampInstance} from '../../App';
-import {strings} from '../../assets/localization/localization';
 
 const Step = ({step, count}) => {
   const subtitleView = [];
@@ -212,11 +193,11 @@ const ReceptScreen = observer(({navigation, route}) => {
     return false;
   }, [network.basketInfo?.recipes]);
   const isInList = network.listDishes.length
-    ? !!network.listDishes.filter(item => item.id == currentRec.id).length
+    ? !!network.listDishes.filter(item => item.id == currentRec?.id).length
     : false;
-  const isLoading = network.isLoadingBasket == currentRec.id;
+  const isLoading = network.isLoadingBasket == currentRec?.id;
   const isInFavor = network.favorDishes.length
-    ? !!network.favorDishes.filter(item => item.id == currentRec.id).length
+    ? !!network.favorDishes.filter(item => item.id == currentRec?.id).length
     : false;
   const [time, setTime] = useState(0);
 

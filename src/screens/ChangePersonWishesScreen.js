@@ -1,4 +1,4 @@
-import React, {Component, useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,25 +6,14 @@ import {
   SafeAreaView,
   Image,
   Platform,
-  Animated,
-  ImageBackground,
-  Easing,
   ActivityIndicator,
 } from 'react-native';
-import {
-  TouchableOpacity,
-  FlatList,
-  ScrollView,
-  TextInput,
-  TouchableHighlight,
-} from 'react-native-gesture-handler';
-import {observer, Observer, useObserver} from 'mobx-react-lite';
+import {ScrollView, TouchableHighlight} from 'react-native-gesture-handler';
+import {observer} from 'mobx-react-lite';
 import {runInAction} from 'mobx';
-import {Btn} from '../components/Btn';
-import common from '../../Utilites/Common';
 import SkipHeader from '../components/SkipHeader';
 import Colors from '../constants/Colors';
-import network, {getMenu, sendAnswer, updateInfo} from '../../Utilites/Network';
+import network, {updateInfo} from '../../Utilites/Network';
 
 const ChangeWishesScreen = observer(({navigation, route}) => {
   const what = route?.params?.what;

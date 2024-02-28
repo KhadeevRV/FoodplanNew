@@ -1,19 +1,7 @@
 import React, {useRef} from 'react';
-import {
-  Image,
-  View,
-  Text,
-  AsyncStorage,
-  Platform,
-  Dimensions,
-} from 'react-native';
-import {
-  createStackNavigator,
-  TransitionSpecs,
-  TransitionPresets,
-} from '@react-navigation/stack';
+import {View} from 'react-native';
+import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import analytics from '@react-native-firebase/analytics';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 
@@ -21,8 +9,6 @@ import WelcomeScreen from '../screens/WelcomeScreen';
 import ReceptScreen from '../screens/ReceptScreen';
 import {SplashScreen} from '../screens/SplashScreen';
 import ReceptDayScreen from '../screens/ReceptDayScreen';
-import {getStatusBarHeight} from 'react-native-iphone-x-helper';
-import common from '../../Utilites/Common';
 import {observer} from 'mobx-react-lite';
 import network from '../../Utilites/Network';
 import PersonsQuizScreen from '../screens/QuizScreens/PersonsQuizScreen';

@@ -1,4 +1,4 @@
-import React, {Component, useState, useRef, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,23 +10,14 @@ import {
   SafeAreaView,
   TouchableWithoutFeedback,
   Alert,
-  Share,
 } from 'react-native';
-import {
-  FlatList,
-  ScrollView,
-  TextInput,
-  TouchableHighlight,
-} from 'react-native-gesture-handler';
 import network, {updateAddress} from '../../Utilites/Network';
-import {observer, Observer, useObserver} from 'mobx-react-lite';
+import {observer} from 'mobx-react-lite';
 import Colors from '../constants/Colors';
-import {getBottomSpace, getStatusBarHeight} from 'react-native-iphone-x-helper';
 import BottomListBtn from '../components/BottomListBtn';
 import {AddressesModal} from '../components/MenuScreen/AddressesModal';
 import {FloatingLabelInput} from 'react-native-floating-label-input';
 import {CardsModal} from '../components/CardsModal';
-import {strings} from '../../assets/localization/localization';
 
 const PayScreen = observer(({navigation}) => {
   const [isLoading, setIsLoading] = useState(false);

@@ -10,7 +10,6 @@ import {
 import Colors from '../../constants/Colors';
 import {TouchableHighlight} from 'react-native-gesture-handler';
 import common from '../../../Utilites/Common';
-import DropShadow from 'react-native-drop-shadow';
 import LinearGradient from 'react-native-linear-gradient';
 import network from '../../../Utilites/Network';
 

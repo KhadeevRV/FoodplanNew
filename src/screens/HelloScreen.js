@@ -1,13 +1,9 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React from 'react';
 import {
   StyleSheet,
   Image,
-  ImageBackground,
-  View,
   TouchableOpacity,
   Text,
-  SafeAreaView,
-  KeyboardAvoidingView,
   ScrollView,
   Dimensions,
   Platform,

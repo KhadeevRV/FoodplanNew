@@ -1,4 +1,4 @@
-import React, {Component, useState, useRef, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,31 +7,14 @@ import {
   Platform,
   TouchableOpacity,
   SafeAreaView,
-  Animated,
-  Dimensions,
   Alert,
-  Share,
   Linking,
 } from 'react-native';
-import {
-  FlatList,
-  ScrollView,
-  TextInput,
-  TouchableHighlight,
-} from 'react-native-gesture-handler';
-import network, {
-  getList,
-  getUserInfo,
-  listClear,
-  payAppleOrAndroid,
-} from '../../Utilites/Network';
+import {ScrollView, TouchableHighlight} from 'react-native-gesture-handler';
+import network, {getUserInfo, payAppleOrAndroid} from '../../Utilites/Network';
 import {observer} from 'mobx-react-lite';
-import {runInAction} from 'mobx';
-import {Btn} from '../components/Btn';
-import common from '../../Utilites/Common';
 import Colors from '../constants/Colors';
 import ProfileItem from '../components/ProfileScreen/ProfileItem';
-import Config from '../constants/Config';
 import * as RNIap from 'react-native-iap';
 import RNRestart from 'react-native-restart';
 
@@ -63,41 +46,47 @@ const AboutSubScreen = observer(({navigation}) => {
     </View>,
   ];
 
-  const payHandler = receptId => {
-    // Покупка подписки
-    RNIap.requestPurchase(receptId, false)
-      .then(receipt => {
-        setLoading(true);
-        // Отправляем id на сервер
-        payAppleOrAndroid(receipt)
-          .then(async () => {
-            console.log('receipt', receipt);
-            // Обновление инфы о пользователе
-            try {
-              await getUserInfo();
-              setLoading(false);
-            } catch (error) {
-              console.log(error);
-              setLoading(false);
-              Alert.alert(network?.strings?.Error, network?.strings?.BuyError, [
-                {
-                  text: network?.strings?.Reload,
-                  onPress: () => RNRestart.Restart(),
-                },
-              ]);
-            }
-          })
-          .catch(() => {
-            setLoading(false);
-            setTimeout(e => {
-              Alert.alert(Config.appName, e);
-            }, 300);
-          });
-      })
-      .catch(err => {
-        setLoading(false);
-        console.log('err requestPurchase: ' + err);
+  const payHandler = async receptId => {
+    try {
+      setLoading(true);
+      const isSubscription = network.subscriptions.find(
+        subscription => subscription.productId == receptId,
+      );
+      let offerToken = null;
+      if (isSubscription) {
+        offerToken = isSubscription?.subscriptionOfferDetails[0]?.offerToken;
+      }
+      const requestBody = Platform.select({
+        ios: {sku: receptId},
+        android: {skus: [receptId]},
       });
+      let receipt = null;
+      if (isSubscription) {
+        receipt = await RNIap.requestSubscription({
+          ...requestBody,
+          ...(offerToken && {
+            subscriptionOffers: [{sku: receptId, offerToken}],
+          }),
+        });
+      } else {
+        receipt = await RNIap.requestPurchase({
+          ...requestBody,
+        });
+      }
+      await payAppleOrAndroid(receipt);
+      await getUserInfo();
+    } catch (e) {
+      console.log(e);
+      setLoading(false);
+      Alert.alert(network?.strings?.Error, network?.strings?.BuyError, [
+        {
+          text: network?.strings?.Reload,
+          onPress: () => RNRestart.Restart(),
+        },
+      ]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const cancelSub = () => {
@@ -108,7 +97,7 @@ const AboutSubScreen = observer(({navigation}) => {
       )?.toLocaleDateString()}`,
       [
         {
-          text: network?.strings?.DeleteButtonCancel,
+          text: network?.strings?.CancelSubAlertTitle,
           onPress: () => {
             if (network.user?.subscription?.unscribe_link == 'appstore') {
               Linking.openURL('https://apps.apple.com/account/subscriptions');
@@ -174,21 +163,25 @@ const AboutSubScreen = observer(({navigation}) => {
               underlayColor={'#EEEE'}
               onPress={() => cancelSub()}>
               <Text style={[styles.itemSubtitle, {color: Colors.textColor}]}>
-                {network?.strings?.DeleteButtonCancel}
+                {network?.strings?.CancelSubBtnTitle}
               </Text>
             </TouchableHighlight>
           </View>
-          <Text style={styles.title}>{network?.strings?.Try}</Text>
         </View>
         {network.user?.subscription?.plan_recommend ? (
-          <ProfileItem
-            title={network.user?.subscription?.plan_recommend?.name}
-            subtitle={network.user?.subscription?.plan_recommend?.desc}
-            onPress={() =>
-              payHandler(network.user?.subscription?.plan_recommend?.id)
-            }
-            key={network.user?.subscription?.plan_recommend?.id}
-          />
+          <>
+            <Text style={[styles.title, {paddingHorizontal: 16}]}>
+              {network?.strings?.Try}
+            </Text>
+            <ProfileItem
+              title={network.user?.subscription?.plan_recommend?.name}
+              subtitle={network.user?.subscription?.plan_recommend?.desc}
+              onPress={() =>
+                payHandler(network.user?.subscription?.plan_recommend?.id)
+              }
+              key={network.user?.subscription?.plan_recommend?.id}
+            />
+          </>
         ) : null}
       </ScrollView>
     </View>

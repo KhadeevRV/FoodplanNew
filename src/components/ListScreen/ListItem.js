@@ -22,7 +22,6 @@ import {BlurView} from '@react-native-community/blur';
 import LinearGradient from 'react-native-linear-gradient';
 import FastImage from 'react-native-fast-image';
 import {observer} from 'mobx-react-lite';
-import DropShadow from 'react-native-drop-shadow';
 import network from '../../../Utilites/Network';
 
 const ListItem = observer(({recept, onPress, eyeHandler}) => {

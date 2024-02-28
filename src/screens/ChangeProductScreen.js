@@ -1,4 +1,4 @@
-import React, {Component, useState, useMemo, useEffect} from 'react';
+import React, {useState, useMemo, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,25 +8,16 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   SafeAreaView,
-  Dimensions,
-  Alert,
-  Share,
 } from 'react-native';
-import {
-  FlatList,
-  ScrollView,
-  TextInput,
-  TouchableHighlight,
-} from 'react-native-gesture-handler';
-import {observer, Observer, useObserver} from 'mobx-react-lite';
+import {ScrollView} from 'react-native-gesture-handler';
+import {observer} from 'mobx-react-lite';
 import Colors from '../constants/Colors';
-import {getBottomSpace, getStatusBarHeight} from 'react-native-iphone-x-helper';
+import {getStatusBarHeight} from 'react-native-iphone-x-helper';
 import FastImage from 'react-native-fast-image';
 import common from '../../Utilites/Common';
 import {GreyBtn} from '../components/GreyBtn';
 import network, {getAnalogues} from '../../Utilites/Network';
 import {AboutIngrModal} from '../components/BasketScreen/AboutIngrModal';
-import {strings} from '../../assets/localization/localization';
 
 const AnalogueProduct = observer(({product, onPress, currentProduct}) => {
   return (

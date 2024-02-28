@@ -1,4 +1,4 @@
-import React, {Component, useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,26 +9,17 @@ import {
   KeyboardAvoidingView,
   BackHandler,
 } from 'react-native';
-import {
-  TouchableOpacity,
-  FlatList,
-  ScrollView,
-  TextInput,
-} from 'react-native-gesture-handler';
-import network, {getList, sendAnswer} from '../../Utilites/Network';
-import {observer, Observer, useObserver} from 'mobx-react-lite';
+import {ScrollView, TextInput} from 'react-native-gesture-handler';
+import network, {sendAnswer} from '../../Utilites/Network';
+import {observer} from 'mobx-react-lite';
 import {runInAction} from 'mobx';
 import {Btn} from '../components/Btn';
-import common from '../../Utilites/Common';
 import SkipHeader from '../components/SkipHeader';
 import Colors from '../constants/Colors';
-import Spinner from 'react-native-loading-spinner-overlay';
-import Config from '../constants/Config';
 import QuizAnimation from '../animations/QuizAnimation';
 import {useFocusEffect} from '@react-navigation/native';
 import changeNavigationBarColor from 'react-native-navigation-bar-color';
 import {ampInstance} from '../../App';
-import {strings} from '../../assets/localization/localization';
 
 const WelcomeScreen = observer(({navigation}) => {
   const [name, setname] = useState('');

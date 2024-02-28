@@ -1,4 +1,4 @@
-import React, {Component, useState, useRef, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,25 +7,13 @@ import {
   Platform,
   TouchableOpacity,
   SafeAreaView,
-  Animated,
-  Dimensions,
-  Alert,
-  Share,
   ImageBackground,
 } from 'react-native';
-import {
-  FlatList,
-  ScrollView,
-  TextInput,
-  TouchableHighlight,
-} from 'react-native-gesture-handler';
-import network, {getList, listClear} from '../../Utilites/Network';
-import {observer, Observer, useObserver} from 'mobx-react-lite';
-import {runInAction} from 'mobx';
+import {ScrollView} from 'react-native-gesture-handler';
+import network from '../../Utilites/Network';
+import {observer} from 'mobx-react-lite';
 import Colors from '../constants/Colors';
-import LinearGradient from 'react-native-linear-gradient';
 import ProfileItem from '../components/ProfileScreen/ProfileItem';
-import {strings} from '../../assets/localization/localization';
 
 const DetailsScreen = observer(({navigation}) => {
   const [socialModal, setSocialModal] = useState(false);
@@ -123,52 +111,48 @@ const DetailsScreen = observer(({navigation}) => {
           </Text>
         </View>
         {body}
-        {network.isBasketUser() ? null : (
-          <>
+        <>
+          <View style={styles.container}>
+            <Text style={styles.title}>{network?.strings?.Subscription}</Text>
+          </View>
+          {network.user.access ? (
+            <ProfileItem
+              title={network.user?.subscription?.plan?.name}
+              subtitle={
+                network?.strings?.ActiveTill +
+                new Date(
+                  network.user?.subscription?.info?.expired,
+                )?.toLocaleDateString()
+              }
+              onPress={() => navigation.navigate('AboutSubScreen')}
+              key={network.user?.subscription?.plan?.id}
+            />
+          ) : (
             <View style={styles.container}>
-              <Text style={styles.title}>{network?.strings?.Subscription}</Text>
+              <TouchableOpacity
+                style={{marginBottom: 16}}
+                activeOpacity={1}
+                onPress={() =>
+                  navigation.navigate('PayWallScreen', {
+                    data: network.paywalls[network?.user?.banner_in_user?.type],
+                  })
+                }>
+                <ImageBackground
+                  source={{uri: network?.user?.banner_in_user?.image_btn}}
+                  borderRadius={16}
+                  style={{
+                    paddingHorizontal: 16,
+                    paddingVertical: 21,
+                    borderRadius: 16,
+                  }}>
+                  <Text style={styles.payTitle}>
+                    {network?.user?.banner_in_user?.text}
+                  </Text>
+                </ImageBackground>
+              </TouchableOpacity>
             </View>
-            {network.user.access ? (
-              <ProfileItem
-                title={network.user?.subscription?.plan?.name}
-                subtitle={
-                  network?.strings?.ActiveTill +
-                  new Date(
-                    network.user?.subscription?.info?.expired,
-                  )?.toLocaleDateString()
-                }
-                onPress={() => navigation.navigate('AboutSubScreen')}
-                key={network.user?.subscription?.plan?.id}
-              />
-            ) : (
-              <View style={styles.container}>
-                <TouchableOpacity
-                  style={{marginBottom: 16}}
-                  activeOpacity={1}
-                  onPress={() =>
-                    navigation.navigate('PayWallScreen', {
-                      data: network.paywalls[
-                        network?.user?.banner_in_user?.type
-                      ],
-                    })
-                  }>
-                  <ImageBackground
-                    source={{uri: network?.user?.banner_in_user?.image_btn}}
-                    borderRadius={16}
-                    style={{
-                      paddingHorizontal: 16,
-                      paddingVertical: 21,
-                      borderRadius: 16,
-                    }}>
-                    <Text style={styles.payTitle}>
-                      {network?.user?.banner_in_user?.text}
-                    </Text>
-                  </ImageBackground>
-                </TouchableOpacity>
-              </View>
-            )}
-          </>
-        )}
+          )}
+        </>
       </ScrollView>
     </View>
   );

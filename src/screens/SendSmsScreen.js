@@ -1,42 +1,27 @@
-import React, {Component, useState} from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
   View,
   SafeAreaView,
-  Image,
   Platform,
   KeyboardAvoidingView,
   Alert,
-  AsyncStorage,
 } from 'react-native';
-import {
-  TouchableOpacity,
-  FlatList,
-  ScrollView,
-  TextInput,
-} from 'react-native-gesture-handler';
+import {ScrollView, TextInput} from 'react-native-gesture-handler';
 import network, {
-  getBasket,
   getCode,
-  getFavors,
-  getList,
-  getMenu,
   getUserInfo,
   sendCode,
   updateInfo,
 } from '../../Utilites/Network';
-import {observer, Observer, useObserver} from 'mobx-react-lite';
-import {runInAction} from 'mobx';
-import {Btn} from '../components/Btn';
-import common from '../../Utilites/Common';
+import {observer} from 'mobx-react-lite';
 import SkipHeader from '../components/SkipHeader';
 import Colors from '../constants/Colors';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {useInterval} from './ReceptScreen';
 import {GreyBtn} from '../components/GreyBtn';
 import {ampInstance} from '../../App';
-import {strings} from '../../assets/localization/localization';
 
 const SendSmsScreen = observer(({navigation, route}) => {
   const [code, setCode] = useState('');

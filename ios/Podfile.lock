@@ -446,7 +446,7 @@ PODS:
     - React-Core
   - react-native-tracking-transparency (0.1.1):
     - React
-  - react-native-webview (10.10.2):
+  - react-native-webview (11.26.1):
     - React-Core
   - React-perflogger (0.65.3)
   - React-RCTActionSheet (0.65.3):
@@ -544,7 +544,7 @@ PODS:
     - GoogleUtilities/AppDelegateSwizzler
     - React-Core
     - RNFBApp
-  - RNGestureHandler (2.4.1):
+  - RNGestureHandler (2.14.1):
     - React-Core
   - RNGoogleSignin (9.0.2):
     - GoogleSignIn (~> 6.2)
@@ -954,7 +954,7 @@ SPEC CHECKSUMS:
   react-native-safe-area-context: 9e40fb181dac02619414ba1294d6c2a807056ab9
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
   react-native-tracking-transparency: b2029ff756f1128b1f2c7c7c7f3003bc3c950f9f
-  react-native-webview: 0aa2cde4ee7e3e1c5fffdf64dbce9c709aa18155
+  react-native-webview: 9f111dfbcfc826084d6c507f569e5e03342ee1c1
   React-perflogger: f8205b59ccf68dbe4184e71ac7b4db55ea0c8965
   React-RCTActionSheet: 67b50ddfccbc123dcc7574475e4fdc911cc601d7
   React-RCTAnimation: 3b998b2da94bc3f74c8d8e98b3181e20678a0ca7
@@ -978,7 +978,7 @@ SPEC CHECKSUMS:
   RNFBApp: 729c0666395b1953198dc4a1ec6deb8fbe1c302e
   RNFBAppDistribution: 4e7df69ff3469cad8f19d06c6e3b3986cb74c77c
   RNFBDynamicLinks: 4cb7df93b3bea086d743ecb78127c3d11b38510d
-  RNGestureHandler: 4f4986408310a43f1606c391f38f76e0d6e790d5
+  RNGestureHandler: e98441928705d9d1184b599d7c1c6df2dd4f7724
   RNGoogleSignin: 22e468a9474dbcb8618d8847205ad4f0b2575d13
   RNIap: d248609d1b8937e63bd904e865c318e9b1457eff
   RNPermissions: 34d678157c800b25b22a488e4d8babb57456e796

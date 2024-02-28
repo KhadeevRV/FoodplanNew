@@ -10,10 +10,10 @@ import {
   BackHandler,
   StatusBar,
   Alert,
+  Linking,
 } from 'react-native';
 import {
   TouchableOpacity,
-  FlatList,
   ScrollView,
   TouchableHighlight,
 } from 'react-native-gesture-handler';
@@ -26,7 +26,6 @@ import {observer} from 'mobx-react-lite';
 import {runInAction} from 'mobx';
 import common from '../../Utilites/Common';
 import Colors from '../constants/Colors';
-import DayRecipeCard from '../components/MenuScreen/DayRecipeCard';
 import {getStatusBarHeight} from 'react-native-iphone-x-helper';
 import BottomListBtn from '../components/BottomListBtn';
 import Config from '../constants/Config';
@@ -41,7 +40,7 @@ import {CheckDymanicLink} from './ReceptDayScreen';
 import {ampInstance} from '../../App';
 import {UnavailableProductsModal} from '../components/UnavailableProductsModal';
 import {SaleModal} from '../components/PayWallScreen/SaleModal';
-import LinearGradient from 'react-native-linear-gradient';
+import DishesHorizontalList from '../components/DishesHorizontalList';
 
 const ChangeMenuBtn = ({visible, onPress, title}) => {
   if (!visible) {
@@ -275,20 +274,27 @@ const MenuScreen = observer(({navigation}) => {
   //! Баннеры
 
   const bannerHandler = banner => {
+    console.log(banner);
     if (banner.type == 'list_history') {
       navigation.navigate('EarlyListScreen');
-    } else if (banner.type == 'menu_holiday') {
+      return;
+    }
+    if (banner.type == 'menu_holiday') {
       navigation.navigate('HolidayMenuScreen', {
         data: banner.recipes,
         bgImg: banner?.image_inner?.big_webp,
         description: banner?.description,
         title: banner?.title,
       });
-    } else {
-      navigation.navigate('PayWallScreen', {
-        data: network.paywalls[banner.type],
-      });
+      return;
     }
+    if (banner.type?.includes('https://')) {
+      Linking.openURL(banner.type);
+      return;
+    }
+    navigation.navigate('PayWallScreen', {
+      data: network.paywalls[banner.type],
+    });
   };
 
   const renderOrder = order => {
@@ -376,63 +382,14 @@ const MenuScreen = observer(({navigation}) => {
       if (!sectionDishes.length) {
         return null;
       }
-      let sectionsInterval = sectionDishes.map(
-        (item, index) =>
-          index * (item?.is_big ? common.getLengthByIPhone7(272) : 164) + 15,
-      );
-      const secBackground = sectionDishes[0]?.section_background;
-      const isColor = secBackground ? secBackground[0] == '#' : false;
       menu.push(
-        <View key={section}>
-          <Text style={[styles.subtitle, {marginLeft: 16, marginTop: 8}]}>
-            {section}
-          </Text>
-          {!!secBackground && (
-            <Image
-              source={{
-                uri: isColor ? undefined : secBackground,
-              }}
-              style={[
-                StyleSheet.absoluteFill,
-                {
-                  zIndex: -1,
-                  backgroundColor: isColor ? secBackground : undefined,
-                },
-              ]}
-            />
-          )}
-          <FlatList
-            showsHorizontalScrollIndicator={false}
-            horizontal
-            contentContainerStyle={{
-              paddingLeft: 16,
-              paddingBottom: 14,
-              paddingTop: 12,
-              paddingRight: 6,
-            }}
-            data={sectionDishes}
-            keyExtractor={(item, index) =>
-              section + item.id.toString() + '_' + index
-            }
-            scrollEventThrottle={16}
-            pagingEnabled={true}
-            decelerationRate={Platform.select({ios: 'fast', android: 0.8})}
-            snapToInterval={
-              common.getLengthByIPhone7(0) - common.getLengthByIPhone7(32)
-            }
-            disableIntervalMomentum={true}
-            snapToAlignment={'center'}
-            snapToOffsets={sectionsInterval}
-            renderItem={({item, index}) => (
-              <DayRecipeCard
-                recept={item}
-                onPress={() => openRec(item)}
-                listHandler={listHandler}
-                key={item.id}
-              />
-            )}
-          />
-        </View>,
+        <DishesHorizontalList
+          dishes={sectionDishes}
+          sectionName={section}
+          withBackground
+          openRec={openRec}
+          listHandler={listHandler}
+        />,
       );
     }
     return menu;
@@ -660,7 +617,7 @@ const MenuScreen = observer(({navigation}) => {
               style={{marginTop: 16}}
               activeOpacity={1}
               key={'banner1'}
-              disabled
+              // disabled
               onPress={() => bannerHandler(network.banner1)}>
               <ImageBackground
                 style={{
@@ -760,7 +717,7 @@ const MenuScreen = observer(({navigation}) => {
             <TouchableOpacity
               activeOpacity={1}
               key={'bannner_2'}
-              disabled
+              // disabled
               onPress={() => bannerHandler(network.banner2)}>
               <ImageBackground
                 source={{uri: network.banner2?.image_btn?.big_webp}}

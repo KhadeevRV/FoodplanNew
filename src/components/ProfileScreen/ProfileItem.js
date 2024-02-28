@@ -1,10 +1,7 @@
-import React,{useState} from 'react'
-import { View, Text, StyleSheet, Image, TouchableOpacity, Platform,} from 'react-native'
+import React from 'react'
+import { View, Text, StyleSheet, Image, Platform,} from 'react-native'
 import Colors from '../../constants/Colors'
 import { TouchableHighlight } from 'react-native-gesture-handler'
-import common from '../../../Utilites/Common'
-import DropShadow from 'react-native-drop-shadow'
-import LinearGradient from 'react-native-linear-gradient'
 
 const ProfileItem = ({title='',subtitle='',icon=null,onPress=() => null,height=50}) => {
 

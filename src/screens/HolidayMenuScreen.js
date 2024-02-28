@@ -1,31 +1,18 @@
-import React, {Component, useState, useRef, useEffect} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
   Image,
   Platform,
   TouchableOpacity,
-  ImageBackground,
   Animated,
-  Dimensions,
   Alert,
   StatusBar,
 } from 'react-native';
-import {
-  FlatList,
-  ScrollView,
-  TextInput,
-  TouchableHighlight,
-} from 'react-native-gesture-handler';
-import {observer, Observer, useObserver} from 'mobx-react-lite';
-import {runInAction} from 'mobx';
-import {Btn} from '../components/Btn';
-import common from '../../Utilites/Common';
+import {observer} from 'mobx-react-lite';
 import Colors from '../constants/Colors';
-import LinearGradient from 'react-native-linear-gradient';
-import {getBottomSpace, getStatusBarHeight} from 'react-native-iphone-x-helper';
+import {getStatusBarHeight} from 'react-native-iphone-x-helper';
 import FavorItem from '../components/FavoriteScreen/FavorItem';
 import network, {getShortLink} from '../../Utilites/Network';
 import {captureScroll, getSpoingyTransform} from '../animations/SpoingyHelpers';
@@ -34,7 +21,7 @@ import BottomListBtn from '../components/BottomListBtn';
 import Config from '../constants/Config';
 import Share from 'react-native-share';
 import {UnavailableProductsModal} from '../components/UnavailableProductsModal';
-import { SaleModal } from '../components/PayWallScreen/SaleModal';
+import {SaleModal} from '../components/PayWallScreen/SaleModal';
 
 const HolidayMenuScreen = observer(({navigation, route}) => {
   const headerHeight = 228 + getStatusBarHeight();

@@ -1,4 +1,4 @@
-import React, {Component, useState, useRef, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,21 +7,11 @@ import {
   Platform,
   TouchableOpacity,
   SafeAreaView,
-  Dimensions,
   Alert,
-  Share,
   ActivityIndicator,
 } from 'react-native';
-import {
-  FlatList,
-  ScrollView,
-  TextInput,
-  TouchableHighlight,
-} from 'react-native-gesture-handler';
-import {observer, Observer, useObserver} from 'mobx-react-lite';
-import {runInAction} from 'mobx';
-import {Btn} from '../components/Btn';
-import common from '../../Utilites/Common';
+import {ScrollView, TouchableHighlight} from 'react-native-gesture-handler';
+import {observer} from 'mobx-react-lite';
 import Colors from '../constants/Colors';
 import network, {
   getBasket,

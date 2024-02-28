@@ -91,18 +91,18 @@ export const IngredientItem = ({
   const animatedValue = React.useRef(new Animated.Value(0)).current;
 
   const animateStrike = (value, duration, what) => {
-    Animated.timing(animatedValue, {
-      toValue: value,
-      duration: duration,
-      easing: Easing.linear,
-      useNativeDriver: false,
-    }).start(() => {
-      if (what === 'viewAnim') {
-        setTimeout(() => {
-          setAnimStart(false);
-        }, 200);
-      }
-    });
+    // Animated.timing(animatedValue, {
+    //   toValue: value,
+    //   duration: duration,
+    //   easing: Easing.linear,
+    //   useNativeDriver: false,
+    // }).start(() => {
+    //   if (what === 'viewAnim') {
+    //     setTimeout(() => {
+    //       setAnimStart(false);
+    //     }, 200);
+    //   }
+    // });
   };
 
   const strikeWidth = animatedValue.interpolate({

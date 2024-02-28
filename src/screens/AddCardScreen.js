@@ -1,4 +1,4 @@
-import React, {Component, useState, useRef, useEffect} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,43 +6,25 @@ import {
   Image,
   Platform,
   TouchableOpacity,
-  ImageBackground,
   SafeAreaView,
-  Dimensions,
   Alert,
-  Keyboard,
   KeyboardAvoidingView,
 } from 'react-native';
-import {
-  FlatList,
-  ScrollView,
-  TextInput,
-  TouchableHighlight,
-} from 'react-native-gesture-handler';
 import network, {
   addUserCard,
   getUserCards,
   getUserIP,
   sendCheck,
 } from '../../Utilites/Network';
-import {observer, Observer, useObserver} from 'mobx-react-lite';
+import {observer} from 'mobx-react-lite';
 import Colors from '../constants/Colors';
 import {getBottomSpace, getStatusBarHeight} from 'react-native-iphone-x-helper';
-import BottomListBtn from '../components/BottomListBtn';
 import {Card} from 'react-native-cloudpayments-sdk';
-import {
-  CreditCardForm,
-  Currency,
-  CloudPaymentsApi,
-} from 'react-native-cloudpayments-sdk';
-import {GreyBtn} from '../components/GreyBtn';
+import {Currency, CloudPaymentsApi} from 'react-native-cloudpayments-sdk';
 import {FloatingLabelInput} from 'react-native-floating-label-input/index';
 import {Btn} from '../components/Btn';
-import {add} from 'react-native-reanimated';
 import {useInterval} from './ReceptScreen';
-import {runInAction} from 'mobx';
 import {ampInstance} from '../../App';
-import {strings} from '../../assets/localization/localization';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {VpnModal} from '../components/AddCardScreen/VpnModal';
 

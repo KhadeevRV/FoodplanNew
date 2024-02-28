@@ -56,6 +56,8 @@ class Network {
   strings = {};
   userMap = '';
   priceDigits = 1;
+  products = [];
+  subscriptions = [];
 
   getSectionsAndDayDishes(arr) {
     const newDays = [];
@@ -347,13 +349,13 @@ export default network;
 export function authUser(token) {
   let body = {
     device_id: network.deviceId,
-    // device_id: '99ACDCAF-F1B7-4F46-981C-50D66E7A9F21',
+    // device_id: '48F55247-93F4-4381-A633-9631B8F3152D',
     push_id: network.pushId,
   };
   if (token) {
     body.token = token;
   }
-  console.log('BOOOODY', body)
+  console.log('BOOOODY', body);
   return new Promise(function (resolve, reject) {
     fetch(Config.apiDomain + 'auth/login', {
       method: 'POST',
@@ -365,12 +367,14 @@ export function authUser(token) {
     })
       .then(response => {
         response.json().then(data => {
-          console.log('authUser: ' + network.deviceId + JSON.stringify(data));
+          console.log('authUser: ' + JSON.stringify(data));
           if (data.token) {
             AsyncStorage.setItem('token', data.token);
             mobx.runInAction(() => {
               network.user = data;
               network.access_token = data.token;
+              // network.access_token =
+              //   'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vZm9vZHBsYW4ubWVudS9hcGkvYXV0aC9sb2dpbi9lbWFpbCIsImlhdCI6MTY4NjMxMDM3MywiZXhwIjoxNjg2ODI4NzczLCJuYmYiOjE2ODYzMTAzNzMsImp0aSI6IjhDMVZJRDU2bzJ1MlJRSmEiLCJzdWIiOiIyODQ4IiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.Vy6KKzo3-rAas7K30p7AZZObqUF3Zsii5-zo_IPU4Vs';
             });
             resolve();
           } else {
@@ -400,7 +404,7 @@ export function getMenu() {
       .then(response => {
         response.json().then(data => {
           // console.log('getMenu: ' + JSON.stringify(data));
-          if (data.status == 'ok') {
+          if (data?.status == 'ok') {
             mobx.runInAction(() => {
               network.allDishes = data.menu;
               network.banner1 = data?.banner_1;
@@ -435,7 +439,7 @@ export function getBasket() {
       .then(response => {
         response.json().then(data => {
           console.log('getBasket: ' + JSON.stringify(data));
-          if (data.status == 'ok') {
+          if (data?.status == 'ok') {
             mobx.runInAction(() => {
               data.products ? (network.basketProducts = data.products) : null;
               data.recipes ? (network.basketRecipes = data.recipes) : null;
@@ -479,7 +483,7 @@ export function getInitialScreens() {
       .then(response => {
         response.json().then(data => {
           console.log('getInitialScreens: ' + JSON.stringify(data));
-          if (data.status === 'ok') {
+          if (data?.status === 'ok') {
             mobx.runInAction(() => {
               network.onboarding = data.data ?? {};
             });
@@ -510,7 +514,7 @@ export function getRegisterScreens() {
       .then(response => {
         response.json().then(data => {
           console.log('getRegisterScreens: ' + JSON.stringify(data));
-          if (data.status === 'ok') {
+          if (data?.status === 'ok') {
             mobx.runInAction(() => {
               network.registerOnboarding = data.data ?? {};
             });
@@ -620,13 +624,13 @@ export function sendAnswer(
 }
 
 export function payAppleOrAndroid(receipt) {
-  const body =
-    Platform.OS == 'ios'
-      ? JSON.stringify({
-          token: network.access_token,
-          receipt: receipt.transactionReceipt,
-        })
-      : JSON.stringify({token: network.access_token, receipt: receipt});
+  const body = JSON.stringify({
+    token: network.access_token,
+    receipt: Platform.select({
+      ios: receipt.transactionReceipt,
+      android: receipt?.dataAndroid,
+    }),
+  });
   return new Promise(function (resolve, reject) {
     fetch(Config.apiDomain + `purchase/order/${Platform.OS}`, {
       method: 'POST',
@@ -641,11 +645,11 @@ export function payAppleOrAndroid(receipt) {
           .json()
           .then(data => {
             console.log('payApple: ' + JSON.stringify(data));
-            if (data.status == 'ok') {
+            if (data?.status == 'ok') {
               resolve();
             } else {
               network.sendAnalyticError(JSON.stringify(data.message));
-              reject();
+              reject(data?.message);
             }
           })
           .catch(err => console.log(err, response));
@@ -707,7 +711,7 @@ export function listAdd(id) {
           .json()
           .then(data => {
             console.log('listAdd: ' + JSON.stringify(data));
-            if (data.status == 'ok') {
+            if (data?.status == 'ok') {
               resolve();
             } else {
               network.sendAnalyticError(JSON.stringify(data.message));
@@ -742,7 +746,7 @@ export function listRemove(id) {
           .json()
           .then(data => {
             console.log('listRemove: ' + JSON.stringify(data));
-            if (data.status == 'ok') {
+            if (data?.status == 'ok') {
               resolve();
             } else {
               network.sendAnalyticError(JSON.stringify(data.message));
@@ -777,7 +781,7 @@ export function listClear() {
           .json()
           .then(data => {
             console.log('listClear: ' + JSON.stringify(data));
-            if (data.status == 'ok') {
+            if (data?.status == 'ok') {
               resolve();
             } else {
               network.sendAnalyticError(JSON.stringify(data.message));
@@ -818,7 +822,7 @@ export function basketAdd(id, persons = network.user?.persons) {
           .json()
           .then(data => {
             console.log('basketAdd: ' + JSON.stringify(data));
-            if (data.status == 'ok') {
+            if (data?.status == 'ok') {
               mobx.runInAction(() => {
                 data.basket_info
                   ? (network.basketInfo = data.basket_info)
@@ -861,7 +865,7 @@ export function basketRemove(id) {
           .json()
           .then(data => {
             console.log('basketRemove: ' + JSON.stringify(data));
-            if (data.status == 'ok') {
+            if (data?.status == 'ok') {
               mobx.runInAction(() => {
                 data.basket_info
                   ? (network.basketInfo = data.basket_info)
@@ -1164,7 +1168,7 @@ export function getCode(phone) {
       .then(response => {
         response.json().then(data => {
           console.log('getCode: ' + JSON.stringify(data));
-          if (data.status == 'Ok') {
+          if (data?.status == 'ok') {
             resolve();
           } else {
             network.sendAnalyticError(JSON.stringify(data.message));
@@ -1195,7 +1199,7 @@ export function sendCode(phone, code) {
       .then(response => {
         response.json().then(data => {
           console.log('sendCode: ' + JSON.stringify(data));
-          if (data.status == 'ok') {
+          if (data?.status == 'ok') {
             resolve();
           } else {
             network.sendAnalyticError(JSON.stringify(data.message));
@@ -1224,7 +1228,7 @@ export function getRecipe(url) {
       .then(response => {
         response.json().then(data => {
           console.log('getRecipe: ' + JSON.stringify(data));
-          if (data.status == 'ok') {
+          if (data?.status == 'ok') {
             resolve(data.data);
           } else {
             network.sendAnalyticError(JSON.stringify(data.message));
@@ -1253,7 +1257,7 @@ export function getSocials() {
       .then(response => {
         response.json().then(data => {
           console.log('getSocials: ' + JSON.stringify(data));
-          if (data.status == 'ok') {
+          if (data?.status == 'ok') {
             resolve(data.data);
           } else {
             network.sendAnalyticError(JSON.stringify(data.message));
@@ -1283,7 +1287,7 @@ export function setRecipePersons(recipe_id, perons) {
       .then(response => {
         response.json().then(data => {
           console.log('setRecipePersons: ' + JSON.stringify(data));
-          if (data.status == 'ok') {
+          if (data?.status == 'ok') {
             resolve(data.data);
           } else {
             network.sendAnalyticError(JSON.stringify(data.message));
@@ -1310,7 +1314,7 @@ export function iSeeYourDaddy(id) {
       .then(response => {
         response.json().then(data => {
           console.log('iSeeYourDaddy: ' + JSON.stringify(data));
-          if (data.status == 'ok') {
+          if (data?.status == 'ok') {
             resolve();
           } else {
             network.sendAnalyticError(JSON.stringify(data.message));
@@ -1341,7 +1345,7 @@ export function getShortLink(link) {
       .then(response => {
         response.json().then(data => {
           console.log('getShortLink: ' + JSON.stringify(data));
-          if (data.status == 'ok') {
+          if (data?.status == 'ok') {
             resolve(data.link);
           } else {
             network.sendAnalyticError(JSON.stringify(data.message));
@@ -1371,7 +1375,7 @@ export function searchProduct(search_query) {
       .then(response => {
         response.json().then(data => {
           // console.log('searchProduct: ' + JSON.stringify(data));
-          if (data.status == 'ok') {
+          if (data?.status == 'ok') {
             const respData = data.data;
             resolve({products: respData.products, tips: respData.hints});
           } else {
@@ -1401,7 +1405,7 @@ export function getAnalogues(ingredient_id, ingredient_count) {
     })
       .then(response => {
         response.json().then(data => {
-          if (data.status == 'ok') {
+          if (data?.status == 'ok') {
             resolve(data.data);
           } else {
             network.sendAnalyticError(JSON.stringify(data.message));
@@ -1431,7 +1435,7 @@ export function setUserAddress(lat, lon, address, yandex_data) {
       .then(response => {
         response.json().then(data => {
           console.log('setUserAddress', data);
-          if (data.status == 'ok') {
+          if (data?.status == 'ok') {
             resolve(data);
           } else {
             network.sendAnalyticError(JSON.stringify(data.message));
@@ -1460,7 +1464,7 @@ export function getStores() {
       .then(response => {
         response.json().then(data => {
           console.log('getStores: ' + JSON.stringify(data));
-          if (data.status == 'ok') {
+          if (data?.status == 'ok') {
             mobx.runInAction(() => (network.stores = data.data));
             resolve();
           } else {
@@ -1491,7 +1495,7 @@ export function selectUserAddress(id) {
       .then(response => {
         response.json().then(data => {
           console.log('selectUserAddress: ' + JSON.stringify(data));
-          if (data.status == 'ok') {
+          if (data?.status == 'ok') {
             resolve();
           } else {
             network.sendAnalyticError(JSON.stringify(data.message));
@@ -1526,7 +1530,7 @@ export function productAdd(product, ingredient_count, ingredient_id) {
           .json()
           .then(data => {
             console.log('productAdd: ' + JSON.stringify(data));
-            if (data.status == 'ok') {
+            if (data?.status == 'ok') {
               mobx.runInAction(() => {
                 data.basket_info
                   ? (network.basketInfo = data.basket_info)
@@ -1570,7 +1574,7 @@ export function toggleRec(recipe_id) {
           .json()
           .then(data => {
             console.log('hideRec: ' + JSON.stringify(data));
-            if (data.status == 'ok') {
+            if (data?.status == 'ok') {
               mobx.runInAction(() => {
                 data.basket_info
                   ? (network.basketInfo = data.basket_info)
@@ -1614,7 +1618,7 @@ export function basketClear() {
           .json()
           .then(data => {
             console.log('basketClear: ' + JSON.stringify(data));
-            if (data.status == 'ok') {
+            if (data?.status == 'ok') {
               resolve();
             } else {
               network.sendAnalyticError(JSON.stringify(data.message));
@@ -1655,7 +1659,7 @@ export function getStoresByCoords(latitude, longitude) {
           .json()
           .then(data => {
             console.log('getStoresByCoords: ' + JSON.stringify(data));
-            if (data.status == 'ok') {
+            if (data?.status == 'ok') {
               resolve(data.data);
             } else {
               network.sendAnalyticError(JSON.stringify(data.message));
@@ -1691,7 +1695,7 @@ export function changeProductCount(product_id, quantity) {
           .json()
           .then(data => {
             console.log('changeProductCount: ' + JSON.stringify(data));
-            if (data.status == 'ok') {
+            if (data?.status == 'ok') {
               mobx.runInAction(() => {
                 data.basket_info
                   ? (network.basketInfo = data.basket_info)
@@ -1769,7 +1773,7 @@ export function getUserCards() {
           .json()
           .then(data => {
             console.log('getUserCards: ' + JSON.stringify(data));
-            if (data.status == 'ok') {
+            if (data?.status == 'ok') {
               mobx.runInAction(() => {
                 if (data.data && data.data.length) {
                   network.userCards = data.data;
@@ -1824,7 +1828,7 @@ export function addUserCard(
           .json()
           .then(data => {
             console.log('addCard: ' + JSON.stringify(data));
-            if (data.status == 'ok') {
+            if (data?.status == 'ok') {
               resolve();
             } else {
               network.sendAnalyticError(JSON.stringify(data.message));
@@ -1867,7 +1871,7 @@ export function updateAddress(id, entrance, floor, flat, intercom) {
           .json()
           .then(data => {
             console.log('updateAddress: ' + JSON.stringify(data));
-            if (data.status == 'ok') {
+            if (data?.status == 'ok') {
               mobx.runInAction(() => {
                 if (data.addresses) {
                   network.user.addresses = data.addresses;
@@ -1912,7 +1916,7 @@ export function createOrder(delivery_address, card_id, comment) {
           .json()
           .then(data => {
             console.log('createOrder: ' + JSON.stringify(data));
-            if (data.status == 'ok') {
+            if (data?.status == 'ok') {
               resolve(data.data);
             } else {
               network.sendAnalyticError(JSON.stringify(data.message));
@@ -1948,7 +1952,7 @@ export function cancelUserOrder(id_in_table) {
           .json()
           .then(data => {
             console.log('cancelUserOrder: ' + JSON.stringify(data));
-            if (data.status == 'ok') {
+            if (data?.status == 'ok') {
               resolve(data.message);
             } else {
               network.sendAnalyticError(JSON.stringify(data.message));
@@ -1983,7 +1987,7 @@ export function getUserIP() {
           .json()
           .then(data => {
             console.log('getUserIP: ' + JSON.stringify(data));
-            if (data.status == 'ok') {
+            if (data?.status == 'ok') {
               resolve(data.data);
             } else {
               network.sendAnalyticError(JSON.stringify(data.message));
@@ -2018,7 +2022,7 @@ export function getUnavailableProducts() {
           .json()
           .then(data => {
             console.log('getUnavailableProducts', data);
-            if (data.status == 'ok') {
+            if (data?.status == 'ok') {
               runInAction(() => (network.unavailableRecipes = data.recipes));
               resolve();
             } else {
@@ -2054,7 +2058,7 @@ export function getTranslate() {
           .json()
           .then(data => {
             // console.log('getTranslate', data);
-            if (data.status == 'ok') {
+            if (data?.status == 'ok') {
               runInAction(() => {
                 network.strings = new LocalizedStrings(data.translates);
                 network.strings.setLanguage(data?.userLanguage);
@@ -2095,7 +2099,7 @@ export function deleteUser() {
           .json()
           .then(data => {
             console.log('deleteUser', data);
-            if (data.status == 'ok') {
+            if (data?.status == 'ok') {
               resolve();
             } else {
               network.sendAnalyticError(JSON.stringify(data.message));
@@ -2130,7 +2134,7 @@ export function getPrivacyAndAgreement() {
           .json()
           .then(data => {
             console.log('getPrivacyAndAgreement', data);
-            if (data.status == 'ok') {
+            if (data?.status == 'ok') {
               resolve(data.data);
             } else {
               network.sendAnalyticError(JSON.stringify(data.message));
@@ -2167,7 +2171,7 @@ export function getGeoData(body) {
           .json()
           .then(data => {
             console.log('getGeoData', data);
-            if (data.status == 'ok') {
+            if (data?.status == 'ok') {
               resolve(data.data);
             } else {
               network.sendAnalyticError(JSON.stringify(data.message));
@@ -2249,7 +2253,7 @@ export function sendNewPass(email) {
           .json()
           .then(data => {
             console.log('sendNewPass', data);
-            if (data.status == 'ok') {
+            if (data?.status == 'ok') {
               resolve(data.data);
             } else {
               network.sendAnalyticError(JSON.stringify(data.message));
@@ -2333,7 +2337,7 @@ export function sendModalId(id) {
           .json()
           .then(data => {
             console.log('sendModalId', data);
-            if (data.status == 'ok') {
+            if (data?.status == 'ok') {
               resolve();
             } else {
               network.sendAnalyticError(JSON.stringify(data.message));
@@ -2367,7 +2371,7 @@ export function getModals() {
       .then(response => {
         response.json().then(data => {
           console.log('getModals: ' + JSON.stringify(data));
-          if (data.status == 'ok') {
+          if (data?.status == 'ok') {
             mobx.runInAction(() => {
               network.modals = data?.data;
             });
@@ -2401,7 +2405,7 @@ export function loginEmail({email, code}) {
       .then(response => {
         response.json().then(data => {
           console.log('loginEmail: ' + email + code + JSON.stringify(data));
-          if (data.status == 'ok') {
+          if (data?.status == 'ok') {
             resolve(data?.data);
           } else {
             network.sendAnalyticError(JSON.stringify(data.message));

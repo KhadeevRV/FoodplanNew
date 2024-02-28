@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react'
-// import Animated, { Easing } from 'react-native-reanimated';
 import {Animated,Easing } from 'react-native';
 
 const QuizAnimation = () => {

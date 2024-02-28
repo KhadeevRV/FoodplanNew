@@ -1,4 +1,4 @@
-import React, {useCallback, useState, useRef, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,31 +7,15 @@ import {
   Image,
   Platform,
   TouchableOpacity,
-  ImageBackground,
-  Animated,
-  Dimensions,
-  Alert,
   ActivityIndicator,
-  StatusBar,
 } from 'react-native';
-import {
-  FlatList,
-  ScrollView,
-  TextInput,
-  TouchableHighlight,
-} from 'react-native-gesture-handler';
-import {observer, Observer, useObserver} from 'mobx-react-lite';
+import {FlatList} from 'react-native-gesture-handler';
+import {observer} from 'mobx-react-lite';
 import {runInAction} from 'mobx';
-import {Btn} from '../components/Btn';
-import common from '../../Utilites/Common';
 import Colors from '../constants/Colors';
-import LinearGradient from 'react-native-linear-gradient';
-import {getBottomSpace} from 'react-native-iphone-x-helper';
 import network, {getHistory, updateInfo} from '../../Utilites/Network';
 import {EarlyItem} from '../components/EarlyListScreen/EarlyItem';
-import Spinner from 'react-native-loading-spinner-overlay';
 import BottomListBtn from '../components/BottomListBtn';
-import {strings} from '../../assets/localization/localization';
 import {SaleModal} from '../components/PayWallScreen/SaleModal';
 
 const EarlyListScreen = observer(({navigation}) => {

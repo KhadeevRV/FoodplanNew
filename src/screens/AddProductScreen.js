@@ -1,4 +1,4 @@
-import React, {Component, useState, useRef, useEffect} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,23 +8,17 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   SafeAreaView,
-  Dimensions,
-  Alert,
-  ActivityIndicator,
 } from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
-import {observer, Observer, useObserver} from 'mobx-react-lite';
+import {observer} from 'mobx-react-lite';
 import Colors from '../constants/Colors';
 import {getBottomSpace, getStatusBarHeight} from 'react-native-iphone-x-helper';
 import {GreyBtn} from '../components/GreyBtn';
 import BottomListBtn from '../components/BottomListBtn';
 import Product from '../components/AddProductScreen/Product';
-import ListItem from '../components/ListScreen/ListItem';
 import SearchBar from '../components/SearchBar';
 import network, {searchProduct} from '../../Utilites/Network';
 import {useInterval} from './ReceptScreen';
-import {runInAction} from 'mobx';
-import {strings} from '../../assets/localization/localization';
 
 const AddProductScreen = observer(({navigation, route}) => {
   const [text, setText] = useState('');

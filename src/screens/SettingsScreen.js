@@ -1,4 +1,4 @@
-import React, {Component, useState, useRef, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,25 +7,13 @@ import {
   Platform,
   TouchableOpacity,
   SafeAreaView,
-  Animated,
-  Dimensions,
-  Alert,
-  Share,
 } from 'react-native';
-import {
-  FlatList,
-  ScrollView,
-  TextInput,
-  TouchableHighlight,
-} from 'react-native-gesture-handler';
-import {observer, Observer, useObserver} from 'mobx-react-lite';
+import {ScrollView} from 'react-native-gesture-handler';
+import {observer} from 'mobx-react-lite';
 import {runInAction} from 'mobx';
-import {Btn} from '../components/Btn';
-import common from '../../Utilites/Common';
 import Colors from '../constants/Colors';
 import {Switch} from 'react-native-switch';
 import network, {updateInfo} from '../../Utilites/Network';
-import {strings} from '../../assets/localization/localization';
 
 const SettingsScreen = observer(({navigation}) => {
   const [isEnabled, setIsEnabled] = useState(network.user?.show_push ?? false);

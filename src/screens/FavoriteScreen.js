@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useMemo, useCallback} from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,39 +8,50 @@ import {
   Platform,
   TouchableOpacity,
 } from 'react-native';
-import {FlatList} from 'react-native-gesture-handler';
+import {ScrollView} from 'react-native-gesture-handler';
 import network from '../../Utilites/Network';
 import {observer} from 'mobx-react-lite';
 import {runInAction} from 'mobx';
 import common from '../../Utilites/Common';
 import Colors from '../constants/Colors';
-import FavorItem from '../components/FavoriteScreen/FavorItem';
 import BottomListBtn from '../components/BottomListBtn';
 import {UnavailableProductsModal} from '../components/UnavailableProductsModal';
 import {SaleModal} from '../components/PayWallScreen/SaleModal';
+import DishesHorizontalList from '../components/DishesHorizontalList';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 const FavoriteScreen = observer(({navigation}) => {
-  // const [filteredFavors, setFilteredFavors] = useState(network.favorDishes);
-  // const [filterModal, setFilterModal] = useState(false);
-  // const filterNames = ['Завтраки', 'Обеды', 'Ужины', 'Салаты', 'Десерты'];
-  // const [currentFilters, setCurrentFilters] = useState([]);
   const [unavailableModal, setUnavailableModal] = useState(false);
   const [unavailableRecipe, setUnavailableRecipe] = useState({});
   const [saleModal, setSaleModal] = useState(false);
-
-  const openRec = rec => {
-    if (network.canOpenRec(rec)) {
-      navigation.navigate('ReceptScreen', {rec: rec});
-    } else if (network.paywalls?.paywall_sale_modal) {
-      setSaleModal(true);
-    } else {
-      navigation.navigate('PayWallScreen', {
-        data: network.paywalls[network.user?.banner?.type],
-      });
+  const insets = useSafeAreaInsets();
+  const eatings = useMemo(() => {
+    if (network.favorDishes.length) {
+      const sortedEatings = [...network.favorDishes]
+        .sort((a, b) => a?.eating_sort - b?.eating_sort)
+        .map(dish => dish?.eating);
+      return [...new Set(sortedEatings)];
     }
-  };
+    return [];
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [network.favorDishes.length]);
 
-  const openPaywall = () => {
+  const openRec = useCallback(
+    rec => {
+      if (network.canOpenRec(rec)) {
+        navigation.navigate('ReceptScreen', {rec: rec});
+      } else if (network.paywalls?.paywall_sale_modal) {
+        setSaleModal(true);
+      } else {
+        navigation.navigate('PayWallScreen', {
+          data: network.paywalls[network.user?.banner?.type],
+        });
+      }
+    },
+    [navigation],
+  );
+
+  const openPaywall = useCallback(() => {
     if (network.paywalls?.paywall_sale_modal) {
       setSaleModal(true);
     } else {
@@ -48,43 +59,51 @@ const FavoriteScreen = observer(({navigation}) => {
         data: network.paywalls[network.user?.banner?.type],
       });
     }
-  };
+  }, [navigation]);
 
-  const listHandler = (isInBasket, recept) => {
-    if (network.isBasketUser()) {
-      const isUnavailable = network.unavailableRecipes.find(
-        rec => rec.id == recept.id,
-      );
-      if (isInBasket) {
+  const listHandler = useCallback(
+    (isInBasket, recept) => {
+      if (network.isBasketUser()) {
+        const isUnavailable = network.unavailableRecipes.find(
+          rec => rec.id == recept.id,
+        );
+        if (isInBasket) {
+          network.basketHandle(
+            isInBasket,
+            recept.id,
+            recept.persons,
+            'MenuScreen',
+          );
+          return;
+        }
+        if (!network.canOpenRec(recept)) {
+          openPaywall();
+          return;
+        }
+        if (isUnavailable) {
+          setUnavailableRecipe(recept);
+          setUnavailableModal(true);
+          return;
+        }
         network.basketHandle(
           isInBasket,
           recept.id,
           recept.persons,
           'MenuScreen',
         );
-        return;
-      }
-      if (!network.canOpenRec(recept)) {
-        openPaywall();
-        return;
-      }
-      if (isUnavailable) {
-        setUnavailableRecipe(recept);
-        setUnavailableModal(true);
-        return;
-      }
-      network.basketHandle(isInBasket, recept.id, recept.persons, 'MenuScreen');
-    } else {
-      // Если блюдо в списке, то удаляем. Если нет, то проверяем, можно ли его добавить(открыть)
-      if (isInBasket) {
-        network.deleteFromList(recept);
-      } else if (network.canOpenRec(recept)) {
-        network.addToList(recept);
       } else {
-        openPaywall();
+        // Если блюдо в списке, то удаляем. Если нет, то проверяем, можно ли его добавить(открыть)
+        if (isInBasket) {
+          network.deleteFromList(recept);
+        } else if (network.canOpenRec(recept)) {
+          network.addToList(recept);
+        } else {
+          openPaywall();
+        }
       }
-    }
-  };
+    },
+    [openPaywall],
+  );
 
   // const filterHandler = what => {
   //   setCurrentFilters(what);
@@ -125,6 +144,51 @@ const FavoriteScreen = observer(({navigation}) => {
     </View>,
   ];
 
+  const renderBody = useCallback(() => {
+    if (eatings.length) {
+      const body = [];
+      for (let i = 0; i < eatings.length; i++) {
+        const el = eatings[i];
+        const eatingsDishes = network.favorDishes.filter(
+          dish => dish.eating === el,
+        );
+        body.push(
+          <DishesHorizontalList
+            dishes={eatingsDishes}
+            sectionName={el}
+            openRec={openRec}
+            listHandler={listHandler}
+            key={el}
+          />,
+        );
+      }
+      return (
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{paddingBottom: insets.bottom}}>
+          {body}
+        </ScrollView>
+      );
+    }
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Image
+          source={require('../../assets/img/emptyFavors.png')}
+          style={{width: 112, height: 96, marginBottom: 19}}
+        />
+        <Text style={styles.title}>{network.strings?.FavoritesEmpty}</Text>
+        <Text style={styles.subtitle}>
+          {network.strings?.FavoritesEmptyDescr}
+        </Text>
+      </View>
+    );
+  }, [eatings, insets.bottom, listHandler, openRec]);
+
   useEffect(() => {
     const onBlur = navigation.addListener('blur', () => {
       const newArr = [];
@@ -142,35 +206,7 @@ const FavoriteScreen = observer(({navigation}) => {
     <View style={{flex: 1, backgroundColor: '#FFF'}}>
       <SafeAreaView backgroundColor={'#FFF'} />
       {header}
-      {network.favorDishes.length ? (
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{padding: 16}}
-          data={network.favorDishes}
-          extraData={network.favorDishes}
-          initialNumToRender={3}
-          keyExtractor={(item, index) => item.id}
-          renderItem={({item, index}) => (
-            <FavorItem
-              recept={item}
-              onPress={() => openRec(item)}
-              listHandler={listHandler}
-              key={item?.id}
-            />
-          )}
-        />
-      ) : (
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Image
-            source={require('../../assets/img/emptyFavors.png')}
-            style={{width: 112, height: 96, marginBottom: 19}}
-          />
-          <Text style={styles.title}>{network.strings?.FavoritesEmpty}</Text>
-          <Text style={styles.subtitle}>
-            {network.strings?.FavoritesEmptyDescr}
-          </Text>
-        </View>
-      )}
+      {renderBody()}
       {network.isBasketUser() &&
       network?.basketInfo?.items_in_cart &&
       network.enableBasket() ? (

@@ -64,12 +64,14 @@ export const SplashScreen = observer(({navigation}) => {
   const initSubs = async items => {
     try {
       await RNIap.initConnection();
-      await RNIap.getProducts(items).then(products =>
-        console.log('productsss: ' + JSON.stringify(products)),
-      );
-      await RNIap.getSubscriptions(items).then(products =>
-        console.log('getSubscriptionssss: ' + JSON.stringify(products)),
-      );
+      await RNIap.getProducts({skus: items}).then(products => {
+        runInAction(() => (network.products = products));
+        console.log('productsss: ' + JSON.stringify(products));
+      });
+      await RNIap.getSubscriptions({skus: items}).then(products => {
+        runInAction(() => (network.subscriptions = products));
+        console.log('getSubscriptionssss: ' + JSON.stringify(products));
+      });
     } catch (error) {
       console.log('err: ' + error);
     }
@@ -77,7 +79,7 @@ export const SplashScreen = observer(({navigation}) => {
       const receipt = purchase.transactionReceipt;
       console.log('purchase', purchase);
       if (receipt) {
-        RNIap.finishTransaction(receipt);
+        RNIap.finishTransaction({purchase});
       }
     });
     let purchaseError = purchaseErrorListener(error => {
@@ -92,11 +94,7 @@ export const SplashScreen = observer(({navigation}) => {
     if (funcDone && animDone) {
       runInAction(() => (network.fromSplash = true));
       if (err) {
-        Alert.alert(
-          Config.appName,
-          network.strings?.NoConnectionAlert ??
-            network.strings?.NoConnectionAlert,
-        );
+        Alert.alert(Config.appName, network.strings?.NoConnectionAlert);
       } else {
         // navigation.navigate('OnboardingStack');
         //!
@@ -158,17 +156,33 @@ export const SplashScreen = observer(({navigation}) => {
     }
   }, [progress]);
 
-  const goToMain = async () => {
+  const initLibs = async () => {
     OneSignal.setLogLevel(6, 0);
-    OneSignal.setAppId('50273246-c3e6-4670-b829-3e51d4b24b51');
+    OneSignal.setAppId('f3b32f71-00f1-4947-9caf-1032a406839b');
     await YaMap.init('31460ec9-f312-465d-a25a-e3017559ad4f');
     getStatus();
+  };
+
+  const goToMain = async (retry = false) => {
+    if (!retry) {
+      await initLibs();
+    }
     try {
-      let newToken = await AsyncStorage.getItem('token');
+      const fromDeepLink = await CheckDymanicLink();
+      let newToken = null;
+      if (!retry) {
+        newToken = await AsyncStorage.getItem('token');
+        // newToken =
+        // 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vZm9vZHBsYW4ubWVudS9hcGkvYXV0aC9sb2dpbiIsImlhdCI6MTY4NzIzOTQyNiwiZXhwIjoxNjg3NzU3ODI2LCJuYmYiOjE2ODcyMzk0MjYsImp0aSI6InlWNzhCWDd6ZURtY0VqNEMiLCJzdWIiOiIzMTkzIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.aA9MwK6Ql6RkomSkuB3G_QEVr9nNDdh_ALbDElmA4og';
+      }
       newToken ? runInAction(() => (network.access_token = newToken)) : null;
-      console.log('object123123', newToken);
       network.setUniqueId();
-      await authUser(newToken ?? undefined);
+      if (fromDeepLink && !retry) {
+        await getUserFromLink(fromDeepLink);
+      } else {
+        await authUser(newToken ?? undefined);
+      }
+      // console.log('object123123', newToken);
       const localeValue = strings.getInterfaceLanguage();
       if (network?.user?.lang_app !== localeValue) {
         await updateInfo('lang_app', localeValue);
@@ -178,16 +192,6 @@ export const SplashScreen = observer(({navigation}) => {
       ampInstance.logEvent('app opened');
       const subItems = await getTariffs();
       await initSubs(subItems);
-      const fromDeepLink = await CheckDymanicLink();
-      console.log('fromDeepLink', fromDeepLink);
-      if (fromDeepLink) {
-        try {
-          await getUserFromLink(fromDeepLink);
-          await getInitialScreens();
-        } catch (e) {
-          await authUser(newToken ?? undefined);
-        }
-      }
       const urls = [];
       for (let i = 0; i < network.dayDishes.length; i++) {
         urls.push({uri: network.dayDishes[i].images?.big_webp});
@@ -200,6 +204,10 @@ export const SplashScreen = observer(({navigation}) => {
       }
       setFuncDone(true);
     } catch (e) {
+      if (e === 'Unauthenticated.' && !retry) {
+        goToMain(true);
+        return;
+      }
       console.log('object', e);
       setErr(true);
       setFuncDone(true);

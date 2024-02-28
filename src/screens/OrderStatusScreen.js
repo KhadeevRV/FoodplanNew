@@ -1,4 +1,4 @@
-import React, {Component, useState, useRef, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,36 +6,22 @@ import {
   Image,
   Platform,
   TouchableOpacity,
-  ImageBackground,
   SafeAreaView,
-  Dimensions,
   Alert,
-  Share,
-  KeyboardAvoidingView,
-  ActivityIndicator,
 } from 'react-native';
-import {
-  FlatList,
-  ScrollView,
-  TextInput,
-  TouchableHighlight,
-} from 'react-native-gesture-handler';
+import {TouchableHighlight} from 'react-native-gesture-handler';
 import network, {
   cancelUserOrder,
   createOrder,
   getUserInfo,
 } from '../../Utilites/Network';
-import {observer, Observer, useObserver} from 'mobx-react-lite';
+import {observer} from 'mobx-react-lite';
 import Colors from '../constants/Colors';
 import {getBottomSpace, getStatusBarHeight} from 'react-native-iphone-x-helper';
-import Spinner from 'react-native-loading-spinner-overlay';
 import * as Progress from 'react-native-progress';
 import {ShadowView} from '../components/ShadowView';
-import BottomListBtn from '../components/BottomListBtn';
 import {ampInstance} from '../../App';
 import {GreyBtn} from '../components/GreyBtn';
-import common from '../../Utilites/Common';
-import {strings} from '../../assets/localization/localization';
 
 export const statuses = [
   {

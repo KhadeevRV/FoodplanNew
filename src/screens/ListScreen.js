@@ -1,4 +1,4 @@
-import React, {Component, useState, useRef, useEffect} from 'react';
+import React, {useState, useRef} from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,31 +6,20 @@ import {
   Image,
   Platform,
   TouchableOpacity,
-  ImageBackground,
   SafeAreaView,
-  Dimensions,
   Alert,
   Share,
 } from 'react-native';
-import {
-  FlatList,
-  ScrollView,
-  TextInput,
-  TouchableHighlight,
-} from 'react-native-gesture-handler';
-import network, {getList, listClear} from '../../Utilites/Network';
-import {observer, Observer, useObserver} from 'mobx-react-lite';
+import {FlatList, ScrollView} from 'react-native-gesture-handler';
+import network, {listClear} from '../../Utilites/Network';
+import {observer} from 'mobx-react-lite';
 import {runInAction} from 'mobx';
-import {Btn} from '../components/Btn';
 import common from '../../Utilites/Common';
 import Colors from '../constants/Colors';
-import DayRecipeCard from '../components/MenuScreen/DayRecipeCard';
-import LinearGradient from 'react-native-linear-gradient';
-import {getBottomSpace, getStatusBarHeight} from 'react-native-iphone-x-helper';
+import {getStatusBarHeight} from 'react-native-iphone-x-helper';
 import ListItem from '../components/ListScreen/ListItem';
 import {IngredientItem} from '../components/ListScreen/IngredientItem';
 import {AboutIngrModal} from '../components/ListScreen/AboutIngrModal';
-import {strings} from '../../assets/localization/localization';
 import {SaleModal} from '../components/PayWallScreen/SaleModal';
 
 const ListScreen = observer(({navigation}) => {
@@ -161,8 +150,7 @@ const ListScreen = observer(({navigation}) => {
 
   const openRec = rec => {
     if (network.canOpenRec(rec)) {
-      const recept = network.allDishes.find(item => item.id == rec.id);
-      navigation.navigate('ReceptScreen', {rec: recept});
+      navigation.navigate('ReceptScreen', {rec});
     } else if (network.paywalls?.paywall_sale_modal) {
       setSaleModal(true);
     } else {

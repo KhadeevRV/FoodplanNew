@@ -18,9 +18,6 @@ import common from '../../../Utilites/Common';
 import network, {getSocials} from '../../../Utilites/Network';
 import {observer} from 'mobx-react-lite';
 import Modal from 'react-native-modal';
-import Config from '../../constants/Config';
-import {keys} from 'mobx';
-import DropShadow from 'react-native-drop-shadow';
 
 const FeedBackItem = ({icon, title, subtitle, onPress}) => {
   return (

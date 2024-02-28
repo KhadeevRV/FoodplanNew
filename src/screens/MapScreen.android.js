@@ -1,4 +1,4 @@
-import React, {Component, useState, useRef, useEffect, useMemo} from 'react';
+import React, {useState, useRef, useEffect, useMemo} from 'react';
 import {
   StyleSheet,
   Dimensions,
@@ -14,11 +14,11 @@ import {
   PermissionsAndroid,
   TouchableOpacity,
 } from 'react-native';
-import {observer, Observer, useObserver} from 'mobx-react-lite';
-import YaMap, {Geocoder, Suggest} from 'react-native-yamap';
+import {observer} from 'mobx-react-lite';
+import YaMap, {Geocoder} from 'react-native-yamap';
 import Colors from '../constants/Colors';
 import BottomSheet from '@gorhom/bottom-sheet';
-import {getBottomSpace, getStatusBarHeight} from 'react-native-iphone-x-helper';
+import {getStatusBarHeight} from 'react-native-iphone-x-helper';
 import SearchBar from '../components/SearchBar';
 import network, {
   getGeoData,
@@ -27,10 +27,8 @@ import network, {
   setUserAddress,
 } from '../../Utilites/Network';
 import Geolocation from '@react-native-community/geolocation';
-import {check, PERMISSIONS, RESULTS, request} from 'react-native-permissions';
+import {PERMISSIONS, request} from 'react-native-permissions';
 import Config from '../constants/Config';
-import {ShadowView} from '../components/ShadowView';
-import {strings} from '../../assets/localization/localization';
 import common from '../../Utilites/Common';
 
 Geocoder.init('e95c2f91-cd98-4e7c-be76-c7ec244d0ef1');

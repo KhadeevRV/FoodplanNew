@@ -1,21 +1,14 @@
-import React, {Component, useState} from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
-  Text,
   View,
   SafeAreaView,
-  Image,
   Platform,
   KeyboardAvoidingView,
 } from 'react-native';
-import {
-  TouchableOpacity,
-  FlatList,
-  ScrollView,
-  TextInput,
-} from 'react-native-gesture-handler';
-import network, {getList, sendAnswer, updateInfo} from '../../Utilites/Network';
-import {observer, Observer, useObserver} from 'mobx-react-lite';
+import {ScrollView, TextInput} from 'react-native-gesture-handler';
+import network, {updateInfo} from '../../Utilites/Network';
+import {observer} from 'mobx-react-lite';
 import {runInAction} from 'mobx';
 import {Btn} from '../components/Btn';
 import common from '../../Utilites/Common';

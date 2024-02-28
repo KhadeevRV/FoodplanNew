@@ -315,7 +315,7 @@ const ProfileScreen = observer(({navigation}) => {
           {network?.user?.phone ? (
             <Text style={styles.subtitle}>{'+' + network?.user?.phone}</Text>
           ) : null}
-          {network.user?.access || network.isBasketUser() ? null : (
+          {network.user?.access ? null : (
             <TouchableOpacity
               style={{marginTop: 24}}
               activeOpacity={1}

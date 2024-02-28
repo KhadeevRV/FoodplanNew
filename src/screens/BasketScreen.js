@@ -1,32 +1,20 @@
-import React, {Component, useState, useRef, useEffect, useMemo} from 'react';
+import React, {useState, useRef, useEffect, useMemo} from 'react';
 import {
   StyleSheet,
   Text,
   View,
   Image,
   Platform,
-  ImageBackground,
   SafeAreaView,
-  Dimensions,
   Alert,
   TouchableOpacity,
 } from 'react-native';
-import {
-  FlatList,
-  ScrollView,
-  TouchableHighlight,
-} from 'react-native-gesture-handler';
-import network, {
-  basketClear,
-  getBasket,
-  getList,
-  listClear,
-} from '../../Utilites/Network';
-import {observer, Observer, useObserver} from 'mobx-react-lite';
+import {FlatList, ScrollView} from 'react-native-gesture-handler';
+import network, {basketClear, getBasket} from '../../Utilites/Network';
+import {observer} from 'mobx-react-lite';
 import common from '../../Utilites/Common';
 import Colors from '../constants/Colors';
-import DayRecipeCard from '../components/MenuScreen/DayRecipeCard';
-import {getBottomSpace, getStatusBarHeight} from 'react-native-iphone-x-helper';
+import {getStatusBarHeight} from 'react-native-iphone-x-helper';
 import BasketItem from '../components/BasketScreen/BasketItem';
 import {ProductItem} from '../components/BasketScreen/ProductItem';
 import BottomListBtn from '../components/BottomListBtn';
@@ -36,7 +24,6 @@ import {DeliveryModal} from '../components/BasketScreen/DeliveryModal';
 import {ampInstance} from '../../App';
 import {AboutIngrModal} from '../components/BasketScreen/AboutIngrModal';
 import SearchBar from '../components/SearchBar';
-import {strings} from '../../assets/localization/localization';
 
 const BasketScreen = observer(({navigation, route}) => {
   const [deliveryModal, setDeliveryModal] = useState(false);
@@ -110,7 +97,7 @@ const BasketScreen = observer(({navigation, route}) => {
 
   const openRec = rec => {
     if (network.canOpenRec(rec)) {
-      navigation.navigate('ReceptScreen', {rec: rec});
+      navigation.navigate('ReceptScreen', {rec});
     } else {
       navigation.navigate('PayWallScreen', {
         data: network.paywalls[network.user?.banner?.type],

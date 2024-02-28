@@ -17,17 +17,14 @@ import network, {payAppleOrAndroid, getUserInfo} from '../../Utilites/Network';
 import PayWallItem from '../components/PayWallScreen/PayWallItem';
 import {Btn} from '../components/Btn';
 import * as RNIap from 'react-native-iap';
-import Config from '../constants/Config';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {AppEventsLogger} from 'react-native-fbsdk-next';
 import {PrivacyModal} from '../components/ProfileScreen/PrivacyModal';
-import {FooterItem} from './ProfileScreen';
-import DayRecipeCard from '../components/MenuScreen/DayRecipeCard';
 import {TrialModal} from '../components/PayWallScreen/TrialModal';
 import RNRestart from 'react-native-restart';
-import {getBottomSpace, getStatusBarHeight} from 'react-native-iphone-x-helper';
+import {getStatusBarHeight} from 'react-native-iphone-x-helper';
 import {updateAllData} from './SplashScreen';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 const sendAnalytics = plan => {
   let today = new Date();
@@ -65,9 +62,32 @@ export const payHandle = async (
   const newPlan = plan;
   onLoading(true);
   try {
-    const receipt = await RNIap.requestPurchase(newPlan.id);
+    const isSubscription = network.subscriptions.find(
+      subscription => subscription.productId == newPlan.id,
+    );
+    let offerToken = null;
+    if (isSubscription) {
+      offerToken = isSubscription?.subscriptionOfferDetails[0]?.offerToken;
+    }
+    const requestBody = Platform.select({
+      ios: {sku: newPlan.id},
+      android: {skus: [newPlan.id]},
+    });
+    let receipt = null;
+    if (isSubscription) {
+      receipt = await RNIap.requestSubscription({
+        ...requestBody,
+        ...(offerToken && {
+          subscriptionOffers: [{sku: newPlan.id, offerToken}],
+        }),
+      });
+    } else {
+      receipt = await RNIap.requestPurchase({
+        ...requestBody,
+      });
+    }
+    console.log('receipt', receipt);
     await onUpdateData(receipt, plan);
-    onLoading(false);
     // Если есть телефон, то все впорядке, возвращаем назад. Если нет, то обязательно ввести closeDisable - не позволяет пропустить экран
     // from - экран, на который перейдет пользователь после подтверждения телефона
     if (fromModal) {
@@ -85,6 +105,7 @@ export const payHandle = async (
     }
   } catch (e) {
     console.log('e', e);
+  } finally {
     onLoading(false);
   }
 };
