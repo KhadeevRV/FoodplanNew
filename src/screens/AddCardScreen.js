@@ -19,8 +19,8 @@ import network, {
 import {observer} from 'mobx-react-lite';
 import Colors from '../constants/Colors';
 import {getBottomSpace, getStatusBarHeight} from 'react-native-iphone-x-helper';
-import {Card} from 'react-native-cloudpayments-sdk';
-import {Currency, CloudPaymentsApi} from 'react-native-cloudpayments-sdk';
+// import {Card} from 'react-native-cloudpayments-sdk';
+// import {Currency, CloudPaymentsApi} from 'react-native-cloudpayments-sdk';
 import {FloatingLabelInput} from 'react-native-floating-label-input/index';
 import {Btn} from '../components/Btn';
 import {useInterval} from './ReceptScreen';
@@ -73,8 +73,8 @@ const AddCardScreen = observer(({navigation}) => {
     if (time != 0) {
       const date = new Date();
       if (date - time > 500 && time != 0) {
-        const newCardType = await Card.cardType(cardNumber.replace(/\s+/g, ''));
-        setCardType(newCardType);
+        // const newCardType = await Card.cardType(cardNumber.replace(/\s+/g, ''));
+        // setCardType(newCardType);
         setTime(0);
       }
     }
@@ -116,11 +116,12 @@ const AddCardScreen = observer(({navigation}) => {
   const mainScroll = useRef(null);
 
   const checkCard = async () => {
-    const isCardNumber = await Card.isCardNumberValid(
-      cardNumber.replace(/\s+/g, ''),
-    );
-    const isExpDate = await Card.isExpDateValid(cardDate); // expDate в формате MM/yy
-    return isExpDate && isCardNumber;
+    // const isCardNumber = await Card.isCardNumberValid(
+    //   cardNumber.replace(/\s+/g, ''),
+    // );
+    // const isExpDate = await Card.isExpDateValid(cardDate); // expDate в формате MM/yy
+    // return isExpDate && isCardNumber;
+    return true;
   };
 
   const sendError = text => {
@@ -141,42 +142,42 @@ const AddCardScreen = observer(({navigation}) => {
     try {
       const ip = await getUserIP();
       ip ? (PAYMENT_DATA_CARD.ipAddress = ip) : null;
-      const cloudPaymentsApi = await CloudPaymentsApi.initialApi(
-        PAYMENT_DATA_CARD,
-        PAYMENT_JSON_DATA_CARD,
-      );
-      cloudPaymentsApi.setDetailsOfPayment({
-        currency: Currency.ruble,
-        totalAmount: '1',
-      });
-      const cryptogramPacket = await Card.makeCardCryptogramPacket({
-        cardNumber: cardNumber.replace(/\s+/g, ''),
-        expDate: cardDate,
-        cvv: cardCVV,
-        merchantId: 'pk_bcfec0a71bc8227680280ae03ecec',
-      });
+      // const cloudPaymentsApi = await CloudPaymentsApi.initialApi(
+      //   PAYMENT_DATA_CARD,
+      //   PAYMENT_JSON_DATA_CARD,
+      // );
+      // cloudPaymentsApi.setDetailsOfPayment({
+      //   currency: Currency.ruble,
+      //   totalAmount: '1',
+      // });
+      // const cryptogramPacket = await Card.makeCardCryptogramPacket({
+      //   cardNumber: cardNumber.replace(/\s+/g, ''),
+      //   expDate: cardDate,
+      //   cvv: cardCVV,
+      //   merchantId: 'pk_bcfec0a71bc8227680280ae03ecec',
+      // });
       const isValid = await checkCard();
       if (isValid) {
-        const results = await cloudPaymentsApi.charge(cryptogramPacket, '');
-        const resultModel = Platform.select({
-          ios: results.model,
-          android: results.transaction,
-        });
-        console.log(resultModel);
-        const {TransactionId, PaRes} = await Card.requestThreeDSecure({
-          transactionId: resultModel.transactionId,
-          paReq: resultModel.paReq,
-          acsUrl: resultModel.acsUrl,
-        });
-        const {Token, CardFirstSix, CardLastFour, CardExpDate, CardType} =
-          await sendCheck(TransactionId, PaRes);
-        await addUserCard(
-          Token,
-          CardFirstSix,
-          CardLastFour,
-          CardExpDate,
-          CardType,
-        );
+        // const results = await cloudPaymentsApi.charge(cryptogramPacket, '');
+        // const resultModel = Platform.select({
+        //   ios: results.model,
+        //   android: results.transaction,
+        // });
+        // console.log(resultModel);
+        // const {TransactionId, PaRes} = await Card.requestThreeDSecure({
+        //   transactionId: resultModel.transactionId,
+        //   paReq: resultModel.paReq,
+        //   acsUrl: resultModel.acsUrl,
+        // });
+        // const {Token, CardFirstSix, CardLastFour, CardExpDate, CardType} =
+        // await sendCheck(TransactionId, PaRes);
+        // await addUserCard(
+        //   Token,
+        //   CardFirstSix,
+        //   CardLastFour,
+        //   CardExpDate,
+        //   CardType,
+        // );
         await getUserCards();
         ampInstance.logEvent('credit card added');
         navigation.goBack();

@@ -14,7 +14,6 @@ import network, {
   getMenu,
   authUser,
   getFavors,
-  getTariffs,
   getBasket,
   getStores,
   getUserCards,
@@ -40,8 +39,6 @@ import SplashScreenLib from 'react-native-splash-screen';
 import Config from '../constants/Config';
 import {ampInstance} from '../../App';
 import {strings} from '../../assets/localization/localization';
-import * as RNIap from 'react-native-iap';
-import {purchaseErrorListener, purchaseUpdatedListener} from 'react-native-iap';
 import {CheckDymanicLink} from './ReceptDayScreen';
 import {useInterval} from './ReceptScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -61,35 +58,6 @@ export const updateAllData = async () => {
 };
 
 export const SplashScreen = observer(({navigation}) => {
-  const initSubs = async items => {
-    try {
-      await RNIap.initConnection();
-      await RNIap.getProducts({skus: items}).then(products => {
-        runInAction(() => (network.products = products));
-        console.log('productsss: ' + JSON.stringify(products));
-      });
-      await RNIap.getSubscriptions({skus: items}).then(products => {
-        runInAction(() => (network.subscriptions = products));
-        console.log('getSubscriptionssss: ' + JSON.stringify(products));
-      });
-    } catch (error) {
-      console.log('err: ' + error);
-    }
-    let purchaseUpdated = purchaseUpdatedListener(async purchase => {
-      const receipt = purchase.transactionReceipt;
-      console.log('purchase', purchase);
-      if (receipt) {
-        RNIap.finishTransaction({purchase});
-      }
-    });
-    let purchaseError = purchaseErrorListener(error => {
-      console.log('purchaseErrorListener', error);
-      error?.responseCode == Platform.select({ios: 2, android: 1})
-        ? null
-        : Alert.alert(network?.strings?.Error, error?.message);
-    });
-  };
-
   const allDone = () => {
     if (funcDone && animDone) {
       runInAction(() => (network.fromSplash = true));
@@ -190,8 +158,6 @@ export const SplashScreen = observer(({navigation}) => {
       }
       await Promise.all([updateAllData(), getRegisterScreens()]);
       ampInstance.logEvent('app opened');
-      const subItems = await getTariffs();
-      await initSubs(subItems);
       const urls = [];
       for (let i = 0; i < network.dayDishes.length; i++) {
         urls.push({uri: network.dayDishes[i].images?.big_webp});

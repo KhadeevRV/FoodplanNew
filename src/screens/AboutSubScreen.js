@@ -15,7 +15,6 @@ import network, {getUserInfo, payAppleOrAndroid} from '../../Utilites/Network';
 import {observer} from 'mobx-react-lite';
 import Colors from '../constants/Colors';
 import ProfileItem from '../components/ProfileScreen/ProfileItem';
-import * as RNIap from 'react-native-iap';
 import RNRestart from 'react-native-restart';
 
 const AboutSubScreen = observer(({navigation}) => {
@@ -62,16 +61,7 @@ const AboutSubScreen = observer(({navigation}) => {
       });
       let receipt = null;
       if (isSubscription) {
-        receipt = await RNIap.requestSubscription({
-          ...requestBody,
-          ...(offerToken && {
-            subscriptionOffers: [{sku: receptId, offerToken}],
-          }),
-        });
       } else {
-        receipt = await RNIap.requestPurchase({
-          ...requestBody,
-        });
       }
       await payAppleOrAndroid(receipt);
       await getUserInfo();

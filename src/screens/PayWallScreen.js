@@ -16,7 +16,6 @@ import Colors from '../constants/Colors';
 import network, {payAppleOrAndroid, getUserInfo} from '../../Utilites/Network';
 import PayWallItem from '../components/PayWallScreen/PayWallItem';
 import {Btn} from '../components/Btn';
-import * as RNIap from 'react-native-iap';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {AppEventsLogger} from 'react-native-fbsdk-next';
 import {PrivacyModal} from '../components/ProfileScreen/PrivacyModal';
@@ -75,16 +74,7 @@ export const payHandle = async (
     });
     let receipt = null;
     if (isSubscription) {
-      receipt = await RNIap.requestSubscription({
-        ...requestBody,
-        ...(offerToken && {
-          subscriptionOffers: [{sku: newPlan.id, offerToken}],
-        }),
-      });
     } else {
-      receipt = await RNIap.requestPurchase({
-        ...requestBody,
-      });
     }
     console.log('receipt', receipt);
     await onUpdateData(receipt, plan);
@@ -135,63 +125,6 @@ const PayWallScreen = observer(({navigation, route}) => {
       return [];
     }
   }, [screen?.plans.length]);
-
-  const checkTransactions = async (availablePurchases = [], purchaseDate) => {
-    for (let i = 0; i < availablePurchases.length; i++) {
-      const transcation = availablePurchases[i];
-      if (
-        purchaseDate <= new Date(transcation.transactionDate) ||
-        !purchaseDate
-      ) {
-        console.log(
-          'checkTransactionsDONE',
-          new Date(transcation.transactionDate),
-          transcation.productId,
-        );
-        return transcation;
-      }
-    }
-    return null;
-  };
-
-  const checkSub = async (fromTrial = false) => {
-    fromTrial ? setTrialLoading(true) : setLoading(true);
-    try {
-      const availablePurchases = await RNIap.getAvailablePurchases();
-      const purchaseDate = new Date(
-        network.user?.subscription?.info?.purchase_date,
-      );
-      const transcation = checkTransactions(availablePurchases, purchaseDate);
-      if (transcation) {
-        await payAppleOrAndroid(transcation);
-        fromTrial ? setTrialLoading(false) : setLoading(false);
-        Alert.alert(
-          network?.strings?.Attention,
-          network?.strings?.RestoreDoneLabel,
-          [
-            {
-              text: network?.strings?.Reload,
-              onPress: () => RNRestart.Restart(),
-            },
-          ],
-        );
-      } else {
-        fromTrial ? setTrialLoading(false) : setLoading(false);
-        Alert.alert(
-          network?.strings?.Attention,
-          network?.strings?.RestoreFailLabel,
-          [{text: network?.strings?.Continue}],
-        );
-      }
-    } catch (e) {
-      fromTrial ? setTrialLoading(false) : setLoading(false);
-      Alert.alert(
-        network?.strings?.Attention,
-        network?.strings?.RestoreFailLabel,
-        [{text: network?.strings?.Continue}],
-      );
-    }
-  };
 
   const plansView = useMemo(() => {
     if (screen?.plans.length) {
@@ -427,7 +360,7 @@ const PayWallScreen = observer(({navigation, route}) => {
             onPress={() => Linking.openURL('https://wecook.app/terms')}>
             {network?.strings?.Terms}
           </Text>
-          <Text style={styles.restoreText} onPress={() => checkSub()}>
+          <Text style={styles.restoreText} onPress={() => null}>
             {network?.strings?.Restore}
           </Text>
         </View>
@@ -441,7 +374,7 @@ const PayWallScreen = observer(({navigation, route}) => {
         }}
         isLoading={trialLoading}
         onPay={async () => onPayTrial()}
-        checkSub={() => checkSub(true)}
+        checkSub={() => null}
       />
       <PrivacyModal
         modal={privacyModal}
