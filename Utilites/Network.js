@@ -1,7 +1,7 @@
 import React from 'react';
 import {observable, runInAction} from 'mobx';
 import * as mobx from 'mobx';
-import {Platform, Alert} from 'react-native';
+import {Platform, Alert, Linking} from 'react-native';
 import Config from '../src/constants/Config';
 import Rate, {AndroidMarket} from 'react-native-rate';
 import {getUniqueId} from 'react-native-device-info';
@@ -89,7 +89,8 @@ class Network {
   }
 
   isBasketUser() {
-    return network?.user?.work_type !== 'list';
+    // return network?.user?.work_type !== 'list';
+    return false;
   }
 
   addToList(dish) {
@@ -333,6 +334,28 @@ class Network {
 
   sendAnalyticError(message) {
     ampInstance.logEvent('error', {error: message});
+  }
+
+  openPaywallUrl() {
+    let url = this.user?.base_order_page;
+    const isBanner1 =
+      Object.keys(network.banner1).length &&
+      this.user?.banner_hide &&
+      this.user?.banner_hide.findIndex(item => item == this.banner1?.type) ===
+        -1;
+    if (isBanner1 && this.banner1.type?.includes('https://')) {
+      url = this.banner1.type;
+    }
+    const isBanner2 =
+      !isBanner1 &&
+      Object.keys(network.banner2).length &&
+      this.user?.banner_hide &&
+      this.user?.banner_hide.findIndex(item => item == this.banner2?.type) ===
+        -1;
+    if (isBanner2 && this.banner2.type?.includes('https://')) {
+      url = this.banner2.type;
+    }
+    Linking.openURL(url);
   }
 
   constructor(props) {

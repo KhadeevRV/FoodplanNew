@@ -10,7 +10,7 @@ import Config from './src/constants/Config';
 import Smartlook from 'react-native-smartlook-analytics';
 
 Smartlook.instance.preferences.setProjectKey(
-  '7fc5543df82d8bcc6f3868477f4262246e0d6cde'
+  '7fc5543df82d8bcc6f3868477f4262246e0d6cde',
 );
 Smartlook.instance.start();
 

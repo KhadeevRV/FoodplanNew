@@ -1,4 +1,4 @@
-import React, {Component, useState, useRef, useEffect} from 'react';
+import React, {useState, useRef} from 'react';
 import {
   StyleSheet,
   Text,
@@ -11,7 +11,7 @@ import {
   Alert,
   Share,
   AsyncStorage,
-  ImageBackground,
+  Linking,
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import network, {
@@ -20,7 +20,7 @@ import network, {
   getFavors,
   getMenu,
 } from '../../Utilites/Network';
-import {observer, Observer, useObserver} from 'mobx-react-lite';
+import {observer} from 'mobx-react-lite';
 import {runInAction} from 'mobx';
 import Colors from '../constants/Colors';
 import ProfileItem from '../components/ProfileScreen/ProfileItem';
@@ -28,7 +28,6 @@ import {FeedBackModal} from '../components/ProfileScreen/FeedBackModal';
 import Rate, {AndroidMarket} from 'react-native-rate';
 import {PrivacyModal} from '../components/ProfileScreen/PrivacyModal';
 import Spinner from 'react-native-loading-spinner-overlay';
-import {strings} from '../../assets/localization/localization';
 import RNRestart from 'react-native-restart';
 import {GreyBtn} from '../components/GreyBtn';
 
@@ -245,19 +244,16 @@ const ProfileScreen = observer(({navigation}) => {
     {
       id: 3,
       title: network.strings?.UserAgreement,
-      // onPress: () => Linking.openURL('https://wecook.app/politic'),
-      onPress: () => {
-        setTextMode('agreement');
-        setprivacyModal(true);
-      },
+      onPress: () => Linking.openURL('https://foodplan.ru/user-agreement/'),
+      // onPress: () => {
+      //   setTextMode('agreement');
+      //   setprivacyModal(true);
+      // },
     },
     {
       id: 4,
       title: network.strings?.PrivacyPolicy,
-      onPress: () => {
-        setTextMode('privacy');
-        setprivacyModal(true);
-      },
+      onPress: () => Linking.openURL('https://foodplan.ru/privacy/'),
     },
   ];
 
@@ -315,7 +311,7 @@ const ProfileScreen = observer(({navigation}) => {
           {network?.user?.phone ? (
             <Text style={styles.subtitle}>{'+' + network?.user?.phone}</Text>
           ) : null}
-          {network.user?.access ? null : (
+          {/* {network.user?.access ? null : (
             <TouchableOpacity
               style={{marginTop: 24}}
               activeOpacity={1}
@@ -360,7 +356,7 @@ const ProfileScreen = observer(({navigation}) => {
                 </Text>
               </ImageBackground>
             </TouchableOpacity>
-          )}
+          )} */}
         </View>
         {bodyArr.map(item => renderBody(item))}
         <View

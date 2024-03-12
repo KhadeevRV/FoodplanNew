@@ -99,26 +99,33 @@ const HolidayMenuScreen = observer(({navigation, route}) => {
     </View>,
   ];
 
-  const openRec = rec => {
-    if (network.canOpenRec(rec)) {
-      navigation.navigate('ReceptScreen', {rec: rec});
-    } else if (network.paywalls?.paywall_sale_modal) {
-      setSaleModal(true);
-    } else {
-      navigation.navigate('PayWallScreen', {
-        data: network.paywalls[network.user?.banner?.type],
-      });
-    }
-  };
-  const openPaywall = () => {
-    if (network.paywalls?.paywall_sale_modal) {
-      setSaleModal(true);
-    } else {
-      navigation.navigate('PayWallScreen', {
-        data: network.paywalls[network.user?.banner?.type],
-      });
-    }
-  };
+  const openRec = React.useCallback(
+    rec => {
+      if (network.canOpenRec(rec)) {
+        navigation.navigate('ReceptScreen', {rec: rec});
+        return;
+      }
+      network.openPaywallUrl();
+      // if (network.paywalls?.paywall_sale_modal) {
+      //   setSaleModal(true);
+      //   return;
+      // }
+      // navigation.navigate('PayWallScreen', {
+      //   data: network.paywalls[network.user?.banner?.type],
+      // });
+    },
+    [navigation],
+  );
+  const openPaywall = React.useCallback(() => {
+    network.openPaywallUrl();
+    // if (network.paywalls?.paywall_sale_modal) {
+    //   setSaleModal(true);
+    // } else {
+    //   navigation.navigate('PayWallScreen', {
+    //     data: network.paywalls[network.user?.banner?.type],
+    //   });
+    // }
+  }, []);
 
   const listHandler = (isInBasket, recept) => {
     if (network.isBasketUser()) {

@@ -1,4 +1,3 @@
-import {useNavigation} from '@react-navigation/native';
 import {runInAction} from 'mobx';
 import {observer} from 'mobx-react-lite';
 import React, {useCallback, useState, useEffect} from 'react';
@@ -9,7 +8,6 @@ import {
   TouchableOpacity,
   Text,
   Image,
-  TouchableHighlight,
   Linking,
 } from 'react-native';
 import Modal from 'react-native-modal';
@@ -60,9 +58,7 @@ export const ModalManager = observer(() => {
       }
       const isPaywall = data.btn_action.indexOf('paywall') !== -1;
       if (isPaywall && navigationRef.current) {
-        navigationRef.current?.navigate('PayWallScreen', {
-          data: network.paywalls[data.btn_action],
-        });
+        network.openPaywallUrl();
         return;
       }
       const isScreen = data.btn_action.indexOf('Screen') !== -1;

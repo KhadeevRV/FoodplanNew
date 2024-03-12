@@ -28,7 +28,7 @@ import network, {
 import {observer} from 'mobx-react-lite';
 import FastImage from 'react-native-fast-image';
 import {runInAction} from 'mobx';
-import OneSignal from 'react-native-onesignal';
+import {OneSignal} from 'react-native-onesignal';
 import {
   getTrackingStatus,
   requestTrackingPermission,
@@ -125,8 +125,8 @@ export const SplashScreen = observer(({navigation}) => {
   }, [progress]);
 
   const initLibs = async () => {
-    OneSignal.setLogLevel(6, 0);
-    OneSignal.setAppId('f3b32f71-00f1-4947-9caf-1032a406839b');
+    // OneSignal.setLogLevel(6, 0);
+    OneSignal.initialize('f3b32f71-00f1-4947-9caf-1032a406839b');
     await YaMap.init('31460ec9-f312-465d-a25a-e3017559ad4f');
     getStatus();
   };

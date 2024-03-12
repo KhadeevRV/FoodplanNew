@@ -1,5 +1,5 @@
-import React, {useRef} from 'react';
-import {View} from 'react-native';
+import React, {useEffect, useRef} from 'react';
+import {AppState, View} from 'react-native';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import analytics from '@react-native-firebase/analytics';
@@ -10,7 +10,7 @@ import ReceptScreen from '../screens/ReceptScreen';
 import {SplashScreen} from '../screens/SplashScreen';
 import ReceptDayScreen from '../screens/ReceptDayScreen';
 import {observer} from 'mobx-react-lite';
-import network from '../../Utilites/Network';
+import network, {getUserInfo} from '../../Utilites/Network';
 import PersonsQuizScreen from '../screens/QuizScreens/PersonsQuizScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SendSmsScreen from '../screens/SendSmsScreen';
@@ -399,6 +399,17 @@ const MainStack = observer(() => {
 });
 
 const AppStack = observer(() => {
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', appstate => {
+      if (appstate === 'active' && !!network.access_token) {
+        getUserInfo();
+      }
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
   return (
     <Stack.Navigator
       screenOptions={route => {

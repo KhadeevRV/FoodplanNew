@@ -148,17 +148,23 @@ const ListScreen = observer(({navigation}) => {
     runInAction(() => (network.listDishes[index].disIngr = status));
   };
 
-  const openRec = rec => {
-    if (network.canOpenRec(rec)) {
-      navigation.navigate('ReceptScreen', {rec});
-    } else if (network.paywalls?.paywall_sale_modal) {
-      setSaleModal(true);
-    } else {
-      navigation.navigate('PayWallScreen', {
-        data: network.paywalls[network.user?.banner?.type],
-      });
-    }
-  };
+  const openRec = React.useCallback(
+    rec => {
+      if (network.canOpenRec(rec)) {
+        navigation.navigate('ReceptScreen', {rec: rec});
+        return;
+      }
+      network.openPaywallUrl();
+      // if (network.paywalls?.paywall_sale_modal) {
+      //   setSaleModal(true);
+      //   return;
+      // }
+      // navigation.navigate('PayWallScreen', {
+      //   data: network.paywalls[network.user?.banner?.type],
+      // });
+    },
+    [navigation],
+  );
 
   const openIngrModal = ingr => {
     const dishes = network.listDishes.filter(dish => {

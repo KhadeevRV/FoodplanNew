@@ -90,13 +90,16 @@ const EarlyListScreen = observer(({navigation}) => {
     if (network.canOpenRec(rec)) {
       const recept = network.allDishes.find(item => item.id == rec.id);
       navigation.navigate('ReceptScreen', {rec: recept, fromHistory: true});
-    } else if (network.paywalls?.paywall_sale_modal) {
-      setSaleModal(true);
-    } else {
-      navigation.navigate('PayWallScreen', {
-        data: network.paywalls[network.user?.banner?.type],
-      });
+      return;
     }
+    network.openPaywallUrl();
+    // if (network.paywalls?.paywall_sale_modal) {
+    //   setSaleModal(true);
+    //   return;
+    // }
+    // navigation.navigate('PayWallScreen', {
+    //   data: network.paywalls[network.user?.banner?.type],
+    // });
   };
 
   function sortObject(o) {

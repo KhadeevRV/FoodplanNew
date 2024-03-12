@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ImageBackground,
+  Linking,
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import network from '../../Utilites/Network';
@@ -44,15 +45,15 @@ const DetailsScreen = observer(({navigation}) => {
   ];
 
   const bodyArr = [
-    {
-      id: 1,
-      title: network.strings?.PhoneNumber,
-      subtitle: network.user?.phone
-        ? '+' + network.user?.phone
-        : network.strings?.NoData,
-      onPress: () =>
-        navigation.navigate('LoginScreen', {from: 'DetailsScreen'}),
-    },
+    // {
+    //   id: 1,
+    //   title: network.strings?.PhoneNumber,
+    //   subtitle: network.user?.phone
+    //     ? '+' + network.user?.phone
+    //     : network.strings?.NoData,
+    //   onPress: () =>
+    //     navigation.navigate('LoginScreen', {from: 'DetailsScreen'}),
+    // },
     {
       id: 2,
       title: network.strings?.UserName,
@@ -133,9 +134,7 @@ const DetailsScreen = observer(({navigation}) => {
                 style={{marginBottom: 16}}
                 activeOpacity={1}
                 onPress={() =>
-                  navigation.navigate('PayWallScreen', {
-                    data: network.paywalls[network?.user?.banner_in_user?.type],
-                  })
+                  Linking.openURL(network?.user?.banner_in_user?.type)
                 }>
                 <ImageBackground
                   source={{uri: network?.user?.banner_in_user?.image_btn}}

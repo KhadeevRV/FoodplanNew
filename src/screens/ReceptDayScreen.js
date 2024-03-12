@@ -17,7 +17,7 @@ import network, {getRecipe} from '../../Utilites/Network';
 import RecipeOfTheDay from '../components/ReceptDayScreen/RecipeOfTheDay';
 import common from '../../Utilites/Common';
 import {getStatusBarHeight} from 'react-native-iphone-x-helper';
-import OneSignal from 'react-native-onesignal';
+import {OneSignal} from 'react-native-onesignal';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import Config from '../constants/Config';
 import {useFocusEffect} from '@react-navigation/native';
@@ -58,15 +58,15 @@ export const CheckDymanicLink = async navigation => {
       }
     }
   };
-
-  OneSignal.setNotificationOpenedHandler(openResult => {
-    let data = openResult?.notification?.additionalData;
+  OneSignal.Notifications.addEventListener('click', event => {
+    let data = event?.notification?.additionalData;
     if (Object.keys(data).length) {
       console.log('OneSignal: notification opened:', data);
       if (data.type == 'paywall') {
-        navigation.navigate('PayWallScreen', {
-          data: network.paywalls[data.name],
-        });
+        network.openPaywallUrl();
+        // navigation.navigate('PayWallScreen', {
+        //   data: network.paywalls[data.name],
+        // });
       } else if (data.type == 'banner') {
         let banner =
           network.banner1.type == data.name
@@ -93,6 +93,7 @@ export const CheckDymanicLink = async navigation => {
       }
     }
   });
+
   dynamicLinks().onLink(link => {
     // console.log('linklinklinklink',link)
     handleDynamicLink(link?.url);

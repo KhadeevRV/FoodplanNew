@@ -12,7 +12,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {observer} from 'mobx-react-lite';
 import common from '../../../Utilites/Common';
 import Colors from '../../constants/Colors';
-import network, {sendAnswer, sendDataToUrl} from '../../../Utilites/Network';
+import network, {sendDataToUrl} from '../../../Utilites/Network';
 
 const ChooseListOrDeliveryScreen = observer(({navigation}) => {
   const screen = network.registerOnboarding?.ChooseListOrDeliveryScreen;

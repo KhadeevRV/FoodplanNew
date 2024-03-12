@@ -1,27 +1,15 @@
-import React, {Component, useRef, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {
   StyleSheet,
   Text,
   View,
   SafeAreaView,
-  Image,
   Platform,
   Animated,
-  ImageBackground,
-  InteractionManager,
 } from 'react-native';
-import {
-  TouchableOpacity,
-  FlatList,
-  ScrollView,
-  TextInput,
-} from 'react-native-gesture-handler';
-import {observer, Observer, useObserver} from 'mobx-react-lite';
-import {runInAction} from 'mobx';
-import {Btn} from '../../components/Btn';
-import common from '../../../Utilites/Common';
+import {FlatList} from 'react-native-gesture-handler';
+import {observer} from 'mobx-react-lite';
 import SkipHeader from '../../components/SkipHeader';
-import Colors from '../../constants/Colors';
 import QuizItem from '../../components/QuizScreens/QuizItem';
 import network, {sendAnswer} from '../../../Utilites/Network';
 import QuizAnimation from '../../animations/QuizAnimation';

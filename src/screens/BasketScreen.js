@@ -98,11 +98,12 @@ const BasketScreen = observer(({navigation, route}) => {
   const openRec = rec => {
     if (network.canOpenRec(rec)) {
       navigation.navigate('ReceptScreen', {rec});
-    } else {
-      navigation.navigate('PayWallScreen', {
-        data: network.paywalls[network.user?.banner?.type],
-      });
+      return;
     }
+    network.openPaywallUrl();
+    // navigation.navigate('PayWallScreen', {
+    //   data: network.paywalls[network.user?.banner?.type],
+    // });
   };
   const openProduct = product => {
     navigation.navigate('ChangeProductScreen', {product: product});

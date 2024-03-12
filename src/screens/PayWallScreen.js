@@ -50,55 +50,55 @@ const onUpdateData = async (receipt, plan) => {
   }
 };
 
-export const payHandle = async (
-  plan,
-  onLoading = () => null,
-  navigation,
-  fromOnboarding = false,
-  screen = {},
-  fromModal = false,
-) => {
-  const newPlan = plan;
-  onLoading(true);
-  try {
-    const isSubscription = network.subscriptions.find(
-      subscription => subscription.productId == newPlan.id,
-    );
-    let offerToken = null;
-    if (isSubscription) {
-      offerToken = isSubscription?.subscriptionOfferDetails[0]?.offerToken;
-    }
-    const requestBody = Platform.select({
-      ios: {sku: newPlan.id},
-      android: {skus: [newPlan.id]},
-    });
-    let receipt = null;
-    if (isSubscription) {
-    } else {
-    }
-    console.log('receipt', receipt);
-    await onUpdateData(receipt, plan);
-    // Если есть телефон, то все впорядке, возвращаем назад. Если нет, то обязательно ввести closeDisable - не позволяет пропустить экран
-    // from - экран, на который перейдет пользователь после подтверждения телефона
-    if (fromModal) {
-      return true;
-    }
-    if (network.user?.phone) {
-      fromOnboarding
-        ? navigation.navigate(screen?.next_board)
-        : navigation.goBack();
-    } else {
-      navigation.navigate('LoginScreen', {
-        closeDisable: true,
-        from: 'MenuScreen',
-      });
-    }
-  } catch (e) {
-    console.log('e', e);
-  } finally {
-    onLoading(false);
-  }
-};
+// export const payHandle = async (
+//   plan,
+//   onLoading = () => null,
+//   navigation,
+//   fromOnboarding = false,
+//   screen = {},
+//   fromModal = false,
+// ) => {
+//   const newPlan = plan;
+//   onLoading(true);
+//   try {
+//     const isSubscription = network.subscriptions.find(
+//       subscription => subscription.productId == newPlan.id,
+//     );
+//     let offerToken = null;
+//     if (isSubscription) {
+//       offerToken = isSubscription?.subscriptionOfferDetails[0]?.offerToken;
+//     }
+//     const requestBody = Platform.select({
+//       ios: {sku: newPlan.id},
+//       android: {skus: [newPlan.id]},
+//     });
+//     let receipt = null;
+//     if (isSubscription) {
+//     } else {
+//     }
+//     console.log('receipt', receipt);
+//     await onUpdateData(receipt, plan);
+//     // Если есть телефон, то все впорядке, возвращаем назад. Если нет, то обязательно ввести closeDisable - не позволяет пропустить экран
+//     // from - экран, на который перейдет пользователь после подтверждения телефона
+//     if (fromModal) {
+//       return true;
+//     }
+//     if (network.user?.phone) {
+//       fromOnboarding
+//         ? navigation.navigate(screen?.next_board)
+//         : navigation.goBack();
+//     } else {
+//       navigation.navigate('LoginScreen', {
+//         closeDisable: true,
+//         from: 'MenuScreen',
+//       });
+//     }
+//   } catch (e) {
+//     console.log('e', e);
+//   } finally {
+//     onLoading(false);
+//   }
+// };
 
 const PayWallScreen = observer(({navigation, route}) => {
   const [currentPlan, setCurrentPlan] = useState(0);
@@ -135,16 +135,7 @@ const PayWallScreen = observer(({navigation, route}) => {
           <PayWallItem
             plan={plan}
             pressed={currentPlan == i}
-            onPress={() => {
-              setCurrentPlan(i);
-              // payHandle(
-              //   plan,
-              //   value => setLoading(value),
-              //   navigation,
-              //   fromOnboarding,
-              //   screen,
-              // );
-            }}
+            onPress={() => setCurrentPlan(i)}
             key={plan.id}
           />,
         );
@@ -318,9 +309,6 @@ const PayWallScreen = observer(({navigation, route}) => {
           backgroundColor: '#FFF',
           paddingBottom: insets.bottom + 8,
         }}>
-        {/*{footerArr.map(item => (*/}
-        {/*  <FooterItem title={item.title} onPress={item.onPress} key={item.id} />*/}
-        {/*))}*/}
         <Text style={styles.decr}>{screen?.description_bottom}</Text>
         <Btn
           underlayColor={Colors.underLayYellow}
@@ -351,17 +339,21 @@ const PayWallScreen = observer(({navigation, route}) => {
         />
         <View
           style={{
-            flexDirection: 'row',
+            // flexDirection: 'row',
             justifyContent: 'center',
             marginTop: 8,
           }}>
           <Text
-            style={[styles.restoreText, {marginRight: 24}]}
-            onPress={() => Linking.openURL('https://wecook.app/terms')}>
+            style={[styles.restoreText, {marginBottom: 4}]}
+            onPress={() => Linking.openURL('https://foodplan.ru/privacy/')}>
             {network?.strings?.Terms}
           </Text>
-          <Text style={styles.restoreText} onPress={() => null}>
-            {network?.strings?.Restore}
+          <Text
+            style={styles.restoreText}
+            onPress={() =>
+              Linking.openURL('https://foodplan.ru/user-agreement/')
+            }>
+            {network.strings?.UserAgreement}
           </Text>
         </View>
       </View>

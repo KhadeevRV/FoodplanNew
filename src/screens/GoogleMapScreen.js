@@ -1,4 +1,4 @@
-import React, {Component, useState, useRef, useEffect, useMemo} from 'react';
+import React, {useState, useRef, useEffect, useMemo} from 'react';
 import {
   StyleSheet,
   Dimensions,
@@ -15,14 +15,10 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {observer} from 'mobx-react-lite';
-import YaMap, {Geocoder, Suggest} from 'react-native-yamap';
+import {Geocoder} from 'react-native-yamap';
 import Colors from '../constants/Colors';
 import BottomSheet from '@gorhom/bottom-sheet';
-import {
-  getBottomSpace,
-  getStatusBarHeight,
-  isIphoneX,
-} from 'react-native-iphone-x-helper';
+import {getStatusBarHeight, isIphoneX} from 'react-native-iphone-x-helper';
 import SearchBar from '../components/SearchBar';
 import network, {
   getGeoData,
@@ -31,11 +27,11 @@ import network, {
   setUserAddress,
 } from '../../Utilites/Network';
 import Geolocation from '@react-native-community/geolocation';
-import {check, PERMISSIONS, RESULTS, request} from 'react-native-permissions';
+import {PERMISSIONS, request} from 'react-native-permissions';
 import Config from '../constants/Config';
 import common from '../../Utilites/Common';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
-import {strings} from "../../assets/localization/localization";
+import {strings} from '../../assets/localization/localization';
 
 Geocoder.init('e95c2f91-cd98-4e7c-be76-c7ec244d0ef1');
 const isIos = Platform.OS == 'ios';

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -79,6 +79,29 @@ const AboutSubScreen = observer(({navigation}) => {
     }
   };
 
+  const goToCancel = useCallback(() => {
+    const link = network.user?.subscription?.unscribe_link;
+    if (!link) {
+      setTimeout(() => {
+        Alert.alert(
+          'Ошибка',
+          'Ошибка при отмене подписки. Пожалуйста, напишите нам на почту для уточнения деталей (foodplan@foodplan.ru)',
+        );
+      }, 300);
+      return;
+    }
+    if (link === 'appstore') {
+      Linking.openURL('https://apps.apple.com/account/subscriptions');
+    } else if (link === 'googleplay') {
+      Linking.openURL(
+        'https://play.google.com/store/account/subscriptions?package=ru.foodplan.app',
+      );
+    } else {
+      Linking.openURL(network.user?.subscription?.unscribe_link);
+    }
+    navigation.goBack();
+  }, [navigation]);
+
   const cancelSub = () => {
     Alert.alert(
       network?.strings?.Attention,
@@ -88,19 +111,7 @@ const AboutSubScreen = observer(({navigation}) => {
       [
         {
           text: network?.strings?.CancelSubAlertTitle,
-          onPress: () => {
-            if (network.user?.subscription?.unscribe_link == 'appstore') {
-              Linking.openURL('https://apps.apple.com/account/subscriptions');
-            } else if (
-              network.user?.subscription?.unscribe_link == 'googleplay'
-            ) {
-              Linking.openURL(
-                'https://play.google.com/store/account/subscriptions?package=ru.foodstar.app',
-              );
-            } else {
-              Linking.openURL(network.user?.subscription?.unscribe_link);
-            }
-          },
+          onPress: goToCancel,
         },
         {
           text: network?.strings?.NotCancel,

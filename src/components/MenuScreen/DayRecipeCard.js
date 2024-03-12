@@ -3,19 +3,11 @@ import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
-  ImageBackground,
   ActivityIndicator,
   Image,
   Platform,
 } from 'react-native';
-import {
-  FlatList,
-  TouchableHighlight,
-  TouchableOpacity,
-} from 'react-native-gesture-handler';
-import common from '../../../Utilites/Common';
-import {getStatusBarHeight, getBottomSpace} from 'react-native-iphone-x-helper';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import Colors from '../../constants/Colors';
 import {BlurView} from '@react-native-community/blur';
 import LinearGradient from 'react-native-linear-gradient';
@@ -23,7 +15,6 @@ import FastImage from 'react-native-fast-image';
 import {observer} from 'mobx-react-lite';
 import network from '../../../Utilites/Network';
 import {ShadowView} from '../ShadowView';
-import {strings} from '../../../assets/localization/localization';
 import {GreyBtn} from '../GreyBtn';
 
 const ImageView = ({uri, onPress, horizontal, isLoading}) => {
@@ -284,6 +275,7 @@ const DayRecipeCard = observer(({recept, onPress, listHandler}) => {
               paddingRight: isBig ? 12 : 8,
               paddingLeft: isBig ? 4 : 8,
               paddingVertical: isBig ? 10 : 8,
+              minHeight: 84,
             }}>
             <View
               style={{

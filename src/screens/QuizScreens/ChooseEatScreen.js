@@ -1,11 +1,4 @@
-import React, {
-  Component,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -13,29 +6,18 @@ import {
   SafeAreaView,
   Animated,
   Platform,
-  InteractionManager,
-  Dimensions,
   Image,
-  UIManager,
-  LayoutAnimation,
 } from 'react-native';
-import {
-  TouchableOpacity,
-  FlatList,
-  ScrollView,
-  TextInput,
-} from 'react-native-gesture-handler';
-import {observer, Observer, useObserver} from 'mobx-react-lite';
-import {runInAction} from 'mobx';
+import {ScrollView} from 'react-native-gesture-handler';
+import {observer} from 'mobx-react-lite';
 import {Btn} from '../../components/Btn';
 import common from '../../../Utilites/Common';
 import SkipHeader from '../../components/SkipHeader';
 import Colors from '../../constants/Colors';
-import QuizItem from '../../components/QuizScreens/QuizItem';
-import network, {sendAnswer, sendDataToUrl} from '../../../Utilites/Network';
+import network, {sendDataToUrl} from '../../../Utilites/Network';
 import QuizAnimation from '../../animations/QuizAnimation';
 import {useInterval} from '../ReceptScreen';
-import ReAnimated, {FadeIn, Layout} from 'react-native-reanimated';
+import ReAnimated, {FadeIn} from 'react-native-reanimated';
 import {getBottomSpace} from 'react-native-iphone-x-helper';
 
 const ChooseEatScreen = observer(({navigation}) => {

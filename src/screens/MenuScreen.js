@@ -35,7 +35,7 @@ import {ShadowView} from '../components/ShadowView';
 import {AddressesModal} from '../components/MenuScreen/AddressesModal';
 import {StoreView} from './StoresScreen';
 import {statuses} from './OrderStatusScreen';
-import OneSignal from 'react-native-onesignal';
+import {OneSignal} from 'react-native-onesignal';
 import {CheckDymanicLink} from './ReceptDayScreen';
 import {ampInstance} from '../../App';
 import {UnavailableProductsModal} from '../components/UnavailableProductsModal';
@@ -84,14 +84,15 @@ const MenuScreen = observer(({navigation}) => {
   const mainScroll = useRef(null);
 
   const goToProfile = () => {
-    if (network.user?.access && !network.user?.phone) {
-      navigation.navigate('LoginScreen', {
-        closeDisable: true,
-        from: 'MenuScreen',
-      });
-    } else {
-      navigation.navigate('ProfileScreen');
-    }
+    navigation.navigate('ProfileScreen');
+    // if (network.user?.access && !network.user?.phone) {
+    //   navigation.navigate('LoginScreen', {
+    //     closeDisable: true,
+    //     from: 'MenuScreen',
+    //   });
+    // } else {
+    //   navigation.navigate('ProfileScreen');
+    // }
   };
 
   const backAction = () => {
@@ -188,28 +189,31 @@ const MenuScreen = observer(({navigation}) => {
   const openRec = useCallback(
     rec => {
       if (network.canOpenRec(rec)) {
-        const recept = network.allDishes.find(item => item.id == rec.id);
-        navigation.navigate('ReceptScreen', {rec: recept});
-      } else if (network.paywalls?.paywall_sale_modal) {
-        setSaleModal(true);
-      } else {
-        navigation.navigate('PayWallScreen', {
-          data: network.paywalls[network.user?.banner?.type],
-        });
+        navigation.navigate('ReceptScreen', {rec: rec});
+        return;
       }
+      network.openPaywallUrl();
+      // if (network.paywalls?.paywall_sale_modal) {
+      //   setSaleModal(true);
+      //   return;
+      // }
+      // navigation.navigate('PayWallScreen', {
+      //   data: network.paywalls[network.user?.banner?.type],
+      // });
     },
     [navigation],
   );
 
   const openPaywall = useCallback(() => {
-    if (network.paywalls?.paywall_sale_modal) {
-      setSaleModal(true);
-    } else {
-      navigation.navigate('PayWallScreen', {
-        data: network.paywalls[network.user?.banner?.type],
-      });
-    }
-  }, [navigation]);
+    network.openPaywallUrl();
+    // if (network.paywalls?.paywall_sale_modal) {
+    //   setSaleModal(true);
+    // } else {
+    //   navigation.navigate('PayWallScreen', {
+    //     data: network.paywalls[network.user?.banner?.type],
+    //   });
+    // }
+  }, []);
 
   const listHandler = useCallback(
     (isInBasket, recept) => {
@@ -440,12 +444,20 @@ const MenuScreen = observer(({navigation}) => {
   };
 
   const checkDeviceInfo = async () => {
-    OneSignal.promptForPushNotificationsWithUserResponse(response => {
-      console.log('Prompt response:', response);
-    });
-    const deviceInfo = await OneSignal.getDeviceState();
-    console.log('deviceInfooo', deviceInfo);
-    runInAction(() => (network.pushId = deviceInfo.userId));
+    const hasPermission = OneSignal.Notifications.hasPermission();
+    if (!hasPermission) {
+      const canRequest = await OneSignal.Notifications.canRequestPermission();
+      if (!canRequest) {
+        return;
+      }
+      const accepted = await OneSignal.Notifications.requestPermission(true);
+      if (!accepted) {
+        return;
+      }
+    }
+    const userId = OneSignal.User.pushSubscription.getPushSubscriptionId();
+    console.log('userIduserIduserId', userId);
+    runInAction(() => (network.pushId = userId));
     authUser();
   };
 
@@ -484,7 +496,6 @@ const MenuScreen = observer(({navigation}) => {
       );
     }
   }, [navigation]);
-
   return (
     <>
       <View style={{backgroundColor: '#FFF', flex: 1}}>
@@ -502,7 +513,7 @@ const MenuScreen = observer(({navigation}) => {
           scrollEventThrottle={16}
           contentContainerStyle={{paddingBottom: 30}}
           ref={mainScroll}>
-          {network.isBasketUser() ? (
+          {/* {network.isBasketUser() ? (
             <StoreView
               key={userStore?.id}
               store={userStore}
@@ -524,8 +535,8 @@ const MenuScreen = observer(({navigation}) => {
                 </Text>
               </TouchableOpacity>
             </ShadowView>
-          )}
-          {network.isBasketUser() ? (
+          )} */}
+          {/* {network.isBasketUser() ? (
             network?.user?.address_active ? (
               <ShadowView
                 firstContStyle={{marginHorizontal: 16, marginTop: 8}}
@@ -607,7 +618,7 @@ const MenuScreen = observer(({navigation}) => {
                 </TouchableOpacity>
               </ShadowView>
             )
-          ) : null}
+          ) : null} */}
           {Object.keys(network.banner1).length &&
           network.user?.banner_hide &&
           network.user?.banner_hide.findIndex(
